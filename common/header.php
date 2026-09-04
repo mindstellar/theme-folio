@@ -23,10 +23,7 @@
  * FIRST VIEWPORT: navy masthead with the site name and a native <search> field;
  *   below it, the index opens immediately — no hero, no promotional band. The
  *   primary action is the search field itself.
- * FORM: catalogue record + running index; position 6 of 7 on the ordered list;
- *   seed key 8877a08c.
- * FINISH: unreviewed and undocumented is unfinished; this build ends with the
- *   finish review, the verdict, and DESIGN.md.
+ * FORM: catalogue record + running index.
  * ---------------------------------------------------------------------------
  */
 
