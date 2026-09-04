@@ -12,7 +12,7 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 
-define('FOLIO_VERSION', '0.1.0');
+define('FOLIO_VERSION', '0.2.0');
 
 /**
  * Where core should open and close a page it owns itself -- the account-delete

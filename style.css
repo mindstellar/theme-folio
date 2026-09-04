@@ -683,8 +683,23 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
 .notice-stop { background: var(--stop-tint); border-color: var(--stop); color: var(--stop); }
 .notice-warn { background: var(--warn-tint); border-color: var(--warn); color: var(--warn); }
 .notice > :last-child { margin-block-end: 0; }
-/* Core emits its flash messages under its own class name. */
-.flashmessage { list-style: none; margin: 0 0 1.5rem; padding: 0; }
+
+/* Core's flash messages. The class names are core's and frozen, so they are
+   styled here rather than swapped: the element is a <div>, not the list this
+   sheet used to assume, and every one of them rendered unstyled. */
+.flashmessage {
+  border: 1px solid var(--rule-mid);
+  border-radius: var(--radius);
+  padding: .875rem 1.125rem;
+  margin-block-end: 1.5rem;
+  background: var(--surface);
+}
+.flashmessage > :last-child { margin-block-end: 0; }
+.flashmessage-ok      { background: var(--ok-tint);   border-color: var(--ok);   color: var(--ok); }
+.flashmessage-error   { background: var(--stop-tint); border-color: var(--stop); color: var(--stop); }
+.flashmessage-warning { background: var(--warn-tint); border-color: var(--warn); color: var(--warn); }
+.flashmessage-info    { background: var(--navy-tint); border-color: var(--navy-line); color: var(--navy-ink); }
+.flashmessage a { color: inherit; }
 
 .empty {
   border: 1px dashed var(--rule-mid);
@@ -735,4 +750,255 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+/* ------------------------------------------------------- core-owned pages -- */
+/* The account section and the sign-in pages are core's markup, rendered between
+   this theme's header and footer. Core publishes the class names below as a
+   contract (docs: "Account pages"); this block is the whole of what makes those
+   pages folio rather than generic. No PHP, and nothing renamed.
+   Written against the same objects the catalogue already has: the account nav is
+   a facet column, a listing row is a record, a form is a sheet. */
+
+/* Core bounds its own column; inside a theme the theme's spine already does, so
+   the second constraint only makes the page narrower than every other page. */
+.oe-page .oe-doc { max-inline-size: none; margin: 0; padding: 0; }
+.oe-page .oe-h1 { font-size: var(--step-4); font-weight: 620; letter-spacing: -.021em; margin: 0 0 1.5rem; }
+.oe-page h2 { font-size: var(--step-2); font-weight: 620; letter-spacing: -.012em; }
+.oe-page .oe-muted { color: var(--ink-muted); }
+/* Core sets its own heading margins at a specificity this sheet's `* + h2`
+   cannot reach, so the space above a heading has to be asked for again here. */
+.oe-page * + h2 { margin-block-start: 2.5rem; }
+.oe-page * + .oe-panel { margin-block-start: 1.5rem; }
+
+/* Content beside a facet column — the same object as .record-sheet. */
+.oe-page .oe-account {
+  display: grid;
+  gap: 2rem 3.5rem;
+  grid-template-columns: minmax(0, 1fr) minmax(15rem, 18rem);
+  align-items: start;
+}
+@media (max-width: 60rem) {
+  .oe-page .oe-account { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+}
+
+/* The account nav is a facet list: a tracked-out column head over a ruled list. */
+.oe-page .oe-account-nav > h2 {
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin: 0 0 .25rem;
+  padding-block-end: .625rem;
+  border-block-end: 2px solid var(--ink);
+}
+.oe-page .oe-account-nav ul { display: grid; gap: .125rem; }
+.oe-page .oe-account-nav a {
+  padding: .375rem .375rem;
+  margin-inline: 0;
+  color: var(--ink-soft);
+  border-radius: var(--radius);
+}
+.oe-page .oe-account-nav a:hover { background: var(--wash); color: var(--navy-ink); text-decoration: underline; }
+.oe-page .oe-account-nav [aria-current] { background: var(--navy-tint); color: var(--navy-ink); font-weight: 600; }
+
+/* A listing in an account list is the same record as one in the index: a ruled
+   row on a shared spine, with the plate, the title and the price in a line. */
+.oe-page .oe-list-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, auto);
+  gap: 0 1.5rem;
+  align-items: start;
+  padding: 1.125rem .875rem;
+  margin-inline: -.875rem;
+  border-block-end: 1px solid var(--rule);
+  border-radius: var(--radius);
+  transition: background-color .12s ease-out;
+}
+.oe-page .oe-list-item:hover, .oe-page .oe-list-item:focus-within { background: var(--wash); }
+.oe-page .oe-list-item h3 {
+  font-size: var(--step-1);
+  font-weight: 600;
+  letter-spacing: -.008em;
+  line-height: 1.3;
+  margin: 0;
+}
+/* Ink, not link blue: a column of saturated blue titles flattens the page. The
+   underline on hover and the row wash carry the affordance instead. */
+.oe-page .oe-list-item h3 a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color .12s ease-out;
+}
+.oe-page .oe-list-item h3 a:hover { color: var(--navy-ink); text-decoration-color: currentColor; }
+
+.oe-page .oe-thumb {
+  inline-size: var(--plate);
+  block-size: auto;
+  aspect-ratio: 6 / 5;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+.oe-page .oe-thumb-empty {
+  background: var(--sunk);
+  border-style: dashed;
+  border-color: var(--rule-mid);
+  color: var(--ink-muted);
+  font-size: var(--step--1);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.oe-page .oe-meta { font-size: 0.875rem; color: var(--ink-muted); gap: .25rem .5rem; margin: .3rem 0 0; }
+/* Core renders one formatted string ("21000 Dollar US$") rather than the split
+   figure the index uses, and the currency name can be long — so this is set a
+   step down and given room, instead of being squeezed onto two lines. */
+.oe-page .oe-price {
+  grid-column: 3;
+  font-size: var(--step-1);
+  font-weight: 640;
+  letter-spacing: -.015em;
+  line-height: 1.3;
+  max-inline-size: 11rem;
+  padding-block-start: .15rem;
+}
+
+@media (max-width: 40rem) {
+  .oe-page .oe-list-item { grid-template-columns: auto minmax(0, 1fr); gap: 0 1rem; }
+  .oe-page .oe-price { grid-column: 2; text-align: start; padding-block-start: .5rem; }
+  .oe-page .oe-thumb { --plate: 5.5rem; }
+  .oe-page .oe-price { font-size: var(--step-1); }
+}
+
+/* A status flag: tint, shape and word, never colour on its own. Core's badge
+   modifiers are named for the billing states they were written for; they map
+   onto this theme's three signals. */
+.oe-page .oe-badge {
+  padding: .1rem .5rem;
+  border-radius: 999px;
+  font-size: var(--step--1);
+  font-weight: 600;
+  line-height: 1.5;
+}
+.oe-page .oe-badge.paid      { background: var(--ok-tint);   color: var(--ok); }
+.oe-page .oe-badge.pending   { background: var(--warn-tint); color: var(--warn); }
+.oe-page .oe-badge.failed,
+.oe-page .oe-badge.cancelled { background: var(--stop-tint); color: var(--stop); }
+.oe-page .oe-badge.refunded  { background: var(--sunk);      color: var(--ink-muted); }
+
+/* Forms. The controls carry no class of core's own, so they are reached through
+   the field wrapper; core's own defaults are declared at zero specificity for
+   exactly this. */
+.oe-page .oe-form-page { max-inline-size: 30rem; }
+/* A column of fields as wide as the content column stops reading as one object.
+   The same bound the theme's own forms use. */
+.oe-page .oe-account-main form { max-inline-size: 32rem; }
+.oe-page .oe-label {
+  font-size: var(--step--1);
+  font-weight: 600;
+  margin-block-end: .375rem;
+  color: var(--ink-soft);
+}
+.oe-page .oe-field { margin-block-end: 1.125rem; }
+.oe-page .oe-field :is(input, select, textarea) {
+  font: inherit;
+  inline-size: 100%;
+  max-inline-size: none;
+  min-block-size: var(--tap);
+  padding: .5rem .75rem;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+}
+.oe-page .oe-field textarea { block-size: 9rem; min-block-size: 6rem; line-height: 1.55; }
+.oe-page .oe-field input[type="file"] { min-block-size: 0; }
+.oe-page .oe-field :is(input, select, textarea):focus { border-color: var(--navy); }
+.oe-page .oe-field :is(input, select, textarea):focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.oe-page .oe-field :is(input, select):user-invalid { border-color: var(--stop); }
+/* Core stacks the region select under the country one; they read as one control. */
+.oe-page .oe-field > :is(input, select) + :is(input, select) { margin-block-start: .5rem; }
+.oe-page .oe-hint { font-size: var(--step--1); color: var(--ink-muted); margin-block-start: .375rem; }
+.oe-page .oe-check { gap: .625rem; margin-block-end: 1.125rem; font-size: var(--step-0); }
+/* The checkbox's own label is a sentence, not a field label. */
+.oe-page .oe-check, .oe-page .oe-check span { font-weight: 400; color: var(--ink); }
+.oe-page .oe-check input {
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+  min-block-size: 0;
+  padding: 0;
+  accent-color: var(--navy);
+}
+.oe-page .oe-actions { gap: .875rem; margin-block-start: 1.5rem; align-items: center; }
+
+.oe-page :is(.oe-btn, .oe-actions a.oe-primary) {
+  font: inherit;
+  font-weight: 560;
+  min-block-size: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: .5rem 1.25rem;
+  border: 1px solid var(--navy);
+  border-radius: var(--radius);
+  background: var(--navy);
+  color: #fff;
+}
+.oe-page :is(.oe-btn, .oe-actions a.oe-primary):hover { background: var(--navy-deep); border-color: var(--navy-deep); color: #fff; }
+.oe-page :is(.oe-btn.oe-secondary, .oe-actions a.oe-secondary) {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--rule-strong);
+}
+.oe-page :is(.oe-btn.oe-secondary, .oe-actions a.oe-secondary):hover { background: var(--sunk); color: var(--ink); border-color: var(--rule-strong); }
+.oe-page .oe-btn-danger { background: var(--stop); border-color: var(--stop); color: #fff; }
+.oe-page .oe-btn-danger:hover { background: var(--stop); border-color: var(--stop); filter: brightness(.92); }
+
+/* Panels, empty states and paging, in the theme's own weights. */
+.oe-page .oe-panel {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-block-end: 1.5rem;
+}
+.oe-page .oe-panel > :last-child { margin-block-end: 0; }
+/* Core scopes its own rules under .oe-page, which outranks a bare class here —
+   so a flash message rendered inside core's block needs the tints repeated. */
+.oe-page .flashmessage { background: var(--surface); border-color: var(--rule-mid); }
+.oe-page .flashmessage-ok      { background: var(--ok-tint);   border-color: var(--ok);   color: var(--ok); }
+.oe-page .flashmessage-error   { background: var(--stop-tint); border-color: var(--stop); color: var(--stop); }
+.oe-page .flashmessage-warning { background: var(--warn-tint); border-color: var(--warn); color: var(--warn); }
+.oe-page .flashmessage-info    { background: var(--navy-tint); border-color: var(--navy-line); color: var(--navy-ink); }
+.oe-page .oe-empty {
+  border: 1px dashed var(--rule-mid);
+  border-radius: var(--radius);
+  padding: 3rem 1.5rem;
+  color: var(--ink-muted);
+  background: var(--sunk);
+}
+.oe-page .oe-pager {
+  margin-block-start: 2rem;
+  padding-block-start: 1.25rem;
+  border-block-start: 1px solid var(--rule);
+  font-size: var(--step-0);
+  gap: 1rem;
+  justify-content: center;
+}
+.oe-page .oe-pager a { text-decoration: none; font-weight: 560; }
+.oe-page .oe-pager a:hover { text-decoration: underline; }
+/* Core's paginator marks the current page with .selected on the <li>. */
+.oe-page .oe-pager ul { display: flex; flex-wrap: wrap; gap: .25rem .75rem; list-style: none; margin: 0; padding: 0; }
+
+/* The register form's error box is core's #error_list, filled by core's own
+   validator; it has no class, and it is the same object as a stop notice. */
+.oe-page #error_list:not(:empty) {
+  background: var(--stop-tint);
+  border-color: var(--stop);
+  color: var(--stop);
+  border-radius: var(--radius);
 }

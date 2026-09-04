@@ -46,9 +46,8 @@ ln -s "$(pwd)/theme-folio" /path/to/shopclass/oc-content/themes/folio
 
 ## Theme chrome
 
-Some pages belong to core rather than to the theme — the account-delete confirmation, the credits
-and billing screens. Core renders those inside the theme's own header and footer when the theme says
-where they are. Folio declares the pair outright in `functions.php`:
+Some pages belong to core rather than to the theme. Core renders those inside the theme's own header
+and footer when the theme says where they are. Folio declares the pair outright in `functions.php`:
 
 ```php
 osc_add_theme_support('chrome', array(
@@ -57,14 +56,25 @@ osc_add_theme_support('chrome', array(
 ));
 ```
 
-So Folio **deliberately ships no `user-delete_account.php` and no `user-billing-*.php`**. Those
-pages are not missing; core draws them, and they come out wearing Folio's masthead, Folio's footer
-and Folio's type. Shipping stub copies of them would defeat the point.
-
 The contract is documented at
 [mindstellar.com/docs/developers/theme-chrome](https://mindstellar.com/docs/developers/theme-chrome/).
 The declaration is guarded by `function_exists()`, so the theme still loads on 6.2 — where core's
 `common/header.php` + `common/footer.php` probe finds the same pair anyway.
+
+## The account pages are core's
+
+Folio **ships no account or sign-in views at all** — no `user-dashboard.php`, no `user-profile.php`,
+no `user-login.php`, none of the thirteen. Core draws them, between Folio's masthead and Folio's
+footer, and `style.css` restyles them through the class names core publishes for that purpose. There
+is no PHP involved on this theme's side.
+
+Those pages are not missing. Shipping stub copies of them would be thirteen files to keep in step
+with core for no gain. The vocabulary is documented at
+[mindstellar.com/docs/developers/account-pages](https://mindstellar.com/docs/developers/account-pages/);
+the block that styles it is the last section of `style.css`.
+
+Adding one back is a matter of dropping the file in — the theme's view wins over core's, per page,
+with nothing to declare.
 
 ## Plugin hooks
 
@@ -75,8 +85,9 @@ Folio fires the hook names existing plugins already target:
 | `header`, `footer` | `<head>` end / before `</body>` |
 | `item_detail`, `item_form` | Item page body / post + edit form |
 | `item_contact_form`, `contact_form` | Inside the seller-contact and site-contact forms |
-| `user_dashboard`, `user_alerts` | Account pages |
-| `user_form`, `user_profile_form`, `user_register_form` | Account and registration forms |
+| `user_dashboard`, `user_alerts` | Account pages (fired by core, inside this theme's chrome) |
+| `user_form`, `user_profile_form`, `user_register_form` | Account and registration forms (same) |
+| `user_menu`, `user_menu_filter` | The account nav — how a plugin adds an entry to it |
 
 ## Translations
 

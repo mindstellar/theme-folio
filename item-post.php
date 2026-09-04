@@ -17,6 +17,19 @@ $folio_action = $folio_edit ? 'item_edit_post' : 'item_add_post';
 $folio_loc    = $folio_edit ? osc_item() : osc_user();
 $folio_locale = osc_current_user_locale();
 
+/*
+ * The region and city lists follow the country and region already chosen: the
+ * posted ones when the form comes back, otherwise the listing's or the seller's.
+ * Without the posted branch a visitor who changes country with no JavaScript is
+ * offered the previous country's regions on the re-render.
+ */
+$folio_country = Params::getParamString('countryId') !== ''
+    ? Params::getParamString('countryId')
+    : ($folio_edit ? osc_item_country_code() : osc_user_field('fk_c_country_code'));
+$folio_region  = Params::getParamInt('regionId') > 0
+    ? Params::getParamInt('regionId')
+    : ($folio_edit ? osc_item_region_id() : osc_user_field('fk_i_region_id'));
+
 if (osc_images_enabled_at_items()) {
     osc_enqueue_script('osc-uploader');
     osc_enqueue_style('osc-uploader');
@@ -62,14 +75,17 @@ osc_current_web_theme_path('common/header.php');
         <div class="field">
             <label for="countryId"><?php _e('Country', 'folio'); ?></label>
             <?php ItemForm::country_select(osc_get_countries(), $folio_loc); ?>
+            <noscript>
+                <span class="hint"><?php _e('The region and city lists follow the country once the form is sent back. Both may be left blank.', 'folio'); ?></span>
+            </noscript>
         </div>
         <div class="field">
             <label for="regionId"><?php _e('Region', 'folio'); ?></label>
-            <?php ItemForm::region_select(osc_get_regions($folio_edit ? osc_item_country_code() : osc_user_field('fk_c_country_code')), $folio_loc); ?>
+            <?php ItemForm::region_select(osc_get_regions($folio_country), $folio_loc); ?>
         </div>
         <div class="field">
             <label for="cityId"><?php _e('City', 'folio'); ?></label>
-            <?php ItemForm::city_select(osc_get_cities($folio_edit ? osc_item_region_id() : osc_user_field('fk_i_region_id')), $folio_loc); ?>
+            <?php ItemForm::city_select(osc_get_cities($folio_region), $folio_loc); ?>
         </div>
 
         <?php if (osc_images_enabled_at_items()) { ?>
@@ -98,5 +114,16 @@ osc_current_web_theme_path('common/header.php');
                 : osc_esc_html(__('Publish', 'folio')); ?></button>
         </div>
     </form>
+
+    <?php
+    /*
+     * Core's own cascade for dropdown location fields. Called after the form so
+     * the selects exist when it runs -- it wires them on execution rather than on
+     * DOMContentLoaded. location_javascript_new() is the wrong twin here: it wires
+     * an autocomplete UI (#countryName, free-text #region/#city) and, against
+     * selects, only clears the dependent fields without ever repopulating them.
+     */
+    ItemForm::location_javascript();
+    ?>
 </div>
 <?php osc_current_web_theme_path('common/footer.php'); ?>
