@@ -254,6 +254,14 @@ a:hover { color: var(--link-hover); }
 .colophon nav { display: grid; gap: .5rem; justify-items: start; }
 .colophon-foot { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; padding-block-start: 1.25rem; font-size: var(--step--1); }
 
+/* Widget zones. The markup inside is written in the admin, not here, so each
+   zone only sets its own spacing and hands back neutral flow — the masthead's
+   nav geometry must not reach into a widget that happens to contain a <nav>. */
+.masthead-widgets { border-block-start: 1px solid var(--navy-line); padding-block: 1rem; }
+.masthead-widgets nav { display: block; gap: 0; font-size: inherit; }
+.masthead-widgets nav a { padding-block: 0; }
+.colophon-widgets { padding-block-start: 1.5rem; }
+
 .skip { position: absolute; inset-inline-start: -9999px; }
 .skip:focus {
   inset-inline-start: var(--gutter);

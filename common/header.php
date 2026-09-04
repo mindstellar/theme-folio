@@ -31,12 +31,11 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 ?><!doctype html>
-<html lang="<?php echo osc_esc_html(str_replace('_', '-', osc_current_user_locale())); ?>"
-      dir="<?php echo osc_locale_text_direction() === 'rtl' ? 'rtl' : 'ltr'; ?>">
+<html <?php osc_language_attributes(); ?>>
 <head>
 <?php osc_current_web_theme_path('common/head.php'); ?>
 </head>
-<body>
+<body <?php osc_body_class(); ?>>
 <a class="skip" href="#content"><?php _e('Skip to content', 'folio'); ?></a>
 
 <?php
@@ -75,6 +74,8 @@ $folio_band = osc_is_home_page() || osc_is_search_page();
             osc_current_web_theme_path('common/searchbar.php'); ?>
         </div>
     <?php } ?>
+
+    <?php folio_widget_zone('header', 'spine masthead-widgets'); ?>
 </header>
 
 <main id="content" class="spine">

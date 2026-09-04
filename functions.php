@@ -31,6 +31,64 @@ if (function_exists('osc_add_theme_support')) {
 }
 
 /**
+ * Core owns the document head: charset, viewport, title, description, keywords
+ * and canonical all come from osc_head(), so a page core renders itself is
+ * described as well as one of this theme's own.
+ *
+ * The feed link is the exception. Core's is titled after the site; this theme
+ * names the current search on a results page, which is what a reader subscribing
+ * from there expects to get.
+ */
+if (function_exists('osc_add_theme_support')) {
+    osc_add_theme_support('head', array('feed' => false));
+}
+
+/**
+ * The two places this theme renders widgets, named for the admin screen that
+ * places them. Declared on `init` rather than at load: the labels are
+ * translated, and the translation layer is initialised after a theme's
+ * functions.php has already been required.
+ *
+ * Requires Shopclass 6.3.0. Older cores fall back to the `Widgets:` line in
+ * index.php, which still lists both.
+ */
+function folio_widget_locations(): void
+{
+    osc_add_theme_support('widget_locations', array(
+        'header' => array(
+            'label'       => __('Masthead', 'folio'),
+            'description' => __('Below the navigation, inside the navy band.', 'folio'),
+        ),
+        'footer' => array(
+            'label'       => __('Colophon', 'folio'),
+            'description' => __('In the footer, above the copyright line.', 'folio'),
+        ),
+    ));
+}
+
+if (function_exists('osc_add_theme_support')) {
+    osc_add_hook('init', 'folio_widget_locations');
+}
+
+/**
+ * One widget zone. Rendered into a buffer first so a zone holding nothing --
+ * which is every zone on most sites -- emits no wrapper at all, rather than an
+ * empty block with padding and a rule above it.
+ */
+function folio_widget_zone(string $location, string $class): void
+{
+    ob_start();
+    osc_show_widgets($location);
+    $html = trim((string) ob_get_clean());
+
+    if ($html === '') {
+        return;
+    }
+
+    echo '<div class="' . osc_esc_html($class) . '">' . $html . '</div>';
+}
+
+/**
  * One stylesheet. Registered under an id so a plugin can depend on it, and
  * cache-busted by file mtime rather than the theme version, so an edit during
  * development is picked up without a version bump.

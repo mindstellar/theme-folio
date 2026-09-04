@@ -67,6 +67,8 @@ if (!defined('ABS_PATH')) {
             </div>
         </div>
 
+        <?php folio_widget_zone('footer', 'colophon-widgets'); ?>
+
         <div class="colophon-foot">
             <span><?php printf(osc_esc_html(__('© %1$s %2$s', 'folio')), osc_esc_html(date('Y')), osc_esc_html(osc_page_title())); ?></span>
         </div>

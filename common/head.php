@@ -32,19 +32,10 @@ if ($folio_on_item && osc_images_enabled_at_items() && osc_count_item_resources(
     osc_reset_resources();
 }
 ?>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<?php // Charset, viewport, title, description, keywords, canonical, and every
+      // enqueued style and script -- this theme and every plugin. ?>
+<?php osc_head(); ?>
 <meta name="theme-color" content="#1b2c5e">
-<title><?php echo meta_title(); ?></title>
-<?php if ($folio_desc !== '') { ?>
-<meta name="description" content="<?php echo osc_esc_html($folio_desc); ?>">
-<?php } ?>
-<?php if (meta_keywords() !== '') { ?>
-<meta name="keywords" content="<?php echo osc_esc_html(meta_keywords()); ?>">
-<?php } ?>
-<?php if (osc_get_canonical() !== '') { ?>
-<link rel="canonical" href="<?php echo osc_get_canonical(); ?>">
-<?php } ?>
 
 <?php // Share cards. A listing without one is shared as a bare link. ?>
 <meta property="og:type" content="<?php echo $folio_on_item ? 'product' : 'website'; ?>">
@@ -66,5 +57,3 @@ if ($folio_on_item && osc_images_enabled_at_items() && osc_count_item_resources(
 <link rel="alternate" type="application/rss+xml"
       title="<?php echo osc_esc_html($folio_on_search ? __('Search results', 'folio') : __('Latest listings', 'folio')); ?>"
       href="<?php echo osc_esc_html($folio_feed); ?>">
-<?php // Enqueued styles and scripts, from this theme and from every plugin. ?>
-<?php osc_run_hook('header'); ?>
