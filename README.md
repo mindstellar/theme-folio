@@ -24,6 +24,20 @@ What that buys:
 The theme consumes only the public theme API (`osc_*` helpers and hooks) and reaches into no core
 internals.
 
+## Translating
+
+All user-visible strings go through the `folio` text domain. The catalogue is
+`languages/folio.pot`; drop a translated `languages/<locale>/theme.po` beside it.
+
+After changing any UI string, regenerate the catalogue:
+
+```
+node bin/i18n.mjs
+```
+
+Node's standard library only — no npm, no install step. The tool is not part of
+the release archive.
+
 ## Requirements
 
 - Shopclass 6.3.0 or newer

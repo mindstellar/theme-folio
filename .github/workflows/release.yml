@@ -20,7 +20,7 @@ jobs:
           # step: what is committed is what ships.
           mkdir -p dist/folio
           rsync -a \
-            --exclude '.git' --exclude '.github' --exclude 'dist' \
+            --exclude '.git' --exclude '.github' --exclude 'dist' --exclude 'bin' \
             ./ dist/folio/
           ( cd dist && zip -qr "folio_${VERSION}.zip" folio )
 

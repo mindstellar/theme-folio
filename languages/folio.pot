@@ -1,0 +1,438 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Folio 0.2.0\n"
+"Report-Msgid-Bugs-To: https://github.com/mindstellar/theme-folio/issues\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: \n"
+
+#: search.php:33
+msgid "%s listing"
+msgid_plural "%s listings"
+msgstr[0] ""
+msgstr[1] ""
+
+#: item-contact.php:19
+msgid "About “%s”"
+msgstr ""
+
+#: search.php:30
+msgid "All listings"
+msgstr ""
+
+#: common/searchbar.php:37
+msgid "Anywhere"
+msgstr ""
+
+#: search.php:108
+msgid "Apply"
+msgstr ""
+
+#: common/contact-fields.php:51
+msgid "Attachment"
+msgstr ""
+
+#: maintenance.php:25
+msgid "Back shortly"
+msgstr ""
+
+#: 404.php:18
+#: error.php:17
+msgid "Back to the home page"
+msgstr ""
+
+#: functions.php:60
+msgid "Below the navigation, inside the navy band."
+msgstr ""
+
+#: common/searchbar.php:32
+msgid "Bicycle, sofa, guitar…"
+msgstr ""
+
+#: item.php:28
+msgid "Breadcrumb"
+msgstr ""
+
+#: common/header.php:54
+msgid "Browse"
+msgstr ""
+
+#: main.php:43
+msgid "Browse by category"
+msgstr ""
+
+#: common/footer.php:30
+#: main.php:22
+msgid "Browse everything"
+msgstr ""
+
+#: common/contact-fields.php:63
+msgid "Cancel"
+msgstr ""
+
+#: item-edit.php:53
+#: item-post.php:53
+#: search.php:75
+msgid "Category"
+msgstr ""
+
+#: item-edit.php:87
+#: item-post.php:87
+msgid "City"
+msgstr ""
+
+#: functions.php:63
+msgid "Colophon"
+msgstr ""
+
+#: common/footer.php:65
+#: common/header.php:64
+#: contact.php:15
+msgid "Contact"
+msgstr ""
+
+#: item-contact.php:18
+#: item.php:128
+#: item.php:139
+msgid "Contact the seller"
+msgstr ""
+
+#: item-edit.php:76
+#: item-post.php:76
+msgid "Country"
+msgstr ""
+
+#: item-edit.php:63
+#: item-post.php:63
+msgid "Description"
+msgstr ""
+
+#: item.php:134
+msgid "Edit this listing"
+msgstr ""
+
+#: item-edit.php:41
+#: item-post.php:41
+msgid "Edit your listing"
+msgstr ""
+
+#: alert-form.php:15
+msgid "Email me when something new matches"
+msgstr ""
+
+#: item.php:90
+msgid "Expired"
+msgstr ""
+
+#: common/record.php:45
+#: item.php:92
+msgid "Featured"
+msgstr ""
+
+#: item.php:111
+msgid "Filed under"
+msgstr ""
+
+#: common/footer.php:56
+msgid "Footer"
+msgstr ""
+
+#: search.php:99
+msgid "From"
+msgstr ""
+
+#: item.php:29
+msgid "Home"
+msgstr ""
+
+#: functions.php:64
+msgid "In the footer, above the copyright line."
+msgstr ""
+
+#: common/head.php:58
+#: main.php:20
+msgid "Latest listings"
+msgstr ""
+
+#: common/footer.php:34
+msgid "Latest listings feed"
+msgstr ""
+
+#: common/footer.php:28
+#: common/footer.php:29
+msgid "Listings"
+msgstr ""
+
+#: item.php:107
+msgid "Location"
+msgstr ""
+
+#: common/footer.php:47
+#: common/header.php:60
+msgid "Log in"
+msgstr ""
+
+#: common/footer.php:45
+#: common/header.php:58
+msgid "Log out"
+msgstr ""
+
+#: functions.php:59
+msgid "Masthead"
+msgstr ""
+
+#: item.php:145
+msgid "Meet in a public place, inspect the item before paying, and never send money in advance."
+msgstr ""
+
+#: common/contact-fields.php:45
+#: contact.php:34
+#: item-send-friend.php:39
+msgid "Message"
+msgstr ""
+
+#: search.php:70
+#: search.php:71
+msgid "Narrow these results"
+msgstr ""
+
+#: search.php:55
+msgid "Newer"
+msgstr ""
+
+#: common/record.php:27
+msgid "No photo"
+msgstr ""
+
+#: main.php:27
+msgid "Nothing has been published yet"
+msgstr ""
+
+#: search.php:39
+msgid "Nothing matched"
+msgstr ""
+
+#: search.php:63
+msgid "Older"
+msgstr ""
+
+#: common/footer.php:43
+msgid "Overview"
+msgstr ""
+
+#: search.php:58
+msgid "Page %1$s of %2$s"
+msgstr ""
+
+#: search.php:52
+msgid "Pages"
+msgstr ""
+
+#: common/contact-fields.php:39
+msgid "Phone number"
+msgstr ""
+
+#: item-edit.php:93
+#: item-post.php:93
+msgid "Photographs"
+msgstr ""
+
+#: error.php:16
+msgid "Please try again."
+msgstr ""
+
+#: item-edit.php:69
+#: item-post.php:69
+#: search.php:90
+msgid "Price"
+msgstr ""
+
+#: common/header.php:52
+msgid "Primary"
+msgstr ""
+
+#: item-edit.php:114
+#: item-post.php:114
+msgid "Publish"
+msgstr ""
+
+#: common/footer.php:32
+#: common/header.php:66
+#: item-edit.php:41
+#: item-post.php:41
+msgid "Publish a listing"
+msgstr ""
+
+#: item.php:42
+msgid "Published"
+msgstr ""
+
+#: item.php:115
+msgid "Reference"
+msgstr ""
+
+#: item-edit.php:83
+#: item-post.php:83
+msgid "Region"
+msgstr ""
+
+#: common/footer.php:48
+#: common/header.php:61
+msgid "Register"
+msgstr ""
+
+#: search.php:28
+msgid "Results for “%s”"
+msgstr ""
+
+#: item-edit.php:113
+#: item-post.php:113
+msgid "Save changes"
+msgstr ""
+
+#: common/searchbar.php:40
+msgid "Search"
+msgstr ""
+
+#: common/head.php:58
+msgid "Search results"
+msgstr ""
+
+#: item.php:98
+msgid "Seller"
+msgstr ""
+
+#: item-send-friend.php:44
+msgid "Send"
+msgstr ""
+
+#: common/contact-fields.php:60
+#: contact.php:41
+msgid "Send message"
+msgstr ""
+
+#: item-send-friend.php:15
+msgid "Send this listing to someone"
+msgstr ""
+
+#: item.php:131
+msgid "Send to a friend"
+msgstr ""
+
+#: search.php:41
+msgid "Show everything"
+msgstr ""
+
+#: common/header.php:39
+msgid "Skip to content"
+msgstr ""
+
+#: error.php:15
+msgid "Something went wrong"
+msgstr ""
+
+#: item.php:70
+msgid "Specifications"
+msgstr ""
+
+#: contact.php:30
+msgid "Subject"
+msgstr ""
+
+#: 404.php:15
+msgid "That page is not here"
+msgstr ""
+
+#: main.php:28
+msgid "The first listing on this site will appear here."
+msgstr ""
+
+#: 404.php:16
+msgid "The listing may have been sold and removed, or the address may be mistyped."
+msgstr ""
+
+#: item-edit.php:79
+#: item-post.php:79
+msgid "The region and city lists follow the country once the form is sent back. Both may be left blank."
+msgstr ""
+
+#: common/contact-fields.php:35
+msgid "The seller replies to this address."
+msgstr ""
+
+#: maintenance.php:26
+msgid "The site is being worked on right now. Please try again in a few minutes."
+msgstr ""
+
+#: item-send-friend.php:35
+msgid "Their email address"
+msgstr ""
+
+#: item-send-friend.php:31
+msgid "Their name"
+msgstr ""
+
+#: item.php:121
+msgid "This listing has expired and the seller can no longer be contacted through it."
+msgstr ""
+
+#: common/footer.php:55
+msgid "This site"
+msgstr ""
+
+#: item-edit.php:58
+#: item-post.php:58
+msgid "Title"
+msgstr ""
+
+#: search.php:104
+msgid "To"
+msgstr ""
+
+#: common/searchbar.php:35
+msgid "Town or city"
+msgstr ""
+
+#: search.php:40
+msgid "Try fewer words, or widen the area."
+msgstr ""
+
+#: common/searchbar.php:29
+msgid "What are you looking for?"
+msgstr ""
+
+#: common/footer.php:40
+#: common/footer.php:41
+msgid "Your account"
+msgstr ""
+
+#: common/contact-fields.php:32
+#: contact.php:26
+#: item-edit.php:104
+#: item-post.php:104
+#: item-send-friend.php:27
+msgid "Your email address"
+msgstr ""
+
+#: common/footer.php:44
+msgid "Your listings"
+msgstr ""
+
+#: common/contact-fields.php:26
+#: contact.php:22
+#: item-edit.php:100
+#: item-post.php:100
+#: item-send-friend.php:23
+msgid "Your name"
+msgstr ""
+
+#: common/contact-fields.php:40
+#: common/contact-fields.php:52
+msgid "optional"
+msgstr ""
+
+#: common/footer.php:73
+msgid "© %1$s %2$s"
+msgstr ""
