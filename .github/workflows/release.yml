@@ -1,0 +1,31 @@
+name: Release Theme
+on:
+  push:
+    tags:
+      - 'v*'
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Package theme
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          # Zip the theme under a top-level folio/ dir so unzipping into
+          # oc-content/themes/ yields oc-content/themes/folio/. There is no build
+          # step: what is committed is what ships.
+          mkdir -p dist/folio
+          rsync -a \
+            --exclude '.git' --exclude '.github' --exclude 'dist' \
+            ./ dist/folio/
+          ( cd dist && zip -qr "folio_${VERSION}.zip" folio )
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v3
+        with:
+          files: dist/folio_*.zip
+          name: Folio ${{ github.ref_name }}
