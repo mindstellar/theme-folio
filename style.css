@@ -260,6 +260,13 @@ a:hover { color: var(--link-hover); }
 .colophon nav { display: grid; gap: .5rem; justify-items: start; }
 .colophon-foot { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; padding-block-start: 1.25rem; font-size: var(--step--1); }
 
+/* Language switcher. Plain links, so it works before any script does; the
+   current language is marked rather than removed, to keep the row from
+   reflowing as it changes. */
+/* Outranks `.colophon nav`, which lays the footer's link columns out as a grid. */
+.colophon .colophon-langs { display: flex; flex-wrap: wrap; gap: .25rem 1rem; margin-inline-start: auto; flex: none; }
+.colophon .colophon-langs a[aria-current] { color: var(--ink-onnavy); text-decoration: none; cursor: default; }
+
 /* Widget zones. The markup inside is written in the admin, not here, so each
    zone only sets its own spacing and hands back neutral flow — the masthead's
    nav geometry must not reach into a widget that happens to contain a <nav>. */

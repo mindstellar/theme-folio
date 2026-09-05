@@ -71,6 +71,21 @@ if (!defined('ABS_PATH')) {
 
         <div class="colophon-foot">
             <span><?php printf(osc_esc_html(__('© %1$s %2$s', 'folio')), osc_esc_html(date('Y')), osc_esc_html(osc_page_title())); ?></span>
+
+            <?php if (osc_count_web_enabled_locales() > 1) { ?>
+                <nav class="colophon-langs" aria-label="<?php echo osc_esc_html(__('Language', 'folio')); ?>">
+                    <?php
+                    $folio_locale = osc_current_user_locale();
+                    osc_goto_first_locale();
+                    while (osc_has_web_enabled_locales()) {
+                        $folio_code = osc_locale_code(); ?>
+                        <a href="<?php echo osc_esc_html(osc_change_language_url($folio_code)); ?>"
+                           hreflang="<?php echo osc_esc_html(str_replace('_', '-', $folio_code)); ?>"
+                           <?php echo $folio_code === $folio_locale ? 'aria-current="true"' : ''; ?>><?php
+                            echo osc_esc_html(osc_locale_name()); ?></a>
+                    <?php } ?>
+                </nav>
+            <?php } ?>
         </div>
     </div>
 </footer>

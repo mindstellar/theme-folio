@@ -139,6 +139,10 @@ msgstr ""
 msgid "In the footer, above the copyright line."
 msgstr ""
 
+#: common/footer.php:76
+msgid "Language"
+msgstr ""
+
 #: common/head.php:58
 #: main.php:20
 msgid "Latest listings"
