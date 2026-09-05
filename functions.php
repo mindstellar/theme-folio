@@ -132,6 +132,40 @@ function folio_price_html(): string
 }
 
 /**
+ * The shelf marks above a category, root first, as [id, name, url] rows.
+ *
+ * A listing's breadcrumb named its own category and nothing above it, so
+ * "Cell Phones - Accessories" was a step back to a shelf whose parent aisle the
+ * visitor could not see, let alone climb to. The walk is bounded rather than
+ * trusting the data to be acyclic: a category that is its own ancestor would
+ * otherwise hang the page.
+ */
+function folio_category_trail(int $id): array
+{
+    $trail = array();
+    $seen  = array();
+
+    while ($id > 0 && count($trail) < 10 && !isset($seen[$id])) {
+        $seen[$id] = true;
+        $row       = osc_get_category('id', $id);
+
+        if (!is_array($row) || !isset($row['s_name'])) {
+            break;
+        }
+
+        array_unshift($trail, array(
+            'id'   => $id,
+            'name' => $row['s_name'],
+            'url'  => osc_search_url(array('sCategory' => $id)),
+        ));
+
+        $id = (int) ($row['fk_i_parent_id'] ?? 0);
+    }
+
+    return $trail;
+}
+
+/**
  * ISO date for a <time datetime>, from whatever core hands back.
  */
 function folio_iso_date(?string $date): string

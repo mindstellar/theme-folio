@@ -35,6 +35,16 @@ $folio_cat     = is_array($folio_cat_raw)
 $folio_cat_name = $folio_cat > 0 ? osc_search_category_name() : '';
 
 /*
+ * The shelf whose sections the facet column opens: the current category when it
+ * is a root, its parent when it is not. Standing in a section, the useful list
+ * is that section's neighbours, not the whole library.
+ */
+$folio_cat_row = $folio_cat > 0 ? osc_get_category('id', $folio_cat) : null;
+$folio_branch  = is_array($folio_cat_row) && (int) ($folio_cat_row['fk_i_parent_id'] ?? 0) > 0
+    ? (int) $folio_cat_row['fk_i_parent_id']
+    : $folio_cat;
+
+/*
  * Where the visitor is standing, for the empty state. A shelf and a town are one
  * kind of narrowing and read after "in"; a price range is another and gets its
  * own clause, because "nothing in Cell Phones and that price range" is not a
@@ -45,6 +55,11 @@ $folio_priced = osc_search_price_min() !== '' || osc_search_price_max() !== '';
 ?>
 <div class="record-sheet">
     <section>
+        <?php // The filters come after every result in the source, so on a long page
+        // they are a long way down for a keyboard or a screen reader. This is the
+        // same object as the masthead's skip link: invisible until it has focus. ?>
+        <a class="skip" href="#folio-facets"><?php _e('Skip to filters', 'folio'); ?></a>
+
         <?php if ($folio_cat_name !== '') { ?>
             <nav class="crumbs" aria-label="<?php echo osc_esc_html(__('Breadcrumb', 'folio')); ?>">
                 <a href="<?php echo osc_esc_html(osc_base_url()); ?>"><?php _e('Home', 'folio'); ?></a>
@@ -148,7 +163,8 @@ $folio_priced = osc_search_price_min() !== '' || osc_search_price_max() !== '';
         <?php } ?>
     </section>
 
-    <aside class="facets" aria-label="<?php echo osc_esc_html(__('Refine these results', 'folio')); ?>">
+    <aside class="facets" id="folio-facets" tabindex="-1"
+           aria-label="<?php echo osc_esc_html(__('Refine these results', 'folio')); ?>">
         <h2><?php _e('Refine these results', 'folio'); ?></h2>
 
         <?php
@@ -191,11 +207,52 @@ $folio_priced = osc_search_price_min() !== '' || osc_search_price_max() !== '';
                     <li><a href="<?php echo osc_esc_html(osc_update_search_url(array('sCategory' => null, 'iPage' => null))); ?>"
                            <?php echo $folio_cat === 0 ? 'aria-current="true"' : ''; ?>><?php
                         _e('All categories', 'folio'); ?></a></li>
-                    <?php while (osc_has_categories()) { ?>
-                        <li><a href="<?php echo osc_esc_html(osc_update_search_url(array('sCategory' => osc_category_id(), 'iPage' => null))); ?>"
-                               <?php echo $folio_cat === (int) osc_category_id() ? 'aria-current="true"' : ''; ?>><span class="name"><?php
-                            echo osc_esc_html(osc_category_name()); ?></span><span class="count"><?php
-                            echo osc_esc_html(number_format((int) osc_category_total_items())); ?></span></a></li>
+
+                    <?php
+                    /*
+                     * The shelves, and inside the one the visitor is standing in, its
+                     * sections. Listing only the roots meant a page filed under a
+                     * subcategory marked nothing as current and offered no way to a
+                     * neighbouring section -- the taxonomy was legible in the index,
+                     * as a class mark on every record, and unreachable from here.
+                     */
+                    while (osc_has_categories()) {
+                        $folio_root  = (int) osc_category_id();
+                        $folio_stock = (int) osc_category_total_items();
+                        $folio_open  = $folio_root === $folio_branch; ?>
+                        <li>
+                            <a href="<?php echo osc_esc_html(osc_update_search_url(array('sCategory' => $folio_root, 'iPage' => null))); ?>"
+                               <?php echo $folio_stock === 0 ? 'class="empty-shelf"' : ''; ?>
+                               <?php echo $folio_cat === $folio_root ? 'aria-current="true"' : ''; ?>><span class="name"><?php
+                                echo osc_esc_html(osc_category_name()); ?></span><span class="count"><?php
+                                echo osc_esc_html(number_format($folio_stock)); ?></span></a>
+
+                            <?php if ($folio_open && osc_count_subcategories() > 0) { ?>
+                                <ul class="facet-sub">
+                                    <?php
+                                    /*
+                                     * A section with nothing in it is dropped here, not
+                                     * dimmed. The home page lists shelves and is a
+                                     * directory of what exists; this is a filter, and an
+                                     * option that returns nothing is not an option. The
+                                     * current section always stays, so a selection can
+                                     * never vanish from under the visitor.
+                                     */
+                                    while (osc_has_subcategories()) {
+                                        $folio_sub = (int) osc_category_total_items();
+                                        $folio_on  = $folio_cat === (int) osc_category_id();
+                                        if ($folio_sub === 0 && !$folio_on) {
+                                            continue;
+                                        } ?>
+                                        <li><a href="<?php echo osc_esc_html(osc_update_search_url(array('sCategory' => osc_category_id(), 'iPage' => null))); ?>"
+                                               <?php echo $folio_sub === 0 ? 'class="empty-shelf"' : ''; ?>
+                                               <?php echo $folio_on ? 'aria-current="true"' : ''; ?>><span class="name"><?php
+                                            echo osc_esc_html(osc_category_name()); ?></span><span class="count"><?php
+                                            echo osc_esc_html(number_format($folio_sub)); ?></span></a></li>
+                                    <?php } ?>
+                                </ul>
+                            <?php } ?>
+                        </li>
                     <?php } ?>
                 </ul>
             </details>

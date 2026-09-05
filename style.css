@@ -729,6 +729,18 @@ input:user-invalid + .hint { color: var(--stop); }
 .facets a:has(.count):hover { text-decoration: none; }
 .facets .count { flex: none; font-size: var(--step--1); color: var(--ink-muted); }
 .facets [aria-current] .count { color: inherit; }
+/* The sections inside the shelf the visitor is standing in. Indented against a
+   rule rather than bulleted: the line says "these belong to the row above" and
+   costs nothing at any width. */
+.facet-sub {
+  list-style: none;
+  margin: .125rem 0 .375rem;
+  padding-inline-start: .875rem;
+  border-inline-start: 1px solid var(--rule-mid);
+  display: grid;
+  gap: .125rem;
+}
+.facets .facet-sub a { font-size: 0.9375rem; }
 .facets form { padding-block-end: 1rem; }
 .facets .field { margin-block-end: .75rem; }
 
@@ -764,8 +776,10 @@ input:user-invalid + .hint { color: var(--stop); }
 .classmarks a:hover .name { text-decoration: underline; }
 .classmarks .count { font-size: var(--step--1); color: var(--ink-muted); }
 /* Nothing on this shelf yet. Still a page, still a link -- just not one the eye
-   should stop on while it is looking for somewhere with listings in it. */
-.classmarks a.empty-shelf .name { color: var(--ink-muted); }
+   should stop on while it is looking for somewhere with listings in it. Applies
+   wherever a shelf is listed: the home index and the facet column both. */
+.classmarks a.empty-shelf .name,
+.facets a.empty-shelf .name { color: var(--ink-muted); }
 
 /* --------------------------------------------------------------- dialogs -- */
 

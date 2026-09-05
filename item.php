@@ -34,11 +34,15 @@ $folio_expired  = osc_item_is_expired();
 ?>
 <article class="record-sheet" itemscope itemtype="https://schema.org/Product">
     <div class="entry-lead">
+        <?php // The whole shelf mark, not just the last segment: from a listing the
+        // visitor can climb to the section, the aisle, or the whole catalogue. ?>
         <nav class="crumbs" aria-label="<?php echo osc_esc_html(__('Breadcrumb', 'folio')); ?>">
             <a href="<?php echo osc_esc_html(osc_base_url()); ?>"><?php _e('Home', 'folio'); ?></a>
-            <span aria-hidden="true">&rsaquo;</span>
-            <a href="<?php echo osc_esc_html(osc_search_category_url()); ?>"><?php
-                echo osc_esc_html(osc_item_category()); ?></a>
+            <?php foreach (folio_category_trail((int) osc_item_category_id()) as $folio_step) { ?>
+                <span aria-hidden="true">&rsaquo;</span>
+                <a href="<?php echo osc_esc_html($folio_step['url']); ?>"><?php
+                    echo osc_esc_html($folio_step['name']); ?></a>
+            <?php } ?>
         </nav>
 
         <header class="entry-head">
