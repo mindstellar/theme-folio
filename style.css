@@ -357,7 +357,10 @@ input:user-invalid + .hint { color: var(--stop); }
 .searchbar-band .btn:hover { background: var(--surface-onnavy); color: var(--navy); border-color: var(--surface-onnavy); }
 .searchbar-band :focus-visible { outline-color: #fff; }
 
-.btn {
+/* Core renders the comments block (.oe-comment*); its submit is a plain <button>,
+   so it joins the theme's button rather than growing a second one. */
+.btn,
+.oe-comment-form button {
   font: inherit;
   font-weight: 560;
   inline-size: auto;
@@ -374,7 +377,8 @@ input:user-invalid + .hint { color: var(--stop); }
   text-decoration: none;
   cursor: pointer;
 }
-.btn:hover { background: var(--navy-deep); border-color: var(--navy-deep); color: #fff; }
+.btn:hover,
+.oe-comment-form button:hover { background: var(--navy-deep); border-color: var(--navy-deep); color: #fff; }
 .btn-quiet { background: var(--surface); color: var(--ink); border-color: var(--rule-strong); }
 .btn-quiet:hover { background: var(--sunk); color: var(--ink); border-color: var(--rule-strong); }
 .btn-stop { background: var(--stop); border-color: var(--stop); }

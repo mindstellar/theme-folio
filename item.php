@@ -77,6 +77,9 @@ $folio_expired  = osc_item_is_expired();
         <?php } ?>
 
         <?php osc_run_hook('item_detail', osc_item()); ?>
+
+        <?php // Thread and form both come from core; the classes below are ours to style.
+        osc_show_item_comments(); ?>
     </div>
 
     <aside class="aside">

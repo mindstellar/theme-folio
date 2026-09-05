@@ -85,8 +85,8 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: item.php:128
-#: item.php:139
+#: item.php:131
+#: item.php:142
 msgid "Contact the seller"
 msgstr ""
 
@@ -98,7 +98,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: item.php:134
+#: item.php:137
 msgid "Edit this listing"
 msgstr ""
 
@@ -106,16 +106,16 @@ msgstr ""
 msgid "Edit your listing"
 msgstr ""
 
-#: item.php:90
+#: item.php:93
 msgid "Expired"
 msgstr ""
 
 #: common/record.php:51
-#: item.php:92
+#: item.php:95
 msgid "Featured"
 msgstr ""
 
-#: item.php:111
+#: item.php:114
 msgid "Filed under"
 msgstr ""
 
@@ -157,7 +157,7 @@ msgstr ""
 msgid "Listings"
 msgstr ""
 
-#: item.php:107
+#: item.php:110
 msgid "Location"
 msgstr ""
 
@@ -175,7 +175,7 @@ msgstr ""
 msgid "Masthead"
 msgstr ""
 
-#: item.php:145
+#: item.php:148
 msgid "Meet in a public place, inspect the item before paying, and never send money in advance."
 msgstr ""
 
@@ -251,7 +251,7 @@ msgstr ""
 msgid "Published"
 msgstr ""
 
-#: item.php:115
+#: item.php:118
 msgid "Reference"
 msgstr ""
 
@@ -280,7 +280,7 @@ msgstr ""
 msgid "Search results"
 msgstr ""
 
-#: item.php:98
+#: item.php:101
 msgid "Seller"
 msgstr ""
 
@@ -288,7 +288,7 @@ msgstr ""
 msgid "Send message"
 msgstr ""
 
-#: item.php:131
+#: item.php:134
 msgid "Send to a friend"
 msgstr ""
 
@@ -328,7 +328,7 @@ msgstr ""
 msgid "The site is being worked on right now. Please try again in a few minutes."
 msgstr ""
 
-#: item.php:121
+#: item.php:124
 msgid "This listing has expired and the seller can no longer be contacted through it."
 msgstr ""
 
