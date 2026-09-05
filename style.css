@@ -35,8 +35,12 @@
   --ink:         light-dark(#14161c, #eceef4);
   --ink-soft:    light-dark(#3c414c, #c4cad6);
   --ink-muted:   light-dark(#585c66, #a7adbb);
+  /* The navy band and colophon stay navy in both schemes, so anything painted on
+     them is fixed too: an adaptive token resolves to its dark value there and
+     paints dark on dark. */
   --ink-onnavy:  #ffffff;
   --ink-onnavy-muted: #c3cbe2;
+  --surface-onnavy: #e6eaf5;
 
   --rule:        light-dark(#e2e2df, #262c3a);
   --rule-mid:    light-dark(#cfcfcb, #333a4b);
@@ -350,7 +354,7 @@ input:user-invalid + .hint { color: var(--stop); }
 .searchbar-band input { border-color: transparent; }
 .searchbar-band input:focus { border-color: #fff; }
 .searchbar-band .btn { background: #fff; color: var(--navy); border-color: #fff; }
-.searchbar-band .btn:hover { background: var(--navy-tint); color: var(--navy); border-color: var(--navy-tint); }
+.searchbar-band .btn:hover { background: var(--surface-onnavy); color: var(--navy); border-color: var(--surface-onnavy); }
 .searchbar-band :focus-visible { outline-color: #fff; }
 
 .btn {
