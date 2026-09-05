@@ -24,11 +24,22 @@ if (!defined('ABS_PATH')) {
 $folio_h = __get('folio_heading');
 $folio_h = in_array($folio_h, array('h2', 'h3'), true) ? $folio_h : 'h2';
 $folio_shot = osc_images_enabled_at_items() && osc_has_item_resources();
+
+// Which row this is. The plate on the first record is the largest thing in the
+// first viewport -- the page's LCP candidate -- and deferring it delays exactly
+// the paint that lazy loading exists to protect. It is fetched eagerly; every
+// plate below it stays lazy. Counted through the View container, because core
+// require()s this file from a function and a static would not survive the loop.
+$folio_row = (int) __get('folio_row') + 1;
+View::newInstance()->_exportVariableToView('folio_row', $folio_row);
+$folio_eager = $folio_row === 1;
 ?>
 <li class="record">
     <?php if ($folio_shot) { ?>
         <img class="plate" src="<?php echo osc_esc_html(osc_resource_thumbnail_url()); ?>" alt=""
-             width="240" height="200" loading="lazy" decoding="async">
+             width="240" height="200" decoding="async"
+             loading="<?php echo $folio_eager ? 'eager' : 'lazy'; ?>"<?php
+             echo $folio_eager ? ' fetchpriority="high"' : ''; ?>>
     <?php } else { ?>
         <span class="plate plate-empty"><?php _e('No photo', 'folio'); ?></span>
     <?php } ?>

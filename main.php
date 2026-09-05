@@ -43,11 +43,16 @@ osc_get_header();
                 <h2><?php _e('Browse by category', 'folio'); ?></h2>
             </div>
             <ul class="classmarks">
-                <?php while (osc_has_categories()) { ?>
+                <?php // A shelf with nothing on it is still a real page, so it keeps its
+                // link -- but it is dimmed, because a visitor scanning for somewhere to
+                // go should be able to see which rows have nothing behind them.
+                while (osc_has_categories()) {
+                    $folio_stock = (int) osc_category_total_items(); ?>
                     <li>
-                        <a href="<?php echo osc_esc_html(osc_search_category_url()); ?>">
+                        <a href="<?php echo osc_esc_html(osc_search_category_url()); ?>"<?php
+                            echo $folio_stock === 0 ? ' class="empty-shelf"' : ''; ?>>
                             <span class="name"><?php echo osc_esc_html(osc_category_name()); ?></span>
-                            <span class="count"><?php echo osc_esc_html(number_format((int) osc_category_total_items())); ?></span>
+                            <span class="count"><?php echo osc_esc_html(number_format($folio_stock)); ?></span>
                         </a>
                     </li>
                 <?php } ?>

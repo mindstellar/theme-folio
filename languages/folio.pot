@@ -8,13 +8,28 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: \n"
 
-#: search.php:33
+#: item.php:70
+msgid "%1$s — photograph %2$s of %3$s"
+msgstr ""
+
+#: search.php:78
 msgid "%s listing"
 msgid_plural "%s listings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: search.php:30
+#: item.php:84
+msgid "%s photograph"
+msgid_plural "%s photographs"
+msgstr[0] ""
+msgstr[1] ""
+
+#: search.php:193
+msgid "All categories"
+msgstr ""
+
+#: search.php:52
+#: search.php:75
 msgid "All listings"
 msgstr ""
 
@@ -22,7 +37,7 @@ msgstr ""
 msgid "Anywhere"
 msgstr ""
 
-#: search.php:108
+#: search.php:225
 msgid "Apply"
 msgstr ""
 
@@ -46,7 +61,8 @@ msgstr ""
 msgid "Bicycle, sofa, guitar…"
 msgstr ""
 
-#: item.php:28
+#: item.php:37
+#: search.php:49
 msgid "Breadcrumb"
 msgstr ""
 
@@ -63,12 +79,12 @@ msgstr ""
 msgid "Browse everything"
 msgstr ""
 
-#: common/contact-fields.php:63
+#: common/contact-fields.php:72
 msgid "Cancel"
 msgstr ""
 
 #: item-post.php:30
-#: search.php:75
+#: search.php:187
 msgid "Category"
 msgstr ""
 
@@ -85,8 +101,8 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: item.php:131
-#: item.php:142
+#: item.php:138
+#: item.php:149
 msgid "Contact the seller"
 msgstr ""
 
@@ -98,7 +114,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: item.php:137
+#: item.php:144
 msgid "Edit this listing"
 msgstr ""
 
@@ -106,16 +122,16 @@ msgstr ""
 msgid "Edit your listing"
 msgstr ""
 
-#: item.php:93
+#: item.php:100
 msgid "Expired"
 msgstr ""
 
-#: common/record.php:51
-#: item.php:95
+#: common/record.php:62
+#: item.php:102
 msgid "Featured"
 msgstr ""
 
-#: item.php:114
+#: item.php:121
 msgid "Filed under"
 msgstr ""
 
@@ -123,15 +139,16 @@ msgstr ""
 msgid "Footer"
 msgstr ""
 
-#: search.php:99
+#: search.php:216
 msgid "From"
 msgstr ""
 
-#: search.php:120
+#: search.php:237
 msgid "Get an email alert"
 msgstr ""
 
-#: item.php:29
+#: item.php:38
+#: search.php:50
 msgid "Home"
 msgstr ""
 
@@ -157,7 +174,7 @@ msgstr ""
 msgid "Listings"
 msgstr ""
 
-#: item.php:110
+#: item.php:117
 msgid "Location"
 msgstr ""
 
@@ -175,7 +192,8 @@ msgstr ""
 msgid "Masthead"
 msgstr ""
 
-#: item.php:148
+#: common/contact-fields.php:63
+#: item.php:159
 msgid "Meet in a public place, inspect the item before paying, and never send money in advance."
 msgstr ""
 
@@ -183,40 +201,55 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: search.php:70
-#: search.php:71
-msgid "Narrow these results"
+#: search.php:165
+msgid "Newest first"
 msgstr ""
 
-#: search.php:55
-msgid "Newer"
+#: search.php:144
+msgid "Next"
 msgstr ""
 
-#: common/record.php:33
+#: search.php:92
+msgid "No listing matches “%s”."
+msgstr ""
+
+#: common/record.php:44
 msgid "No photo"
+msgstr ""
+
+#: search.php:101
+msgid "Nothing falls in that price range."
 msgstr ""
 
 #: main.php:27
 msgid "Nothing has been published yet"
 msgstr ""
 
-#: search.php:39
+#: search.php:97
+msgid "Nothing in %s falls in that price range."
+msgstr ""
+
+#: search.php:84
 msgid "Nothing matched"
 msgstr ""
 
-#: search.php:63
-msgid "Older"
+#: search.php:166
+msgid "Oldest first"
+msgstr ""
+
+#: search.php:172
+msgid "Order"
 msgstr ""
 
 #: common/footer.php:43
 msgid "Overview"
 msgstr ""
 
-#: search.php:58
+#: search.php:139
 msgid "Page %1$s of %2$s"
 msgstr ""
 
-#: search.php:52
+#: search.php:133
 msgid "Pages"
 msgstr ""
 
@@ -228,9 +261,25 @@ msgstr ""
 msgid "Photographs"
 msgstr ""
 
+#: search.php:136
+msgid "Previous"
+msgstr ""
+
 #: item-post.php:48
-#: search.php:90
+#: search.php:207
 msgid "Price"
+msgstr ""
+
+#: item.php:92
+msgid "Price and seller"
+msgstr ""
+
+#: search.php:168
+msgid "Price: high to low"
+msgstr ""
+
+#: search.php:167
+msgid "Price: low to high"
 msgstr ""
 
 #: common/header.php:52
@@ -247,12 +296,17 @@ msgstr ""
 msgid "Publish a listing"
 msgstr ""
 
-#: item.php:42
+#: item.php:51
 msgid "Published"
 msgstr ""
 
-#: item.php:118
+#: item.php:125
 msgid "Reference"
+msgstr ""
+
+#: search.php:151
+#: search.php:152
+msgid "Refine these results"
 msgstr ""
 
 #: item-post.php:62
@@ -264,7 +318,15 @@ msgstr ""
 msgid "Register"
 msgstr ""
 
-#: search.php:28
+#: search.php:117
+msgid "Remove the price range"
+msgstr ""
+
+#: search.php:66
+msgid "Results for “%1$s” in %2$s"
+msgstr ""
+
+#: search.php:71
 msgid "Results for “%s”"
 msgstr ""
 
@@ -280,19 +342,19 @@ msgstr ""
 msgid "Search results"
 msgstr ""
 
-#: item.php:101
+#: item.php:108
 msgid "Seller"
 msgstr ""
 
-#: common/contact-fields.php:60
+#: common/contact-fields.php:66
 msgid "Send message"
 msgstr ""
 
-#: item.php:134
+#: item.php:141
 msgid "Send to a friend"
 msgstr ""
 
-#: search.php:41
+#: search.php:120
 msgid "Show everything"
 msgstr ""
 
@@ -300,7 +362,7 @@ msgstr ""
 msgid "Skip to content"
 msgstr ""
 
-#: item.php:70
+#: item.php:171
 msgid "Specifications"
 msgstr ""
 
@@ -328,7 +390,15 @@ msgstr ""
 msgid "The site is being worked on right now. Please try again in a few minutes."
 msgstr ""
 
-#: item.php:124
+#: search.php:104
+msgid "There is nothing in %s yet."
+msgstr ""
+
+#: search.php:108
+msgid "There is nothing published here yet."
+msgstr ""
+
+#: item.php:131
 msgid "This listing has expired and the seller can no longer be contacted through it."
 msgstr ""
 
@@ -340,7 +410,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: search.php:104
+#: search.php:221
 msgid "To"
 msgstr ""
 
@@ -348,11 +418,7 @@ msgstr ""
 msgid "Town or city"
 msgstr ""
 
-#: search.php:40
-msgid "Try fewer words, or widen the area."
-msgstr ""
-
-#: search.php:122
+#: search.php:239
 msgid "We email you when a new listing matches this search."
 msgstr ""
 

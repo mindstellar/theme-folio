@@ -176,6 +176,9 @@ a:hover { color: var(--link-hover); }
 }
 .ruled > :is(h1, h2, h3) { margin-block-end: 0; }
 .ruled > .push { margin-inline-start: auto; }
+/* The count is the one fact that orients a visitor in a result set, so it is set
+   at reading size beside the heading rather than as muted trim under it. */
+.tally { margin: 0; color: var(--ink-muted); font-weight: 560; white-space: nowrap; }
 
 /* ---------------------------------------------------------------- chrome -- */
 
@@ -279,6 +282,29 @@ a:hover { color: var(--link-hover); }
 .masthead-widgets nav a { padding-block: 0; }
 .colophon-widgets { padding-block-start: 1.5rem; }
 
+/* ------------------------------------------------------------ tap targets -- */
+/* A thumb is not a cursor. On a narrow screen the primary navigation takes the
+   full --tap height the form controls already take; the denser link lists -- the
+   colophon, the breadcrumb, the pager, the seller record -- grow their hit area
+   with padding that is cancelled by an equal negative margin, so the target gets
+   bigger and nothing on the page moves. */
+@media (max-width: 40rem) {
+  .masthead nav a { display: inline-flex; align-items: center; min-block-size: var(--tap); padding-block: 0; }
+  .masthead .nav-action { min-block-size: var(--tap); }
+  .wordmark { display: inline-flex; align-items: center; min-block-size: var(--tap); }
+
+  .colophon nav a { padding-block: .4375rem; margin-block: -.4375rem; }
+  .colophon .colophon-langs { gap: .25rem 1.25rem; }
+  .colophon-langs a,
+  .crumbs a,
+  .pager a,
+  .attrib dd a,
+  .empty a,
+  .ruled > .push { padding-block: .5rem; margin-block: -.5rem; display: inline-block; }
+
+  .facets a { padding-block: .5625rem; }
+}
+
 .skip { position: absolute; inset-inline-start: -9999px; }
 .skip:focus {
   inset-inline-start: var(--gutter);
@@ -358,8 +384,16 @@ input:user-invalid + .hint { color: var(--stop); }
 .searchbar-band :focus-visible { outline-color: #fff; }
 
 /* Core renders the comments block (.oe-comment*); its submit is a plain <button>,
-   so it joins the theme's button rather than growing a second one. */
+   so it joins the theme's button rather than growing a second one. `.oe-btn` is
+   the class core puts on its own buttons wherever it emits one -- including
+   inside a theme view, like the save-this-search form in the facet column, as
+   well as on the pages core renders whole. One class covers both: core ships its
+   page stylesheet inside `@layer shopclass`, and an unlayered rule outranks a
+   layered one whatever its specificity, so this does not have to know or mirror
+   the selector core happened to write. Requires Shopclass 6.3.0; on an older
+   core the account pages keep core's own button until it is updated. */
 .btn,
+.oe-btn,
 .oe-comment-form button {
   font: inherit;
   font-weight: 560;
@@ -378,10 +412,14 @@ input:user-invalid + .hint { color: var(--stop); }
   cursor: pointer;
 }
 .btn:hover,
+.oe-btn:hover,
 .oe-comment-form button:hover { background: var(--navy-deep); border-color: var(--navy-deep); color: #fff; }
-.btn-quiet { background: var(--surface); color: var(--ink); border-color: var(--rule-strong); }
-.btn-quiet:hover { background: var(--sunk); color: var(--ink); border-color: var(--rule-strong); }
-.btn-stop { background: var(--stop); border-color: var(--stop); }
+.btn-quiet,
+.oe-btn.oe-secondary { background: var(--surface); color: var(--ink); border-color: var(--rule-strong); }
+.btn-quiet:hover,
+.oe-btn.oe-secondary:hover { background: var(--sunk); color: var(--ink); border-color: var(--rule-strong); }
+.btn-stop,
+.oe-btn-danger { background: var(--stop); border-color: var(--stop); color: #fff; }
 .btn-block { inline-size: 100%; }
 .btn:disabled { opacity: .45; cursor: not-allowed; }
 
@@ -399,7 +437,10 @@ input:user-invalid + .hint { color: var(--stop); }
   align-items: start;
   padding: 1.125rem .875rem;
   margin-inline: -.875rem;
-  border-block-end: 1px solid var(--rule);
+  /* The separator is the whole device -- this index refuses card borders, so the
+     rule between records is what does their work. At --rule it was 1.25:1 against
+     the ground and the eye was actually reading the plate rhythm instead. */
+  border-block-end: 1px solid var(--rule-mid);
   border-radius: var(--radius);
   transition: background-color .12s ease-out;
 }
@@ -470,13 +511,18 @@ input:user-invalid + .hint { color: var(--stop); }
    the label size so a long currency name cannot outshout it. */
 .price .amount { font-size: var(--step-2); font-weight: 640; letter-spacing: -.015em; line-height: 1.2; }
 .price .cur { font-size: var(--step--1); font-weight: 500; color: var(--ink-muted); letter-spacing: 0; }
-.price-note { font-size: 0.9375rem; color: var(--ink-muted); }
+/* "Check with seller" and "Free" are answers, not blanks. Set at the body size in
+   the soft ink, a record without a figure still reads as a record with a price. */
+.price-note { font-size: var(--step-0); font-weight: 560; color: var(--ink-soft); }
 
 @media (max-width: 40rem) {
   .record { grid-template-columns: auto minmax(0, 1fr); gap: 0 1rem; }
   .record > .price { grid-column: 2; text-align: start; padding-block-start: .5rem; }
   .plate { --plate: 5.5rem; }
-  .price .amount { font-size: var(--step-1); }
+  /* The price keeps the figure size it has on a wide screen. Dropping it a step
+     put it at the weight of the date beside it, and a record whose price reads
+     as metadata is the one thing this index is not allowed to be. It sits under
+     the title rather than beside it, so it costs a line, not a column. */
 }
 
 /* ------------------------------------------------------------------ flags -- */
@@ -510,7 +556,25 @@ input:user-invalid + .hint { color: var(--stop); }
   align-items: start;
 }
 .record-sheet > * { min-inline-size: 0; }
-@media (max-width: 60rem) { .record-sheet { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; } }
+
+/* The item page's three blocks are placed explicitly rather than in flow, so the
+   aside can sit beside both of them on a wide screen while staying between them
+   in the source. That is what lets the narrow layout put the price and the
+   contact action directly under the photographs without an `order` -- which
+   would move the eye and leave the tab order and the screen reader behind. */
+.record-sheet > .entry-lead { grid-column: 1; grid-row: 1; }
+.record-sheet > .entry-body { grid-column: 1; grid-row: 2; }
+.record-sheet > .aside      { grid-column: 2; grid-row: 1 / span 2; }
+/* The last thing in the lead carries its own margin; the grid gap adds the rest. */
+.entry-lead > :last-child { margin-block-end: 0; }
+
+@media (max-width: 60rem) {
+  .record-sheet { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
+  .record-sheet > :is(.entry-lead, .entry-body, .aside) { grid-column: 1; grid-row: auto; }
+  /* One column: the aside is a block in the reading order, not a rail beside it,
+     so pinning it would park the decision over the description. */
+  .aside { position: static; }
+}
 
 .crumbs { display: flex; flex-wrap: wrap; gap: .25rem .5rem; font-size: var(--step--1); color: var(--ink-muted); margin: 0 0 .75rem; }
 .crumbs a { color: var(--ink-muted); }
@@ -526,7 +590,11 @@ input:user-invalid + .hint { color: var(--stop); }
 .plates {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: min(100%, calc(50% - .375rem));
+  /* Not a clean half. Two plates filling the strip exactly is how a third one
+     becomes invisible: nothing overlaps the edge, so nothing suggests the strip
+     scrolls. At 42% the next plate is cut by the boundary, which is the oldest
+     signal there is that a row continues. */
+  grid-auto-columns: min(100%, calc(42% - .375rem));
   gap: .75rem;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
@@ -547,7 +615,18 @@ input:user-invalid + .hint { color: var(--stop); }
   border-radius: var(--radius);
 }
 .plates-single { grid-auto-columns: 100%; }
-@media (max-width: 45rem) { .plates { grid-auto-columns: 100%; } }
+@media (max-width: 45rem) { .plates { grid-auto-columns: min(100%, 88%); } }
+
+/* How many photographs there are, stated rather than implied. A visitor judging
+   a used item judges it on the evidence they can see, so the count of what they
+   cannot see yet belongs on the page and not in the scrollbar. */
+.plate-count {
+  margin: -1.25rem 0 2rem;
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
 
 /* A specification list is a table of two columns; ruled rows are what makes it
    scannable, and they fill a column that otherwise trails off. */
@@ -642,6 +721,14 @@ input:user-invalid + .hint { color: var(--stop); }
   color: var(--ink-soft);
 }
 .facets a:hover { background: var(--wash); color: var(--navy-ink); text-decoration: underline; }
+/* A facet row that carries a count is read the way the home page's shelf list is
+   read: name on the left, figure on the right, in the tabular numerals the body
+   already sets, so the column of counts stacks. */
+.facets a:has(.count) { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.facets a:hover .name { text-decoration: underline; }
+.facets a:has(.count):hover { text-decoration: none; }
+.facets .count { flex: none; font-size: var(--step--1); color: var(--ink-muted); }
+.facets [aria-current] .count { color: inherit; }
 .facets form { padding-block-end: 1rem; }
 .facets .field { margin-block-end: .75rem; }
 
@@ -676,6 +763,9 @@ input:user-invalid + .hint { color: var(--stop); }
 .classmarks a:hover { background: var(--wash); color: var(--navy-ink); }
 .classmarks a:hover .name { text-decoration: underline; }
 .classmarks .count { font-size: var(--step--1); color: var(--ink-muted); }
+/* Nothing on this shelf yet. Still a page, still a link -- just not one the eye
+   should stop on while it is looking for somewhere with listings in it. */
+.classmarks a.empty-shelf .name { color: var(--ink-muted); }
 
 /* --------------------------------------------------------------- dialogs -- */
 
@@ -686,9 +776,40 @@ dialog {
   color: var(--ink);
   padding: 1.75rem;
   inline-size: min(34rem, calc(100vw - 2rem));
-  max-block-size: calc(100vh - 4rem);
+  max-block-size: calc(100dvh - 4rem);
+  overflow: hidden;
+}
+/* The fields scroll; the buttons do not. On a laptop 600px tall the panel used to
+   cut mid-textarea with the submit below the fold, so a form that was not
+   finished looked finished.
+   Scoped to [open]: `display` on the bare element overrides the user agent's
+   `display: none` for a closed dialog, which lays the panel out off the side of
+   the page and gives the document a horizontal scrollbar. */
+dialog[open] { display: flex; flex-direction: column; }
+dialog > form { display: flex; flex-direction: column; min-block-size: 0; overflow-y: auto; }
+dialog > form > .actions {
+  position: sticky;
+  inset-block-end: 0;
+  margin-block-end: 0;
+  padding-block: 1rem;
+  background: var(--surface);
+  border-block-start: 1px solid var(--rule);
 }
 dialog h2 { margin-block-start: 0; }
+/* What the visitor is about to write about: the listing they were looking at, in
+   the record's own vocabulary. The dialog covers the page that carried both. */
+.dialog-subject {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .25rem .75rem;
+  padding-block-end: .875rem;
+  margin-block-end: 1.25rem;
+  border-block-end: 1px solid var(--rule);
+}
+.dialog-subject .name { font-weight: 600; overflow-wrap: anywhere; }
+.dialog-subject .price { margin: 0; margin-inline-start: auto; }
+.dialog-subject .price .amount { font-size: var(--step-1); }
 dialog::backdrop { background: rgb(10 14 26 / .55); }
 
 /* ---------------------------------------------------------------- notice -- */
@@ -741,15 +862,21 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
 .push { margin-inline-start: auto; }
 
 .pager {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   gap: 1rem;
   align-items: center;
-  justify-content: space-between;
   margin-block-start: 2rem;
   padding-block-start: 1.25rem;
   border-block-start: 1px solid var(--rule);
 }
+/* Three tracks, so the counter is centred on the column whether or not there is a
+   previous page to link to. Auto margins cannot do this: on page one they divide
+   the free space between the counter and the next link instead of holding the
+   middle, and an empty <span> to reserve the slot is markup doing layout's job. */
+.pager > .prev  { grid-column: 1; justify-self: start; }
+.pager > .tally { grid-column: 2; justify-self: center; }
+.pager > .next  { grid-column: 3; justify-self: end; }
 .pager a { text-decoration: none; font-weight: 560; }
 .pager a:hover { text-decoration: underline; }
 
@@ -955,8 +1082,12 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
 }
 .oe-page .oe-actions { gap: .875rem; margin-block-start: 1.5rem; align-items: center; }
 
-.oe-page .oe-btn,
-.oe-page .oe-actions a.oe-primary {
+/* `.oe-btn` itself is styled up with `.btn` near the top of this sheet. Core ships
+   its page stylesheet in `@layer shopclass`, and an unlayered rule beats a layered
+   one at any specificity, so one class is enough and this file does not have to
+   mirror core's selector shape. Only the anchors core styles through `.oe-actions`
+   need naming here, because they carry no `.oe-btn` of their own. */
+.oe-actions a.oe-primary {
   font: inherit;
   font-weight: 560;
   min-block-size: var(--tap);
@@ -970,19 +1101,14 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
   background: var(--navy);
   color: #fff;
 }
-.oe-page .oe-btn:hover,
-.oe-page .oe-actions a.oe-primary:hover { background: var(--navy-deep); border-color: var(--navy-deep); color: #fff; }
-.oe-page .oe-btn.oe-secondary,
-.oe-page .oe-actions a.oe-secondary {
+.oe-actions a.oe-primary:hover { background: var(--navy-deep); border-color: var(--navy-deep); color: #fff; }
+.oe-actions a.oe-secondary {
   background: var(--surface);
   color: var(--ink);
   border-color: var(--rule-strong);
 }
-.oe-page .oe-btn.oe-secondary:hover,
-.oe-page .oe-actions a.oe-secondary:hover { background: var(--sunk); color: var(--ink); border-color: var(--rule-strong); }
-/* After the base and secondary rules above, and at the same weight. */
-.oe-page .oe-btn-danger { background: var(--stop); border-color: var(--stop); color: #fff; }
-.oe-page .oe-btn-danger:hover { background: var(--stop); border-color: var(--stop); filter: brightness(.92); }
+.oe-actions a.oe-secondary:hover { background: var(--sunk); color: var(--ink); border-color: var(--rule-strong); }
+.oe-btn-danger:hover { background: var(--stop); border-color: var(--stop); filter: brightness(.92); }
 
 /* Panels, empty states and paging, in the theme's own weights. */
 .oe-page .oe-panel {

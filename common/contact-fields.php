@@ -56,10 +56,19 @@ if (!defined('ABS_PATH')) {
 
     <?php osc_run_hook('item_contact_form'); ?>
 
+    <?php // The item page carries this line too, and the dialog opens over it --
+    // which put the one piece of advice that matters behind the thing it is
+    // advice about. It belongs with the form wherever the form is shown. ?>
+    <p class="safety"><?php
+        _e('Meet in a public place, inspect the item before paying, and never send money in advance.', 'folio'); ?></p>
+
     <div class="actions">
         <button class="btn" type="submit"><?php _e('Send message', 'folio'); ?></button>
-        <?php // Inside a <dialog>, this closes it with no script at all. ?>
-        <button class="btn btn-quiet" type="button" formnovalidate
-                onclick="this.closest('dialog')?.close()"><?php _e('Cancel', 'folio'); ?></button>
+        <?php // Inside a <dialog>, a submit button whose formmethod is "dialog"
+        // closes it and submits nothing -- the browser's own affordance, with no
+        // script at all. On the standalone contact page there is no dialog to
+        // close, and the same button does nothing, which is what it did before. ?>
+        <button class="btn btn-quiet" type="submit" formmethod="dialog"
+                formnovalidate><?php _e('Cancel', 'folio'); ?></button>
     </div>
 </form>

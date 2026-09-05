@@ -19,25 +19,104 @@ $folio_total   = osc_search_total_items();
 $folio_pattern = osc_search_pattern();
 $folio_page    = osc_search_page();
 $folio_pages   = osc_search_total_pages();
+
+/*
+ * Core returns the searched category as an array of ids on a category route and
+ * as a string elsewhere. `(int)` on a non-empty array is 1, so casting it where
+ * it is used silently rewrites every narrowed search into category 1 and marks
+ * the wrong facet as current. It is normalised once, here, and read nowhere else
+ * in its raw form. A theme reading this value has to do the same.
+ */
+$folio_cat_raw = osc_search_category_id();
+$folio_cat     = is_array($folio_cat_raw)
+    ? (int) reset($folio_cat_raw)
+    : (int) $folio_cat_raw;
+
+$folio_cat_name = $folio_cat > 0 ? osc_search_category_name() : '';
+
+/*
+ * Where the visitor is standing, for the empty state. A shelf and a town are one
+ * kind of narrowing and read after "in"; a price range is another and gets its
+ * own clause, because "nothing in Cell Phones and that price range" is not a
+ * sentence anyone writes.
+ */
+$folio_scope = array_filter(array($folio_cat_name, osc_search_city()), 'strlen');
+$folio_priced = osc_search_price_min() !== '' || osc_search_price_max() !== '';
 ?>
 <div class="record-sheet">
     <section>
+        <?php if ($folio_cat_name !== '') { ?>
+            <nav class="crumbs" aria-label="<?php echo osc_esc_html(__('Breadcrumb', 'folio')); ?>">
+                <a href="<?php echo osc_esc_html(osc_base_url()); ?>"><?php _e('Home', 'folio'); ?></a>
+                <span aria-hidden="true">&rsaquo;</span>
+                <a href="<?php echo osc_esc_html(osc_search_show_all_url()); ?>"><?php _e('All listings', 'folio'); ?></a>
+            </nav>
+        <?php } ?>
+
         <div class="ruled">
             <h1><?php
-                if ($folio_pattern !== '') {
+                /*
+                 * The heading names the shelf you are standing on. Branching on the
+                 * pattern alone headed every category page "All listings", which is
+                 * the same words the browse-everything link uses -- so a visitor who
+                 * clicked a category got no confirmation that anything had happened.
+                 */
+                if ($folio_pattern !== '' && $folio_cat_name !== '') {
+                    printf(
+                        osc_esc_html(__('Results for “%1$s” in %2$s', 'folio')),
+                        osc_esc_html($folio_pattern),
+                        osc_esc_html($folio_cat_name)
+                    );
+                } elseif ($folio_pattern !== '') {
                     printf(osc_esc_html(__('Results for “%s”', 'folio')), osc_esc_html($folio_pattern));
+                } elseif ($folio_cat_name !== '') {
+                    echo osc_esc_html($folio_cat_name);
                 } else {
                     _e('All listings', 'folio');
                 } ?></h1>
-            <output class="muted push small"><?php
+            <p class="tally push"><?php
                 printf(osc_esc_html(_n('%s listing', '%s listings', $folio_total, 'folio')),
-                    osc_esc_html(number_format($folio_total))); ?></output>
+                    osc_esc_html(number_format($folio_total))); ?></p>
         </div>
 
         <?php if ($folio_total === 0) { ?>
             <p class="empty">
                 <strong><?php _e('Nothing matched', 'folio'); ?></strong>
-                <?php _e('Try fewer words, or widen the area.', 'folio'); ?><br>
+                <?php
+                /*
+                 * Name the constraint rather than guessing at it. "Try fewer words"
+                 * was shown to visitors who had typed none, on a category page that
+                 * simply had nothing in it.
+                 */
+                if ($folio_pattern !== '') {
+                    printf(osc_esc_html(__('No listing matches “%s”.', 'folio')), osc_esc_html($folio_pattern));
+                } elseif ($folio_priced && $folio_scope !== array()) {
+                    // The shelf is not empty -- the price range emptied it. Saying
+                    // "nothing here yet" would be a claim the page cannot support.
+                    printf(
+                        osc_esc_html(__('Nothing in %s falls in that price range.', 'folio')),
+                        osc_esc_html(implode(', ', $folio_scope))
+                    );
+                } elseif ($folio_priced) {
+                    _e('Nothing falls in that price range.', 'folio');
+                } elseif ($folio_scope !== array()) {
+                    printf(
+                        osc_esc_html(__('There is nothing in %s yet.', 'folio')),
+                        osc_esc_html(implode(', ', $folio_scope))
+                    );
+                } else {
+                    _e('There is nothing published here yet.', 'folio');
+                } ?><br>
+
+                <?php // The price is the narrowing most likely to be the culprit and
+                // the one a visitor is least likely to remember setting, so dropping
+                // it is offered as an action rather than described as advice.
+                if ($folio_priced) { ?>
+                    <a href="<?php echo osc_esc_html(osc_update_search_url(array(
+                        'sPriceMin' => null, 'sPriceMax' => null, 'iPage' => null,
+                    ))); ?>"><?php _e('Remove the price range', 'folio'); ?></a>
+                    <span class="sep" aria-hidden="true">&middot;</span>
+                <?php } ?>
                 <a href="<?php echo osc_esc_html(osc_search_show_all_url()); ?>"><?php _e('Show everything', 'folio'); ?></a>
             </p>
         <?php } else { ?>
@@ -49,36 +128,74 @@ $folio_pages   = osc_search_total_pages();
             </ol>
 
             <?php if ($folio_pages > 1) { ?>
+                <?php // Previous and next, not newer and older: the set can be ordered
+                // by price now, and on that ordering a date word is simply wrong. ?>
                 <nav class="pager" aria-label="<?php echo osc_esc_html(__('Pages', 'folio')); ?>">
-                    <span><?php if ($folio_page > 0) { ?>
-                        <a rel="prev" href="<?php echo osc_esc_html(osc_update_search_url(array('iPage' => $folio_page))); ?>">
-                            &larr; <?php _e('Newer', 'folio'); ?></a>
-                    <?php } ?></span>
-                    <span class="muted small"><?php
+                    <?php if ($folio_page > 0) { ?>
+                        <a class="prev" rel="prev" href="<?php echo osc_esc_html(osc_update_search_url(array('iPage' => $folio_page))); ?>">&larr;
+                            <?php _e('Previous', 'folio'); ?></a>
+                    <?php } ?>
+                    <span class="tally small"><?php
                         printf(osc_esc_html(__('Page %1$s of %2$s', 'folio')),
                             osc_esc_html(number_format($folio_page + 1)),
                             osc_esc_html(number_format($folio_pages))); ?></span>
-                    <span><?php if ($folio_page + 1 < $folio_pages) { ?>
-                        <a rel="next" href="<?php echo osc_esc_html(osc_update_search_url(array('iPage' => $folio_page + 2))); ?>">
-                            <?php _e('Older', 'folio'); ?> &rarr;</a>
-                    <?php } ?></span>
+                    <?php if ($folio_page + 1 < $folio_pages) { ?>
+                        <a class="next" rel="next" href="<?php echo osc_esc_html(osc_update_search_url(array('iPage' => $folio_page + 2))); ?>"><?php
+                            _e('Next', 'folio'); ?> &rarr;</a>
+                    <?php } ?>
                 </nav>
             <?php } ?>
         <?php } ?>
     </section>
 
-    <aside class="facets" aria-label="<?php echo osc_esc_html(__('Narrow these results', 'folio')); ?>">
-        <h2><?php _e('Narrow these results', 'folio'); ?></h2>
+    <aside class="facets" aria-label="<?php echo osc_esc_html(__('Refine these results', 'folio')); ?>">
+        <h2><?php _e('Refine these results', 'folio'); ?></h2>
+
+        <?php
+        /*
+         * Order. Four plain links, each one the current query with two parameters
+         * rewritten, so a catalogue can be read by price as well as front to back.
+         * Core allows i_price, dt_pub_date, dt_expiration and relevance as columns
+         * and asc/desc as the type; it hands the type back as 0 or 1, which is what
+         * the current-marker compares against.
+         */
+        $folio_order      = osc_search_order();
+        $folio_order_desc = (int) osc_search_order_type() === 1;
+        $folio_orders     = array(
+            array('dt_pub_date', 'desc', __('Newest first', 'folio')),
+            array('dt_pub_date', 'asc', __('Oldest first', 'folio')),
+            array('i_price', 'asc', __('Price: low to high', 'folio')),
+            array('i_price', 'desc', __('Price: high to low', 'folio')),
+        );
+        ?>
+        <details open>
+            <summary><?php _e('Order', 'folio'); ?></summary>
+            <ul>
+                <?php foreach ($folio_orders as $folio_o) {
+                    $folio_on = $folio_order === $folio_o[0]
+                        && $folio_order_desc === ($folio_o[1] === 'desc'); ?>
+                    <li><a href="<?php echo osc_esc_html(osc_update_search_url(array(
+                        'sOrder' => $folio_o[0], 'iOrderType' => $folio_o[1], 'iPage' => null,
+                    ))); ?>"<?php echo $folio_on ? ' aria-current="true"' : ''; ?>><?php
+                        echo osc_esc_html($folio_o[2]); ?></a></li>
+                <?php } ?>
+            </ul>
+        </details>
 
         <?php if (osc_count_categories() > 0) { ?>
             <details open>
                 <summary><?php _e('Category', 'folio'); ?></summary>
                 <ul>
-                    <?php $folio_cat = (int) osc_search_category_id();
-                    while (osc_has_categories()) { ?>
-                        <li><a href="<?php echo osc_esc_html(osc_update_search_url(array('sCategory' => osc_category_id()))); ?>"
-                               <?php echo $folio_cat === (int) osc_category_id() ? 'aria-current="true"' : ''; ?>><?php
-                            echo osc_esc_html(osc_category_name()); ?></a></li>
+                    <?php // The way back out. Without it a narrowed search can only be
+                    // widened by editing the address bar. ?>
+                    <li><a href="<?php echo osc_esc_html(osc_update_search_url(array('sCategory' => null, 'iPage' => null))); ?>"
+                           <?php echo $folio_cat === 0 ? 'aria-current="true"' : ''; ?>><?php
+                        _e('All categories', 'folio'); ?></a></li>
+                    <?php while (osc_has_categories()) { ?>
+                        <li><a href="<?php echo osc_esc_html(osc_update_search_url(array('sCategory' => osc_category_id(), 'iPage' => null))); ?>"
+                               <?php echo $folio_cat === (int) osc_category_id() ? 'aria-current="true"' : ''; ?>><span class="name"><?php
+                            echo osc_esc_html(osc_category_name()); ?></span><span class="count"><?php
+                            echo osc_esc_html(number_format((int) osc_category_total_items())); ?></span></a></li>
                     <?php } ?>
                 </ul>
             </details>
@@ -92,8 +209,8 @@ $folio_pages   = osc_search_total_pages();
                 <input type="hidden" name="page" value="search">
                 <input type="hidden" name="sPattern" value="<?php echo osc_esc_html($folio_pattern); ?>">
                 <input type="hidden" name="sCity" value="<?php echo osc_esc_html(osc_search_city()); ?>">
-                <?php if (osc_search_category_id() !== '' && (int) osc_search_category_id() > 0) { ?>
-                    <input type="hidden" name="sCategory" value="<?php echo (int) osc_search_category_id(); ?>">
+                <?php if ($folio_cat > 0) { ?>
+                    <input type="hidden" name="sCategory" value="<?php echo $folio_cat; ?>">
                 <?php } ?>
                 <div class="field">
                     <label for="folio-min"><?php _e('From', 'folio'); ?></label>
