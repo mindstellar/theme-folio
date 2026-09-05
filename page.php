@@ -11,10 +11,10 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 
-osc_current_web_theme_path('common/header.php');
+osc_get_header();
 ?>
 <article class="prose stack">
     <h1><?php echo osc_esc_html(osc_static_page_title()); ?></h1>
     <?php echo osc_static_page_text(); ?>
 </article>
-<?php osc_current_web_theme_path('common/footer.php'); ?>
+<?php osc_get_footer(); ?>

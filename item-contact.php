@@ -12,11 +12,11 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 
-osc_current_web_theme_path('common/header.php');
+osc_get_header();
 ?>
 <div class="sheet-wide stack">
     <h1><?php _e('Contact the seller', 'folio'); ?></h1>
     <p class="muted"><?php printf(osc_esc_html(__('About “%s”', 'folio')), osc_esc_html(osc_item_title())); ?></p>
     <?php osc_current_web_theme_path('common/contact-fields.php'); ?>
 </div>
-<?php osc_current_web_theme_path('common/footer.php'); ?>
+<?php osc_get_footer(); ?>

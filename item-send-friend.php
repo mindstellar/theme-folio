@@ -9,7 +9,7 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 
-osc_current_web_theme_path('common/header.php');
+osc_get_header();
 ?>
 <div class="sheet-wide stack">
     <h1><?php _e('Send this listing to someone', 'folio'); ?></h1>
@@ -45,4 +45,4 @@ osc_current_web_theme_path('common/header.php');
         </div>
     </form>
 </div>
-<?php osc_current_web_theme_path('common/footer.php'); ?>
+<?php osc_get_footer(); ?>

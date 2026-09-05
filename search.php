@@ -13,7 +13,7 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 
-osc_current_web_theme_path('common/header.php');
+osc_get_header();
 
 $folio_total   = osc_search_total_items();
 $folio_pattern = osc_search_pattern();
@@ -110,4 +110,4 @@ $folio_pages   = osc_search_total_pages();
         </details>
     </aside>
 </div>
-<?php osc_current_web_theme_path('common/footer.php'); ?>
+<?php osc_get_footer(); ?>

@@ -9,7 +9,7 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 
-osc_current_web_theme_path('common/header.php');
+osc_get_header();
 ?>
 <div class="prose stack">
     <div class="ruled"><h1><?php _e('That page is not here', 'folio'); ?></h1></div>
@@ -17,4 +17,4 @@ osc_current_web_theme_path('common/header.php');
     <?php osc_current_web_theme_path('common/searchbar.php'); ?>
     <p><a href="<?php echo osc_esc_html(osc_base_url()); ?>"><?php _e('Back to the home page', 'folio'); ?></a></p>
 </div>
-<?php osc_current_web_theme_path('common/footer.php'); ?>
+<?php osc_get_footer(); ?>

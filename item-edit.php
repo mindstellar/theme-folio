@@ -35,7 +35,7 @@ if (osc_images_enabled_at_items()) {
     osc_enqueue_style('osc-uploader');
 }
 
-osc_current_web_theme_path('common/header.php');
+osc_get_header();
 ?>
 <div class="sheet-wide stack">
     <div class="ruled"><h1><?php echo $folio_edit ? osc_esc_html(__('Edit your listing', 'folio')) : osc_esc_html(__('Publish a listing', 'folio')); ?></h1></div>
@@ -126,4 +126,4 @@ osc_current_web_theme_path('common/header.php');
     ItemForm::location_javascript();
     ?>
 </div>
-<?php osc_current_web_theme_path('common/footer.php'); ?>
+<?php osc_get_footer(); ?>

@@ -13,7 +13,7 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 
-osc_current_web_theme_path('common/header.php');
+osc_get_header();
 
 // There is no core "may I edit this" helper; ownership is the seller id against
 // the session, the same test storefront makes.
@@ -145,4 +145,4 @@ $folio_expired  = osc_item_is_expired();
             _e('Meet in a public place, inspect the item before paying, and never send money in advance.', 'folio'); ?></p>
     </aside>
 </article>
-<?php osc_current_web_theme_path('common/footer.php'); ?>
+<?php osc_get_footer(); ?>

@@ -12,7 +12,7 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 
-osc_current_web_theme_path('common/header.php');
+osc_get_header();
 ?>
 <div class="stack">
     <section>
@@ -55,4 +55,4 @@ osc_current_web_theme_path('common/header.php');
         </section>
     <?php } ?>
 </div>
-<?php osc_current_web_theme_path('common/footer.php'); ?>
+<?php osc_get_footer(); ?>
