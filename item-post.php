@@ -15,8 +15,7 @@ if (!defined('ABS_PATH')) {
 // Publishing and editing are the same form. Core decides which one this is --
 // the action, the hidden fields, which record the location defaults come from --
 // so the only thing left here is the wording.
-$folio_edit   = osc_is_edit_page();
-$folio_locale = osc_current_user_locale();
+$folio_edit = osc_is_edit_page();
 
 osc_get_header();
 ?>
@@ -33,13 +32,15 @@ osc_get_header();
         </div>
 
         <div class="field">
-            <label for="title[<?php echo osc_esc_html($folio_locale); ?>]"><?php _e('Title', 'folio'); ?></label>
-            <?php ItemForm::title_input('title', $folio_locale, osc_esc_html(osc_item_title())); ?>
+            <label for="<?php echo osc_esc_html(ItemForm::locale_field_id('title')); ?>"><?php
+                _e('Title', 'folio'); ?></label>
+            <?php ItemForm::title_input('title', null, osc_esc_html(osc_item_title())); ?>
         </div>
 
         <div class="field">
-            <label for="description[<?php echo osc_esc_html($folio_locale); ?>]"><?php _e('Description', 'folio'); ?></label>
-            <?php ItemForm::description_textarea('description', $folio_locale, osc_esc_html(osc_item_description())); ?>
+            <label for="<?php echo osc_esc_html(ItemForm::locale_field_id('description')); ?>"><?php
+                _e('Description', 'folio'); ?></label>
+            <?php ItemForm::description_textarea('description', null, osc_esc_html(osc_item_description())); ?>
         </div>
 
         <?php if (osc_price_enabled_at_items()) { ?>
