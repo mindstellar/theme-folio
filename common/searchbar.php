@@ -33,9 +33,16 @@ View::newInstance()->_erase('folio_search_band');
         </div>
         <div class="field field-narrow">
             <label for="folio-city"><?php _e('Town or city', 'folio'); ?></label>
-            <input id="folio-city" type="text" name="sCity" autocomplete="address-level2"
+            <?php // data-ac is core's contract: it binds the field to the city endpoint
+            // and writes the chosen row's id into cityId. Without the script the field
+            // still submits as free text, which core's search reads just the same. ?>
+            <input id="folio-city" type="text" name="sCity" autocomplete="off"
                    placeholder="<?php echo osc_esc_html(__('Anywhere', 'folio')); ?>"
-                   value="<?php echo osc_esc_html(osc_search_city()); ?>">
+                   value="<?php echo osc_esc_html(osc_search_city()); ?>"
+                   data-ac="location_cities"
+                   data-ac-url="<?php echo osc_esc_html(osc_base_url(true)); ?>"
+                   data-ac-target="#folio-city-id">
+            <input type="hidden" name="cityId" id="folio-city-id" value="">
         </div>
         <button class="btn" type="submit"><?php _e('Search', 'folio'); ?></button>
     </form>

@@ -18,7 +18,7 @@ msgstr[1] ""
 msgid "All listings"
 msgstr ""
 
-#: common/searchbar.php:37
+#: common/searchbar.php:40
 msgid "Anywhere"
 msgstr ""
 
@@ -272,7 +272,7 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: common/searchbar.php:40
+#: common/searchbar.php:47
 msgid "Search"
 msgstr ""
 
