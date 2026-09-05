@@ -70,7 +70,7 @@ $folio_band = osc_is_home_page() || osc_is_search_page();
 
     <?php if ($folio_band) { ?>
         <div class="spine masthead-band">
-            <?php $GLOBALS['folio_search_band'] = true;
+            <?php View::newInstance()->_exportVariableToView('folio_search_band', true);
             osc_current_web_theme_path('common/searchbar.php'); ?>
         </div>
     <?php } ?>

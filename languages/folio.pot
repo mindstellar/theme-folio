@@ -126,7 +126,7 @@ msgstr ""
 msgid "Expired"
 msgstr ""
 
-#: common/record.php:45
+#: common/record.php:51
 #: item.php:92
 msgid "Featured"
 msgstr ""
@@ -202,7 +202,7 @@ msgstr ""
 msgid "Newer"
 msgstr ""
 
-#: common/record.php:27
+#: common/record.php:33
 msgid "No photo"
 msgstr ""
 

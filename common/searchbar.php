@@ -16,10 +16,10 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 
-// Set by the caller through $GLOBALS: core require()s this file from inside a
+// Set by the caller through the View container: core require()s this file from a
 // function, so a local in the calling template is not in scope here.
-$folio_band = !empty($GLOBALS['folio_search_band']);
-unset($GLOBALS['folio_search_band']);
+$folio_band = (bool) __get('folio_search_band');
+View::newInstance()->_erase('folio_search_band');
 ?>
 <search>
     <form action="<?php echo osc_esc_html(osc_base_url(true)); ?>" method="get" role="search"

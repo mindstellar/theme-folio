@@ -29,7 +29,7 @@ osc_get_header();
             </p>
         <?php } else { ?>
             <ol class="index">
-                <?php $GLOBALS['folio_heading'] = 'h2';
+                <?php View::newInstance()->_exportVariableToView('folio_heading', 'h2');
                 while (osc_has_latest_items()) {
                     osc_current_web_theme_path('common/record.php');
                 } ?>

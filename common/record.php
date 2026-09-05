@@ -16,7 +16,13 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 
-$folio_h    = $GLOBALS['folio_heading'] ?? 'h2';
+// The heading level differs between the home page and a results page. It comes
+// through the View container, not $GLOBALS and never Params: this value is
+// echoed as a tag name, so anything a visitor could set would be an open door.
+// Whitelisted anyway -- a variable that becomes a tag should never trust
+// its source.
+$folio_h = __get('folio_heading');
+$folio_h = in_array($folio_h, array('h2', 'h3'), true) ? $folio_h : 'h2';
 $folio_shot = osc_images_enabled_at_items() && osc_has_item_resources();
 ?>
 <li class="record">
