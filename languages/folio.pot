@@ -14,10 +14,6 @@ msgid_plural "%s listings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: item-contact.php:19
-msgid "About “%s”"
-msgstr ""
-
 #: search.php:30
 msgid "All listings"
 msgstr ""
@@ -39,7 +35,6 @@ msgid "Back shortly"
 msgstr ""
 
 #: 404.php:18
-#: error.php:17
 msgid "Back to the home page"
 msgstr ""
 
@@ -91,7 +86,6 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: item-contact.php:18
 #: item.php:128
 #: item.php:139
 msgid "Contact the seller"
@@ -111,10 +105,6 @@ msgstr ""
 
 #: item-post.php:41
 msgid "Edit your listing"
-msgstr ""
-
-#: alert-form.php:15
-msgid "Email me when something new matches"
 msgstr ""
 
 #: item.php:90
@@ -233,10 +223,6 @@ msgstr ""
 msgid "Photographs"
 msgstr ""
 
-#: error.php:16
-msgid "Please try again."
-msgstr ""
-
 #: item-post.php:69
 #: search.php:90
 msgid "Price"
@@ -316,10 +302,6 @@ msgstr ""
 
 #: common/header.php:39
 msgid "Skip to content"
-msgstr ""
-
-#: error.php:15
-msgid "Something went wrong"
 msgstr ""
 
 #: item.php:70
