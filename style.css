@@ -934,7 +934,8 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
 }
 .oe-page .oe-actions { gap: .875rem; margin-block-start: 1.5rem; align-items: center; }
 
-.oe-page :is(.oe-btn, .oe-actions a.oe-primary) {
+.oe-page .oe-btn,
+.oe-page .oe-actions a.oe-primary {
   font: inherit;
   font-weight: 560;
   min-block-size: var(--tap);
@@ -948,13 +949,17 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
   background: var(--navy);
   color: #fff;
 }
-.oe-page :is(.oe-btn, .oe-actions a.oe-primary):hover { background: var(--navy-deep); border-color: var(--navy-deep); color: #fff; }
-.oe-page :is(.oe-btn.oe-secondary, .oe-actions a.oe-secondary) {
+.oe-page .oe-btn:hover,
+.oe-page .oe-actions a.oe-primary:hover { background: var(--navy-deep); border-color: var(--navy-deep); color: #fff; }
+.oe-page .oe-btn.oe-secondary,
+.oe-page .oe-actions a.oe-secondary {
   background: var(--surface);
   color: var(--ink);
   border-color: var(--rule-strong);
 }
-.oe-page :is(.oe-btn.oe-secondary, .oe-actions a.oe-secondary):hover { background: var(--sunk); color: var(--ink); border-color: var(--rule-strong); }
+.oe-page .oe-btn.oe-secondary:hover,
+.oe-page .oe-actions a.oe-secondary:hover { background: var(--sunk); color: var(--ink); border-color: var(--rule-strong); }
+/* After the base and secondary rules above, and at the same weight. */
 .oe-page .oe-btn-danger { background: var(--stop); border-color: var(--stop); color: #fff; }
 .oe-page .oe-btn-danger:hover { background: var(--stop); border-color: var(--stop); filter: brightness(.92); }
 
