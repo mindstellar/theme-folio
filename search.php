@@ -108,6 +108,21 @@ $folio_pages   = osc_search_total_pages();
                 <button class="btn btn-quiet btn-block" type="submit"><?php _e('Apply', 'folio'); ?></button>
             </form>
         </details>
+
+        <?php
+        // Save this search. Core owns the form and its hidden fields; the theme
+        // only decides where it sits. Guests see it too unless the site requires
+        // an account, so the feature stays discoverable.
+        if (osc_users_enabled()
+            && (osc_is_web_user_logged_in() || !osc_get_preference('alerts_require_login'))
+        ) { ?>
+            <details class="folio-alert">
+                <summary><?php _e('Get an email alert', 'folio'); ?></summary>
+                <p class="muted small"><?php
+                    _e('We email you when a new listing matches this search.', 'folio'); ?></p>
+                <?php osc_alert_form(); ?>
+            </details>
+        <?php } ?>
     </aside>
 </div>
 <?php osc_get_footer(); ?>

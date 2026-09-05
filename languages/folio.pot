@@ -82,7 +82,6 @@ msgstr ""
 
 #: common/footer.php:65
 #: common/header.php:64
-#: contact.php:15
 msgid "Contact"
 msgstr ""
 
@@ -126,6 +125,10 @@ msgstr ""
 
 #: search.php:99
 msgid "From"
+msgstr ""
+
+#: search.php:120
+msgid "Get an email alert"
 msgstr ""
 
 #: item.php:29
@@ -173,8 +176,6 @@ msgid "Meet in a public place, inspect the item before paying, and never send mo
 msgstr ""
 
 #: common/contact-fields.php:45
-#: contact.php:34
-#: item-send-friend.php:39
 msgid "Message"
 msgstr ""
 
@@ -279,17 +280,8 @@ msgstr ""
 msgid "Seller"
 msgstr ""
 
-#: item-send-friend.php:44
-msgid "Send"
-msgstr ""
-
 #: common/contact-fields.php:60
-#: contact.php:41
 msgid "Send message"
-msgstr ""
-
-#: item-send-friend.php:15
-msgid "Send this listing to someone"
 msgstr ""
 
 #: item.php:131
@@ -306,10 +298,6 @@ msgstr ""
 
 #: item.php:70
 msgid "Specifications"
-msgstr ""
-
-#: contact.php:30
-msgid "Subject"
 msgstr ""
 
 #: 404.php:15
@@ -336,14 +324,6 @@ msgstr ""
 msgid "The site is being worked on right now. Please try again in a few minutes."
 msgstr ""
 
-#: item-send-friend.php:35
-msgid "Their email address"
-msgstr ""
-
-#: item-send-friend.php:31
-msgid "Their name"
-msgstr ""
-
 #: item.php:121
 msgid "This listing has expired and the seller can no longer be contacted through it."
 msgstr ""
@@ -368,6 +348,10 @@ msgstr ""
 msgid "Try fewer words, or widen the area."
 msgstr ""
 
+#: search.php:122
+msgid "We email you when a new listing matches this search."
+msgstr ""
+
 #: common/searchbar.php:29
 msgid "What are you looking for?"
 msgstr ""
@@ -378,9 +362,7 @@ msgid "Your account"
 msgstr ""
 
 #: common/contact-fields.php:32
-#: contact.php:26
 #: item-post.php:104
-#: item-send-friend.php:27
 msgid "Your email address"
 msgstr ""
 
@@ -389,9 +371,7 @@ msgid "Your listings"
 msgstr ""
 
 #: common/contact-fields.php:26
-#: contact.php:22
 #: item-post.php:100
-#: item-send-friend.php:23
 msgid "Your name"
 msgstr ""
 
