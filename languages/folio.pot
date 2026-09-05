@@ -67,12 +67,12 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: item-post.php:53
+#: item-post.php:31
 #: search.php:75
 msgid "Category"
 msgstr ""
 
-#: item-post.php:87
+#: item-post.php:65
 msgid "City"
 msgstr ""
 
@@ -90,11 +90,11 @@ msgstr ""
 msgid "Contact the seller"
 msgstr ""
 
-#: item-post.php:76
+#: item-post.php:54
 msgid "Country"
 msgstr ""
 
-#: item-post.php:63
+#: item-post.php:41
 msgid "Description"
 msgstr ""
 
@@ -102,7 +102,7 @@ msgstr ""
 msgid "Edit this listing"
 msgstr ""
 
-#: item-post.php:41
+#: item-post.php:24
 msgid "Edit your listing"
 msgstr ""
 
@@ -220,11 +220,11 @@ msgstr ""
 msgid "Phone number"
 msgstr ""
 
-#: item-post.php:93
+#: item-post.php:71
 msgid "Photographs"
 msgstr ""
 
-#: item-post.php:69
+#: item-post.php:47
 #: search.php:90
 msgid "Price"
 msgstr ""
@@ -233,13 +233,13 @@ msgstr ""
 msgid "Primary"
 msgstr ""
 
-#: item-post.php:114
+#: item-post.php:92
 msgid "Publish"
 msgstr ""
 
 #: common/footer.php:32
 #: common/header.php:66
-#: item-post.php:41
+#: item-post.php:24
 msgid "Publish a listing"
 msgstr ""
 
@@ -251,7 +251,7 @@ msgstr ""
 msgid "Reference"
 msgstr ""
 
-#: item-post.php:83
+#: item-post.php:61
 msgid "Region"
 msgstr ""
 
@@ -264,7 +264,7 @@ msgstr ""
 msgid "Results for “%s”"
 msgstr ""
 
-#: item-post.php:113
+#: item-post.php:91
 msgid "Save changes"
 msgstr ""
 
@@ -312,7 +312,7 @@ msgstr ""
 msgid "The listing may have been sold and removed, or the address may be mistyped."
 msgstr ""
 
-#: item-post.php:79
+#: item-post.php:57
 msgid "The region and city lists follow the country once the form is sent back. Both may be left blank."
 msgstr ""
 
@@ -332,7 +332,7 @@ msgstr ""
 msgid "This site"
 msgstr ""
 
-#: item-post.php:58
+#: item-post.php:36
 msgid "Title"
 msgstr ""
 
@@ -362,7 +362,7 @@ msgid "Your account"
 msgstr ""
 
 #: common/contact-fields.php:32
-#: item-post.php:104
+#: item-post.php:82
 msgid "Your email address"
 msgstr ""
 
@@ -371,7 +371,7 @@ msgid "Your listings"
 msgstr ""
 
 #: common/contact-fields.php:26
-#: item-post.php:100
+#: item-post.php:78
 msgid "Your name"
 msgstr ""
 

@@ -12,28 +12,11 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 
+// Publishing and editing are the same form. Core decides which one this is --
+// the action, the hidden fields, which record the location defaults come from --
+// so the only thing left here is the wording.
 $folio_edit   = osc_is_edit_page();
-$folio_action = $folio_edit ? 'item_edit_post' : 'item_add_post';
-$folio_loc    = $folio_edit ? osc_item() : osc_user();
 $folio_locale = osc_current_user_locale();
-
-/*
- * The region and city lists follow the country and region already chosen: the
- * posted ones when the form comes back, otherwise the listing's or the seller's.
- * Without the posted branch a visitor who changes country with no JavaScript is
- * offered the previous country's regions on the re-render.
- */
-$folio_country = Params::getParamString('countryId') !== ''
-    ? Params::getParamString('countryId')
-    : ($folio_edit ? osc_item_country_code() : osc_user_field('fk_c_country_code'));
-$folio_region  = Params::getParamInt('regionId') > 0
-    ? Params::getParamInt('regionId')
-    : ($folio_edit ? osc_item_region_id() : osc_user_field('fk_i_region_id'));
-
-if (osc_images_enabled_at_items()) {
-    osc_enqueue_script('osc-uploader');
-    osc_enqueue_style('osc-uploader');
-}
 
 osc_get_header();
 ?>
@@ -42,12 +25,7 @@ osc_get_header();
 
     <form name="item" action="<?php echo osc_esc_html(osc_base_url(true)); ?>" method="post"
           enctype="multipart/form-data" id="item-post">
-        <input type="hidden" name="page" value="item">
-        <input type="hidden" name="action" value="<?php echo osc_esc_html($folio_action); ?>">
-        <?php if ($folio_edit) { ?>
-            <input type="hidden" name="id" value="<?php echo (int) osc_item_id(); ?>">
-            <input type="hidden" name="secret" value="<?php echo osc_esc_html(osc_item_secret()); ?>">
-        <?php } ?>
+        <?php ItemForm::route_hidden(); ?>
 
         <div class="field">
             <label for="catId"><?php _e('Category', 'folio'); ?></label>
@@ -74,18 +52,18 @@ osc_get_header();
 
         <div class="field">
             <label for="countryId"><?php _e('Country', 'folio'); ?></label>
-            <?php ItemForm::country_select(osc_get_countries(), $folio_loc); ?>
+            <?php ItemForm::country_select(osc_get_countries(), ItemForm::location_record()); ?>
             <noscript>
                 <span class="hint"><?php _e('The region and city lists follow the country once the form is sent back. Both may be left blank.', 'folio'); ?></span>
             </noscript>
         </div>
         <div class="field">
             <label for="regionId"><?php _e('Region', 'folio'); ?></label>
-            <?php ItemForm::region_select(osc_get_regions($folio_country), $folio_loc); ?>
+            <?php ItemForm::region_select(osc_get_regions(ItemForm::selected_country()), ItemForm::location_record()); ?>
         </div>
         <div class="field">
             <label for="cityId"><?php _e('City', 'folio'); ?></label>
-            <?php ItemForm::city_select(osc_get_cities($folio_region), $folio_loc); ?>
+            <?php ItemForm::city_select(osc_get_cities(ItemForm::selected_region()), ItemForm::location_record()); ?>
         </div>
 
         <?php if (osc_images_enabled_at_items()) { ?>
