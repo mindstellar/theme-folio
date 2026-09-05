@@ -220,7 +220,7 @@ msgstr ""
 msgid "Phone number"
 msgstr ""
 
-#: item-post.php:71
+#: item-post.php:73
 msgid "Photographs"
 msgstr ""
 
@@ -362,7 +362,7 @@ msgid "Your account"
 msgstr ""
 
 #: common/contact-fields.php:32
-#: item-post.php:82
+#: item-post.php:84
 msgid "Your email address"
 msgstr ""
 
@@ -371,7 +371,7 @@ msgid "Your listings"
 msgstr ""
 
 #: common/contact-fields.php:26
-#: item-post.php:78
+#: item-post.php:80
 msgid "Your name"
 msgstr ""
 

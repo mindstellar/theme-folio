@@ -66,6 +66,8 @@ osc_get_header();
             <?php ItemForm::city_select(osc_get_cities(ItemForm::selected_region()), ItemForm::location_record()); ?>
         </div>
 
+        <?php ItemForm::plugin_item_fields(); ?>
+
         <?php if (osc_images_enabled_at_items()) { ?>
             <div class="field">
                 <label><?php _e('Photographs', 'folio'); ?></label>
@@ -83,8 +85,6 @@ osc_get_header();
                 <?php ItemForm::contact_email_text(); ?>
             </div>
         <?php } ?>
-
-        <?php osc_run_hook('item_form', osc_item_category_id()); ?>
 
         <div class="actions">
             <button class="btn" type="submit"><?php echo $folio_edit
