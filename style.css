@@ -44,7 +44,15 @@
 
   --rule:        light-dark(#e2e2df, #262c3a);
   --rule-mid:    light-dark(#cfcfcb, #333a4b);
-  --rule-strong: light-dark(#8a8d95, #5c6474);
+  /* The border a form control is identified by, so it answers to the 3:1 the
+     spec asks of a component boundary and not to the 4.5:1 asked of text. The
+     dark value was #5c6474, which is 2.89:1 against a card. */
+  --rule-strong: light-dark(#8a8d95, #6d7689);
+  /* A filled navy button on a dark card is navy-on-near-navy: 1.28:1, so its
+     edge -- the thing that says "this is a control" -- disappears. The fill and
+     the label stay exactly as they are; only the edge is lit, which keeps ink
+     navy the brand colour in both schemes instead of repainting it lighter. */
+  --navy-edge:   light-dark(var(--navy), #6b83d0);
 
   --link:        light-dark(#1b2c5e, #9db2ee);
   --link-hover:  light-dark(#0f1a3c, #c3d0f5);
@@ -180,6 +188,21 @@ a:hover { color: var(--link-hover); }
    at reading size beside the heading rather than as muted trim under it. */
 .tally { margin: 0; color: var(--ink-muted); font-weight: 560; white-space: nowrap; }
 
+/* What is currently applied to the set, and the way to change it. Sits directly
+   under the ruled head because that is where the eye already is after a reload,
+   and because on a narrow screen the facet column it summarises is three screens
+   further down. */
+.applied {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .25rem 1rem;
+  margin: .75rem 0 0;
+  font-size: var(--step--1);
+}
+.applied-terms { color: var(--ink-soft); font-weight: 600; }
+.applied-more { margin-inline-start: auto; font-weight: 560; }
+
 /* ---------------------------------------------------------------- chrome -- */
 
 .masthead {
@@ -300,6 +323,7 @@ a:hover { color: var(--link-hover); }
   .pager a,
   .attrib dd a,
   .empty a,
+  .applied-more,
   .ruled > .push { padding-block: .5rem; margin-block: -.5rem; display: inline-block; }
 
   .facets a { padding-block: .5625rem; }
@@ -377,7 +401,11 @@ input:user-invalid + .hint { color: var(--stop); }
 /* On the navy band the control is the one lit object in the region. */
 .searchbar-band { padding-block: 1.375rem 1.75rem; }
 .searchbar-band label { color: var(--ink-onnavy-muted); }
-.searchbar-band input { border-color: transparent; }
+/* In light the field is white on navy and needs no edge — the fill is the whole
+   signal. In dark the fill is --surface, which is darker than the band it sits
+   on (1.28:1), so the field stops being an object at all; the edge carries it
+   instead, in the same fixed on-navy ink the labels beside it use. */
+.searchbar-band input { border-color: light-dark(transparent, var(--ink-onnavy-muted)); }
 .searchbar-band input:focus { border-color: #fff; }
 .searchbar-band .btn { background: #fff; color: var(--navy); border-color: #fff; }
 .searchbar-band .btn:hover { background: var(--surface-onnavy); color: var(--navy); border-color: var(--surface-onnavy); }
@@ -404,7 +432,7 @@ input:user-invalid + .hint { color: var(--stop); }
   justify-content: center;
   gap: .5rem;
   padding: .5rem 1.25rem;
-  border: 1px solid var(--navy);
+  border: 1px solid var(--navy-edge);
   border-radius: var(--radius);
   background: var(--navy);
   color: #fff;
@@ -413,7 +441,7 @@ input:user-invalid + .hint { color: var(--stop); }
 }
 .btn:hover,
 .oe-btn:hover,
-.oe-comment-form button:hover { background: var(--navy-deep); border-color: var(--navy-deep); color: #fff; }
+.oe-comment-form button:hover { background: var(--navy-deep); border-color: var(--navy-edge); color: #fff; }
 .btn-quiet,
 .oe-btn.oe-secondary { background: var(--surface); color: var(--ink); border-color: var(--rule-strong); }
 .btn-quiet:hover,
@@ -671,6 +699,14 @@ input:user-invalid + .hint { color: var(--stop); }
   padding-block-start: 1rem;
   margin: 0;
 }
+/* The same line at the head of a form rather than the foot of an aside: it closes
+   nothing, it opens something, so the rule moves under it. */
+.safety-lead {
+  border-block-start: 0;
+  border-block-end: 1px solid var(--rule);
+  padding-block: 0 1rem;
+  margin-block-end: 1.25rem;
+}
 
 /* --------------------------------------------------------------- facets -- */
 
@@ -800,7 +836,18 @@ dialog {
    `display: none` for a closed dialog, which lays the panel out off the side of
    the page and gives the document a horizontal scrollbar. */
 dialog[open] { display: flex; flex-direction: column; }
-dialog > form { display: flex; flex-direction: column; min-block-size: 0; overflow-y: auto; }
+dialog > form {
+  display: flex;
+  flex-direction: column;
+  min-block-size: 0;
+  overflow-y: auto;
+  /* The action bar below is sticky and opaque, so the browser's own scroll-into-
+     view for a focused field has to be told that the last stretch of the
+     scrollport is spoken for. Without it a field whose top is technically inside
+     the box is considered visible, nothing scrolls, and on a short window the
+     required message textarea takes focus with none of it on screen. */
+  scroll-padding-block-end: 5rem;
+}
 dialog > form > .actions {
   position: sticky;
   inset-block-end: 0;
@@ -1110,12 +1157,12 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
   justify-content: center;
   gap: .5rem;
   padding: .5rem 1.25rem;
-  border: 1px solid var(--navy);
+  border: 1px solid var(--navy-edge);
   border-radius: var(--radius);
   background: var(--navy);
   color: #fff;
 }
-.oe-actions a.oe-primary:hover { background: var(--navy-deep); border-color: var(--navy-deep); color: #fff; }
+.oe-actions a.oe-primary:hover { background: var(--navy-deep); border-color: var(--navy-edge); color: #fff; }
 .oe-actions a.oe-secondary {
   background: var(--surface);
   color: var(--ink);

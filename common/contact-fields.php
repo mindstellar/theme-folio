@@ -22,6 +22,12 @@ if (!defined('ABS_PATH')) {
     <input type="hidden" name="page" value="item">
     <input type="hidden" name="id" value="<?php echo (int) osc_item_id(); ?>">
 
+    <?php // Above the fields, not beside the send button: advice is read before the
+    // message is written, and down there the dialog's pinned action bar covered it.
+    // The item page carries the same line, and the dialog opens over that one. ?>
+    <p class="safety safety-lead"><?php
+        _e('Meet in a public place, inspect the item before paying, and never send money in advance.', 'folio'); ?></p>
+
     <div class="field">
         <label for="yourName"><?php _e('Your name', 'folio'); ?></label>
         <input id="yourName" name="yourName" type="text" autocomplete="name" required
@@ -55,12 +61,6 @@ if (!defined('ABS_PATH')) {
     <?php } ?>
 
     <?php osc_run_hook('item_contact_form'); ?>
-
-    <?php // The item page carries this line too, and the dialog opens over it --
-    // which put the one piece of advice that matters behind the thing it is
-    // advice about. It belongs with the form wherever the form is shown. ?>
-    <p class="safety"><?php
-        _e('Meet in a public place, inspect the item before paying, and never send money in advance.', 'folio'); ?></p>
 
     <div class="actions">
         <button class="btn" type="submit"><?php _e('Send message', 'folio'); ?></button>

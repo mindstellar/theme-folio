@@ -20,18 +20,9 @@ $folio_pattern = osc_search_pattern();
 $folio_page    = osc_search_page();
 $folio_pages   = osc_search_total_pages();
 
-/*
- * Core returns the searched category as an array of ids on a category route and
- * as a string elsewhere. `(int)` on a non-empty array is 1, so casting it where
- * it is used silently rewrites every narrowed search into category 1 and marks
- * the wrong facet as current. It is normalised once, here, and read nowhere else
- * in its raw form. A theme reading this value has to do the same.
- */
-$folio_cat_raw = osc_search_category_id();
-$folio_cat     = is_array($folio_cat_raw)
-    ? (int) reset($folio_cat_raw)
-    : (int) $folio_cat_raw;
-
+// Normalised in functions.php, because the searchbar needs the same value and a
+// second copy of that cast is how one of the two copies goes wrong.
+$folio_cat      = folio_search_category_id();
 $folio_cat_name = $folio_cat > 0 ? osc_search_category_name() : '';
 
 /*
@@ -52,6 +43,52 @@ $folio_branch  = is_array($folio_cat_row) && (int) ($folio_cat_row['fk_i_parent_
  */
 $folio_scope = array_filter(array($folio_cat_name, osc_search_city()), 'strlen');
 $folio_priced = osc_search_price_min() !== '' || osc_search_price_max() !== '';
+
+/*
+ * Order. Four plain links, each one the current query with two parameters
+ * rewritten, so a catalogue can be read by price as well as front to back. Core
+ * allows i_price, dt_pub_date, dt_expiration and relevance as columns and
+ * asc/desc as the type; it hands the type back as 0 or 1, which is what the
+ * current-marker compares against.
+ *
+ * Declared up here rather than beside the facet that renders it, because the
+ * heading needs the active order's name too: the results heading read the same
+ * words whether the set was ordered by date or by price, so the one control a
+ * visitor is most likely to have just used confirmed nothing.
+ */
+$folio_order      = osc_search_order();
+$folio_order_desc = (int) osc_search_order_type() === 1;
+$folio_orders     = array(
+    array('dt_pub_date', 'desc', __('Newest first', 'folio')),
+    array('dt_pub_date', 'asc', __('Oldest first', 'folio')),
+    array('i_price', 'asc', __('Price: low to high', 'folio')),
+    array('i_price', 'desc', __('Price: high to low', 'folio')),
+);
+
+$folio_order_name = '';
+foreach ($folio_orders as $folio_o) {
+    if ($folio_order === $folio_o[0] && $folio_order_desc === ($folio_o[1] === 'desc')) {
+        $folio_order_name = $folio_o[2];
+        break;
+    }
+}
+
+// What is currently narrowing the set, in the words the facets use for it.
+$folio_applied = array();
+if ($folio_order_name !== '') {
+    $folio_applied[] = $folio_order_name;
+}
+if (osc_search_price_min() !== '' && osc_search_price_max() !== '') {
+    $folio_applied[] = sprintf(
+        __('%1$s to %2$s', 'folio'),
+        osc_format_price(((float) osc_search_price_min()) * 1000000),
+        osc_format_price(((float) osc_search_price_max()) * 1000000)
+    );
+} elseif (osc_search_price_min() !== '') {
+    $folio_applied[] = sprintf(__('From %s', 'folio'), osc_format_price(((float) osc_search_price_min()) * 1000000));
+} elseif (osc_search_price_max() !== '') {
+    $folio_applied[] = sprintf(__('Up to %s', 'folio'), osc_format_price(((float) osc_search_price_max()) * 1000000));
+}
 ?>
 <div class="record-sheet">
     <section>
@@ -64,7 +101,7 @@ $folio_priced = osc_search_price_min() !== '' || osc_search_price_max() !== '';
             <nav class="crumbs" aria-label="<?php echo osc_esc_html(__('Breadcrumb', 'folio')); ?>">
                 <a href="<?php echo osc_esc_html(osc_base_url()); ?>"><?php _e('Home', 'folio'); ?></a>
                 <span aria-hidden="true">&rsaquo;</span>
-                <a href="<?php echo osc_esc_html(osc_search_show_all_url()); ?>"><?php _e('All listings', 'folio'); ?></a>
+                <a href="<?php echo osc_esc_html(folio_browse_all_url()); ?>"><?php _e('All listings', 'folio'); ?></a>
             </nav>
         <?php } ?>
 
@@ -93,6 +130,23 @@ $folio_priced = osc_search_price_min() !== '' || osc_search_price_max() !== '';
                 printf(osc_esc_html(_n('%s listing', '%s listings', $folio_total, 'folio')),
                     osc_esc_html(number_format($folio_total))); ?></p>
         </div>
+
+        <?php
+        /*
+         * What is applied, stated where the results are rather than only in the
+         * facet column -- which on a phone begins three screens below this. The
+         * trailing link is the only visible route to the filters at any width:
+         * the skip link above is deliberately invisible until it has focus, which
+         * serves a keyboard and abandons a thumb.
+         */
+        ?>
+        <p class="applied">
+            <?php if ($folio_applied !== array()) { ?>
+                <span class="applied-terms"><?php
+                    echo osc_esc_html(implode(' · ', $folio_applied)); ?></span>
+            <?php } ?>
+            <a class="applied-more" href="#folio-facets"><?php _e('Sort and filter', 'folio'); ?></a>
+        </p>
 
         <?php if ($folio_total === 0) { ?>
             <p class="empty">
@@ -132,7 +186,7 @@ $folio_priced = osc_search_price_min() !== '' || osc_search_price_max() !== '';
                     ))); ?>"><?php _e('Remove the price range', 'folio'); ?></a>
                     <span class="sep" aria-hidden="true">&middot;</span>
                 <?php } ?>
-                <a href="<?php echo osc_esc_html(osc_search_show_all_url()); ?>"><?php _e('Show everything', 'folio'); ?></a>
+                <a href="<?php echo osc_esc_html(folio_browse_all_url()); ?>"><?php _e('Show everything', 'folio'); ?></a>
             </p>
         <?php } else { ?>
             <ol class="index">
@@ -175,14 +229,6 @@ $folio_priced = osc_search_price_min() !== '' || osc_search_price_max() !== '';
          * and asc/desc as the type; it hands the type back as 0 or 1, which is what
          * the current-marker compares against.
          */
-        $folio_order      = osc_search_order();
-        $folio_order_desc = (int) osc_search_order_type() === 1;
-        $folio_orders     = array(
-            array('dt_pub_date', 'desc', __('Newest first', 'folio')),
-            array('dt_pub_date', 'asc', __('Oldest first', 'folio')),
-            array('i_price', 'asc', __('Price: low to high', 'folio')),
-            array('i_price', 'desc', __('Price: high to low', 'folio')),
-        );
         ?>
         <details open>
             <summary><?php _e('Order', 'folio'); ?></summary>

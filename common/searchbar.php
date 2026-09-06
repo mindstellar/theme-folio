@@ -25,6 +25,19 @@ View::newInstance()->_erase('folio_search_band');
     <form action="<?php echo osc_esc_html(osc_base_url(true)); ?>" method="get" role="search"
           class="searchbar<?php echo $folio_band ? ' searchbar-band' : ''; ?>">
         <input type="hidden" name="page" value="search">
+
+        <?php
+        /*
+         * Search inside the shelf the visitor is standing on. Without this the
+         * field submitted only the pattern and the town, so typing into the box
+         * in front of you on a category page threw that category away and
+         * answered site-wide -- the most natural action on the page, silently
+         * undoing the narrowing that got you there.
+         */
+        $folio_bar_cat = folio_search_category_id();
+        if ($folio_bar_cat > 0) { ?>
+            <input type="hidden" name="sCategory" value="<?php echo $folio_bar_cat; ?>">
+        <?php } ?>
         <div class="field field-wide">
             <label for="folio-q"><?php _e('What are you looking for?', 'folio'); ?></label>
             <input id="folio-q" type="search" name="sPattern" autocomplete="off"
