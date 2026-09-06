@@ -18,7 +18,7 @@ osc_get_header();
     <section>
         <div class="ruled">
             <h1><?php _e('Latest listings', 'folio'); ?></h1>
-            <a class="push" href="<?php echo osc_esc_html(osc_search_show_all_url()); ?>"><?php
+            <a class="push" href="<?php echo osc_esc_html(folio_browse_all_url()); ?>"><?php
                 _e('Browse everything', 'folio'); ?></a>
         </div>
 

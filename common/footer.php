@@ -27,7 +27,7 @@ if (!defined('ABS_PATH')) {
             <div>
                 <h2><?php _e('Listings', 'folio'); ?></h2>
                 <nav aria-label="<?php echo osc_esc_html(__('Listings', 'folio')); ?>">
-                    <a href="<?php echo osc_esc_html(osc_search_show_all_url()); ?>"><?php _e('Browse everything', 'folio'); ?></a>
+                    <a href="<?php echo osc_esc_html(folio_browse_all_url()); ?>"><?php _e('Browse everything', 'folio'); ?></a>
                     <?php if (osc_item_post_url_in_category() !== '') { ?>
                         <a href="<?php echo osc_esc_html(osc_item_post_url_in_category()); ?>"><?php _e('Publish a listing', 'folio'); ?></a>
                     <?php } ?>

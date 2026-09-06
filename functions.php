@@ -132,6 +132,37 @@ function folio_price_html(): string
 }
 
 /**
+ * The searched category as one integer, or 0.
+ *
+ * Core returns this as an array of ids on a category route and as a string
+ * elsewhere, and `(int)` on a non-empty array is 1 -- so every place that casts
+ * it where it is used silently rewrites the search into category 1. It is
+ * normalised here and read nowhere else in its raw form. A theme reading this
+ * value has to do the same.
+ */
+function folio_search_category_id(): int
+{
+    $raw = osc_search_category_id();
+
+    return is_array($raw) ? (int) reset($raw) : (int) $raw;
+}
+
+/**
+ * The whole catalogue, with nothing narrowing it.
+ *
+ * Not osc_search_show_all_url(): despite the name that one is
+ * osc_update_search_url(), which merges into the current request and so keeps
+ * every parameter it was meant to drop. On a results page it returns the page
+ * the visitor is already on -- which made "Show everything" on a zero-result
+ * page a link back to the zero result. osc_search_url() builds from the params
+ * it is given and nothing else.
+ */
+function folio_browse_all_url(): string
+{
+    return osc_search_url(array('page' => 'search'));
+}
+
+/**
  * The shelf marks above a category, root first, as [id, name, url] rows.
  *
  * A listing's breadcrumb named its own category and nothing above it, so

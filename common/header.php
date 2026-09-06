@@ -50,8 +50,11 @@ $folio_band = osc_is_home_page() || osc_is_search_page();
     <div class="spine masthead-bar">
         <a class="wordmark" href="<?php echo osc_esc_html(osc_base_url()); ?>"><?php echo osc_esc_html(osc_page_title()); ?></a>
         <nav aria-label="<?php echo osc_esc_html(__('Primary', 'folio')); ?>">
-            <a href="<?php echo osc_esc_html(osc_search_show_all_url()); ?>"
-               <?php echo osc_is_search_page() ? 'aria-current="page"' : ''; ?>><?php _e('Browse', 'folio'); ?></a>
+            <?php // "true", not "page": this link goes to the unfiltered catalogue, so
+            // on a narrowed results page it marks the section the visitor is in and
+            // not the page they are on -- which is what it would be claiming. ?>
+            <a href="<?php echo osc_esc_html(folio_browse_all_url()); ?>"
+               <?php echo osc_is_search_page() ? 'aria-current="true"' : ''; ?>><?php _e('Browse', 'folio'); ?></a>
             <?php if (osc_users_enabled()) { ?>
                 <?php if (osc_is_web_user_logged_in()) { ?>
                     <a href="<?php echo osc_esc_html(osc_user_dashboard_url()); ?>"><?php echo osc_esc_html(osc_logged_user_name()); ?></a>
