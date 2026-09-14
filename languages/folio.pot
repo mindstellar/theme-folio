@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Folio 0.2.0\n"
+"Project-Id-Version: Folio 0.3.0\n"
 "Report-Msgid-Bugs-To: https://github.com/mindstellar/theme-folio/issues\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,6 +27,10 @@ msgid "%s photograph"
 msgid_plural "%s photographs"
 msgstr[0] ""
 msgstr[1] ""
+
+#: functions.php:136
+msgid "A short line shown in the colophon above the copyright. Leave empty to omit it."
+msgstr ""
 
 #: search.php:255
 msgid "All categories"
@@ -57,7 +61,7 @@ msgstr ""
 msgid "Back to the home page"
 msgstr ""
 
-#: functions.php:60
+#: functions.php:63
 msgid "Below the navigation, inside the navy band."
 msgstr ""
 
@@ -65,12 +69,16 @@ msgstr ""
 msgid "Bicycle, sofa, guitar…"
 msgstr ""
 
+#: functions.php:128
+msgid "Brand colour"
+msgstr ""
+
 #: item.php:39
 #: search.php:101
 msgid "Breadcrumb"
 msgstr ""
 
-#: common/header.php:57
+#: common/header.php:64
 msgid "Browse"
 msgstr ""
 
@@ -96,12 +104,12 @@ msgstr ""
 msgid "City"
 msgstr ""
 
-#: functions.php:63
+#: functions.php:66
 msgid "Colophon"
 msgstr ""
 
 #: common/footer.php:65
-#: common/header.php:67
+#: common/header.php:74
 msgid "Contact"
 msgstr ""
 
@@ -139,8 +147,16 @@ msgstr ""
 msgid "Filed under"
 msgstr ""
 
+#: functions.php:119
+msgid "Folio"
+msgstr ""
+
 #: common/footer.php:56
 msgid "Footer"
+msgstr ""
+
+#: functions.php:135
+msgid "Footer note"
 msgstr ""
 
 #: search.php:319
@@ -160,15 +176,15 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: functions.php:64
+#: functions.php:67
 msgid "In the footer, above the copyright line."
 msgstr ""
 
-#: common/footer.php:76
+#: common/footer.php:81
 msgid "Language"
 msgstr ""
 
-#: common/head.php:58
+#: common/head.php:59
 #: main.php:20
 msgid "Latest listings"
 msgstr ""
@@ -187,16 +203,20 @@ msgid "Location"
 msgstr ""
 
 #: common/footer.php:47
-#: common/header.php:63
+#: common/header.php:70
 msgid "Log in"
 msgstr ""
 
 #: common/footer.php:45
-#: common/header.php:61
+#: common/header.php:68
 msgid "Log out"
 msgstr ""
 
-#: functions.php:59
+#: functions.php:123
+msgid "Logo"
+msgstr ""
+
+#: functions.php:62
 msgid "Masthead"
 msgstr ""
 
@@ -290,7 +310,7 @@ msgstr ""
 msgid "Price: low to high"
 msgstr ""
 
-#: common/header.php:52
+#: common/header.php:59
 msgid "Primary"
 msgstr ""
 
@@ -299,7 +319,7 @@ msgid "Publish"
 msgstr ""
 
 #: common/footer.php:32
-#: common/header.php:69
+#: common/header.php:76
 #: item-post.php:23
 msgid "Publish a listing"
 msgstr ""
@@ -322,12 +342,16 @@ msgid "Region"
 msgstr ""
 
 #: common/footer.php:48
-#: common/header.php:64
+#: common/header.php:71
 msgid "Register"
 msgstr ""
 
 #: search.php:186
 msgid "Remove the price range"
+msgstr ""
+
+#: functions.php:129
+msgid "Replaces the navy the masthead and footer are painted in. Leave it as the default to change nothing."
 msgstr ""
 
 #: search.php:118
@@ -346,7 +370,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: common/head.php:58
+#: common/head.php:59
 msgid "Search results"
 msgstr ""
 
@@ -364,6 +388,10 @@ msgstr ""
 
 #: search.php:189
 msgid "Show everything"
+msgstr ""
+
+#: functions.php:124
+msgid "Shown in the masthead instead of the site name. A transparent PNG fits best."
 msgstr ""
 
 #: common/header.php:39
@@ -470,6 +498,6 @@ msgstr ""
 msgid "optional"
 msgstr ""
 
-#: common/footer.php:73
+#: common/footer.php:78
 msgid "© %1$s %2$s"
 msgstr ""

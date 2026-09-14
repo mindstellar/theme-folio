@@ -12,7 +12,10 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 
-define('FOLIO_VERSION', '0.2.0');
+define('FOLIO_VERSION', '0.3.0');
+
+/** Kept in step with the --navy token default at the top of style.css. */
+define('FOLIO_DEFAULT_NAVY', '#1b2c5e');
 
 /**
  * Where core should open and close a page it owns itself -- the account-delete
@@ -86,6 +89,113 @@ function folio_widget_zone(string $location, string $class): void
     }
 
     echo '<div class="' . osc_esc_html($class) . '">' . $html . '</div>';
+}
+
+/**
+ * Appearance settings: a logo, a brand colour, and a footer note. Declared
+ * only in the admin -- the front end reads the saved values straight from
+ * their preferences instead, through folio_setting() below.
+ *
+ * Requires Shopclass 6.3.0 with the image field. Older cores lack
+ * osc_settings_image_url(), so the page is simply not declared.
+ *
+ * Registered on 'init' like folio_widget_locations() above, because the
+ * labels are translated and translation is not ready when functions.php loads.
+ */
+function folio_register_settings(): void
+{
+    if (!defined('OC_ADMIN') || OC_ADMIN !== true || !function_exists('osc_settings_image_url')) {
+        return;
+    }
+
+    (new \mindstellar\admin\ui\FormSpec('folio'))
+        ->title(__('Folio', 'folio'))
+        ->menu('appearance')
+        ->image(
+            'logo',
+            __('Logo', 'folio'),
+            __('Shown in the masthead instead of the site name. A transparent PNG fits best.', 'folio')
+        )
+        ->color(
+            'brand_color',
+            __('Brand colour', 'folio'),
+            __('Replaces the navy the masthead and footer are painted in. Leave it as the default to change nothing.', 'folio')
+        )
+            ->default(FOLIO_DEFAULT_NAVY)
+            ->set('pattern', '/^#[0-9a-fA-F]{6}$/')
+        ->text(
+            'footer_note',
+            __('Footer note', 'folio'),
+            __('A short line shown in the colophon above the copyright. Leave empty to omit it.', 'folio')
+        )
+        ->register();
+}
+
+if (function_exists('osc_settings_image_url')) {
+    osc_add_hook('init', 'folio_register_settings');
+}
+
+/**
+ * A saved appearance setting, or $default when nothing is stored.
+ *
+ * osc_settings_value() answers null on the front end, where the settings page
+ * is never registered (see folio_register_settings() above), so this reads
+ * the preference it writes to directly instead. footer_note stays a plain,
+ * single value rather than a translated one -- one line is not worth a
+ * control per locale.
+ *
+ * @param string $name
+ * @param mixed  $default
+ *
+ * @return mixed
+ */
+function folio_setting(string $name, $default = '')
+{
+    if (!function_exists('osc_get_preference')) {
+        return $default;
+    }
+    $value = osc_get_preference($name, 'folio');
+
+    return $value === null || $value === '' ? $default : $value;
+}
+
+/**
+ * The saved brand colour as a #rrggbb hex, or the default navy when nothing
+ * valid is stored.
+ */
+function folio_brand_color(): string
+{
+    $color = (string) folio_setting('brand_color', FOLIO_DEFAULT_NAVY);
+
+    return preg_match('/^#[0-9a-fA-F]{6}$/', $color) ? $color : FOLIO_DEFAULT_NAVY;
+}
+
+/**
+ * The inline <style> overriding the navy tokens with the saved brand colour,
+ * or '' when nothing is saved, the value is the default navy, or it is not a
+ * valid #rrggbb hex -- so nothing unvalidated ever reaches the page.
+ *
+ * The dependent tokens are derived with color-mix() rather than stored as
+ * settings of their own, so one colour choice stays in step with itself in
+ * both light and dark mode.
+ */
+function folio_brand_style(): string
+{
+    $color = folio_brand_color();
+
+    if (strcasecmp($color, FOLIO_DEFAULT_NAVY) === 0) {
+        return '';
+    }
+
+    $hex = osc_esc_html($color);
+
+    return '<style>:root{'
+        . '--navy:' . $hex . ';'
+        . '--navy-deep:color-mix(in srgb,' . $hex . ' 78%,black);'
+        . '--navy-line:color-mix(in srgb,' . $hex . ' 62%,white);'
+        . '--navy-tint:light-dark(color-mix(in srgb,' . $hex . ' 12%,white),color-mix(in srgb,' . $hex . ' 30%,black));'
+        . '--navy-ink:light-dark(' . $hex . ',color-mix(in srgb,' . $hex . ' 35%,white));'
+        . '}</style>' . "\n";
 }
 
 /**

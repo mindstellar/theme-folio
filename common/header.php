@@ -45,10 +45,17 @@ if (!defined('ABS_PATH')) {
  * and the page opens on something solid rather than on a floating field.
  */
 $folio_band = osc_is_home_page() || osc_is_search_page();
+$folio_logo = function_exists('osc_settings_image_url') ? osc_settings_image_url('folio', 'logo') : '';
 ?>
 <header class="masthead">
     <div class="spine masthead-bar">
-        <a class="wordmark" href="<?php echo osc_esc_html(osc_base_url()); ?>"><?php echo osc_esc_html(osc_page_title()); ?></a>
+        <a class="wordmark" href="<?php echo osc_esc_html(osc_base_url()); ?>">
+            <?php if ($folio_logo !== '') { ?>
+                <img src="<?php echo osc_esc_html($folio_logo); ?>" alt="<?php echo osc_esc_html(osc_page_title()); ?>">
+            <?php } else { ?>
+                <?php echo osc_esc_html(osc_page_title()); ?>
+            <?php } ?>
+        </a>
         <nav aria-label="<?php echo osc_esc_html(__('Primary', 'folio')); ?>">
             <?php // "true", not "page": this link goes to the unfiltered catalogue, so
             // on a narrowed results page it marks the section the visitor is in and

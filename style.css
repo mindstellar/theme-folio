@@ -229,6 +229,9 @@ a:hover { color: var(--link-hover); }
   padding-block: .125rem;
 }
 .wordmark:hover { color: #fff; text-decoration: underline; text-underline-offset: .22em; }
+/* Sized by height, not by the file's own pixels: a site-supplied logo can be any
+   aspect ratio, so only the band height it has to fit is fixed. */
+.wordmark img { display: block; block-size: 2rem; inline-size: auto; max-inline-size: 12rem; }
 
 .masthead nav {
   display: flex;
@@ -288,6 +291,7 @@ a:hover { color: var(--link-hover); }
 }
 .colophon-mark { font-size: var(--step-1); font-weight: 620; color: #fff; margin: 0 0 .4rem; letter-spacing: -.015em; }
 .colophon nav { display: grid; gap: .5rem; justify-items: start; }
+.colophon-note { margin: 0 0 .75rem; font-size: var(--step--1); }
 .colophon-foot { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; padding-block-start: 1.25rem; font-size: var(--step--1); }
 
 /* Language switcher. Plain links, so it works before any script does; the
@@ -315,6 +319,7 @@ a:hover { color: var(--link-hover); }
   .masthead nav a { display: inline-flex; align-items: center; min-block-size: var(--tap); padding-block: 0; }
   .masthead .nav-action { min-block-size: var(--tap); }
   .wordmark { display: inline-flex; align-items: center; min-block-size: var(--tap); }
+  .wordmark img { block-size: 1.75rem; }
 
   .colophon nav a { padding-block: .4375rem; margin-block: -.4375rem; }
   .colophon .colophon-langs { gap: .25rem 1.25rem; }

@@ -75,6 +75,13 @@ The contract is documented at
 The declaration is guarded by `function_exists()`, so the theme still loads on 6.2 — where core's
 `common/header.php` + `common/footer.php` probe finds the same pair anyway.
 
+## Settings
+
+**Requires Shopclass 6.3.0.** Under **Appearance → Folio** an operator can set a logo, a
+brand colour, and a footer note. The page is declared with the settings API rather than
+hand-rolled, so core owns the form, the CSRF check and the save. On 6.2 the page does not
+appear and the theme falls back to its defaults, same as if nothing were ever set.
+
 ## The account pages are core's
 
 Folio **ships no account or sign-in views at all** — no `user-dashboard.php`, no `user-profile.php`,

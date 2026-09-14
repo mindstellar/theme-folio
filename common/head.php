@@ -35,7 +35,8 @@ if ($folio_on_item && osc_images_enabled_at_items() && osc_count_item_resources(
 <?php // Charset, viewport, title, description, keywords, canonical, and every
       // enqueued style and script -- this theme and every plugin. ?>
 <?php osc_head(); ?>
-<meta name="theme-color" content="#1b2c5e">
+<?php echo folio_brand_style(); ?>
+<meta name="theme-color" content="<?php echo osc_esc_html(folio_brand_color()); ?>">
 
 <?php // Share cards. A listing without one is shared as a bare link. ?>
 <meta property="og:type" content="<?php echo $folio_on_item ? 'product' : 'website'; ?>">
