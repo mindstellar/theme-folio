@@ -24,6 +24,25 @@ $folio_place    = array_filter(array(osc_item_city(), osc_item_region(), osc_ite
 $folio_expired  = osc_item_is_expired();
 
 /*
+ * The seller, for the record beside the price. A buyer is about to email a
+ * stranger about a used thing, and a name on its own says nothing about who
+ * they are dealing with; the year they joined and how many listings they carry
+ * are the two facts core already holds that answer it.
+ *
+ * osc_prepare_user_info() loads the item's own seller into the view, so the
+ * osc_user_* family below reads the seller and not the logged-in visitor. It
+ * moves a pointer, so it is called once.
+ */
+$folio_seller_since = '';
+$folio_seller_items = 0;
+if ($folio_seller > 0 && osc_prepare_user_info()) {
+    $folio_regdate      = osc_user_regdate();
+    $folio_stamp        = $folio_regdate === '' ? false : strtotime($folio_regdate);
+    $folio_seller_since = $folio_stamp === false ? '' : date('Y', $folio_stamp);
+    $folio_seller_items = (int) osc_user_items_validated();
+}
+
+/*
  * Three blocks, not two. The lead (what it is) and the body (what it says about
  * itself) sit in one column with the aside beside them on a wide screen; below
  * 60rem the grid collapses and the source order becomes the reading order --
@@ -117,7 +136,21 @@ $folio_expired  = osc_item_is_expired();
                         echo osc_esc_html(osc_item_contact_name()); ?></a>
                 <?php } else {
                     echo osc_esc_html(osc_item_contact_name());
-                } ?></dd>
+                } ?>
+                <?php if ($folio_seller_since !== '' || $folio_seller_items > 0) { ?>
+                    <span class="attrib-note"><?php
+                        $folio_facts = array();
+                        if ($folio_seller_since !== '') {
+                            $folio_facts[] = sprintf(__('Member since %s', 'folio'), $folio_seller_since);
+                        }
+                        if ($folio_seller_items > 0) {
+                            $folio_facts[] = sprintf(
+                                _n('%s listing', '%s listings', $folio_seller_items, 'folio'),
+                                number_format($folio_seller_items)
+                            );
+                        }
+                        echo osc_esc_html(implode(' · ', $folio_facts)); ?></span>
+                <?php } ?></dd>
 
             <?php if ($folio_place !== array()) { ?>
                 <dt><?php _e('Location', 'folio'); ?></dt>
@@ -163,6 +196,53 @@ $folio_expired  = osc_item_is_expired();
 
         <p class="safety"><?php
             _e('Meet in a public place, inspect the item before paying, and never send money in advance.', 'folio'); ?></p>
+
+        <?php
+        /*
+         * Reporting. Core has carried the route for this all along -- page=item,
+         * action=mark, one of five reasons -- and the theme simply never drew the
+         * form, so a visitor who found something wrong had nowhere to say so.
+         *
+         * A POST, because the report changes state and core checks the CSRF token
+         * it injects into any form not marked nocsrf. The old tokenless GET links
+         * are not honoured any more, which is what stopped a prefetch from
+         * reporting a listing on the visitor's behalf.
+         *
+         * Closed by default: it is the last resort on the page, not an invitation.
+         * Hidden from the owner, who has the edit action instead.
+         */
+        if (!$folio_is_owner) { ?>
+            <details class="report">
+                <summary><?php _e('Report this listing', 'folio'); ?></summary>
+                <form action="<?php echo osc_esc_html(osc_base_url(true)); ?>" method="post">
+                    <input type="hidden" name="page" value="item">
+                    <input type="hidden" name="action" value="mark">
+                    <input type="hidden" name="id" value="<?php echo (int) osc_item_id(); ?>">
+
+                    <div class="field">
+                        <label for="folio-report"><?php _e('What is wrong with it?', 'folio'); ?></label>
+                        <select id="folio-report" name="as">
+                            <option value="spam"><?php _e('Spam, or not a real listing', 'folio'); ?></option>
+                            <option value="offensive"><?php _e('Offensive content', 'folio'); ?></option>
+                            <option value="badcat"><?php _e('Filed in the wrong category', 'folio'); ?></option>
+                            <option value="repeated"><?php _e('Posted more than once', 'folio'); ?></option>
+                            <option value="expired"><?php _e('Already sold, or expired', 'folio'); ?></option>
+                        </select>
+                    </div>
+
+                    <?php // Only when core will actually check it: the report-captcha
+                    // setting is on and a provider is active. Guarded so an older core
+                    // without the preference never draws a challenge nothing verifies.
+                    if (function_exists('osc_recaptcha_reports_enabled') && osc_recaptcha_reports_enabled()
+                        && function_exists('osc_captcha_enabled') && osc_captcha_enabled()) { ?>
+                        <div class="field"><?php osc_show_captcha('report'); ?></div>
+                    <?php } ?>
+
+                    <button class="btn btn-quiet btn-block" type="submit"><?php
+                        _e('Send report', 'folio'); ?></button>
+                </form>
+            </details>
+        <?php } ?>
     </aside>
 
     <div class="entry-body">

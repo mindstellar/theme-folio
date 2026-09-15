@@ -50,9 +50,11 @@
   --rule-strong: light-dark(#8a8d95, #6d7689);
   /* A filled navy button on a dark card is navy-on-near-navy: 1.28:1, so its
      edge -- the thing that says "this is a control" -- disappears. The fill and
-     the label stay exactly as they are; only the edge is lit, which keeps ink
-     navy the brand colour in both schemes instead of repainting it lighter. */
-  --navy-edge:   light-dark(var(--navy), #6b83d0);
+     the label stay exactly as they are; only the edge is lit, which keeps the
+     brand colour itself unchanged in both schemes.
+     Mixed from --navy rather than written as a hex, so a site that sets its own
+     brand colour gets an edge of that colour and not a blue one. */
+  --navy-edge:   light-dark(var(--navy), color-mix(in srgb, var(--navy) 45%, white));
 
   --link:        light-dark(#1b2c5e, #9db2ee);
   --link-hover:  light-dark(#0f1a3c, #c3d0f5);
@@ -708,6 +710,25 @@ input:user-invalid + .hint { color: var(--stop); }
   padding-block-start: 1rem;
   margin: 0;
 }
+
+/* The two facts that say who a seller is, under their name and in the label size
+   because that is what they are -- not a claim the seller makes, a record the
+   site keeps. */
+.attrib-note { display: block; font-size: var(--step--1); color: var(--ink-muted); margin-block-start: .15rem; }
+
+/* The last resort on the page. Shut, quiet, and set apart from the actions above
+   it -- a visitor looking for it will find it, and nobody else is invited. */
+.report { margin-block-start: 1.25rem; border-block-start: 1px solid var(--rule); }
+.report > summary {
+  cursor: pointer;
+  list-style: none;
+  padding-block: .75rem;
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+}
+.report > summary::-webkit-details-marker { display: none; }
+.report > summary:hover { color: var(--ink); text-decoration: underline; }
+.report .field { margin-block-end: .75rem; }
 /* The same line at the head of a form rather than the foot of an aside: it closes
    nothing, it opens something, so the rule moves under it. */
 .safety-lead {

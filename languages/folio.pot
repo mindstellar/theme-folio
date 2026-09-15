@@ -12,17 +12,18 @@ msgstr ""
 msgid "%1$s to %2$s"
 msgstr ""
 
-#: item.php:76
+#: item.php:95
 msgid "%1$s — photograph %2$s of %3$s"
 msgstr ""
 
+#: item.php:148
 #: search.php:142
 msgid "%s listing"
 msgid_plural "%s listings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: item.php:90
+#: item.php:109
 msgid "%s photograph"
 msgid_plural "%s photographs"
 msgstr[0] ""
@@ -36,10 +37,14 @@ msgstr ""
 msgid "All categories"
 msgstr ""
 
-#: item.php:42
+#: item.php:61
 #: search.php:111
 #: search.php:139
 msgid "All listings"
+msgstr ""
+
+#: item.php:229
+msgid "Already sold, or expired"
 msgstr ""
 
 #: common/searchbar.php:53
@@ -74,7 +79,7 @@ msgstr ""
 msgid "Brand colour"
 msgstr ""
 
-#: item.php:39
+#: item.php:58
 #: search.php:108
 msgid "Breadcrumb"
 msgstr ""
@@ -114,8 +119,8 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: item.php:144
-#: item.php:155
+#: item.php:177
+#: item.php:188
 msgid "Contact the seller"
 msgstr ""
 
@@ -127,7 +132,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: item.php:150
+#: item.php:183
 msgid "Edit this listing"
 msgstr ""
 
@@ -135,16 +140,20 @@ msgstr ""
 msgid "Edit your listing"
 msgstr ""
 
-#: item.php:106
+#: item.php:125
 msgid "Expired"
 msgstr ""
 
 #: common/record.php:62
-#: item.php:108
+#: item.php:127
 msgid "Featured"
 msgstr ""
 
-#: item.php:127
+#: item.php:227
+msgid "Filed in the wrong category"
+msgstr ""
+
+#: item.php:160
 msgid "Filed under"
 msgstr ""
 
@@ -172,7 +181,7 @@ msgstr ""
 msgid "Get an email alert"
 msgstr ""
 
-#: item.php:40
+#: item.php:59
 #: search.php:109
 msgid "Home"
 msgstr ""
@@ -199,7 +208,7 @@ msgstr ""
 msgid "Listings"
 msgstr ""
 
-#: item.php:123
+#: item.php:156
 msgid "Location"
 msgstr ""
 
@@ -222,8 +231,12 @@ msgid "Masthead"
 msgstr ""
 
 #: common/contact-fields.php:29
-#: item.php:165
+#: item.php:198
 msgid "Meet in a public place, inspect the item before paying, and never send money in advance."
+msgstr ""
+
+#: item.php:144
+msgid "Member since %s"
 msgstr ""
 
 #: common/contact-fields.php:51
@@ -262,6 +275,10 @@ msgstr ""
 msgid "Nothing matched"
 msgstr ""
 
+#: item.php:226
+msgid "Offensive content"
+msgstr ""
+
 #: search.php:63
 msgid "Oldest first"
 msgstr ""
@@ -290,6 +307,10 @@ msgstr ""
 msgid "Photographs"
 msgstr ""
 
+#: item.php:228
+msgid "Posted more than once"
+msgstr ""
+
 #: search.php:217
 msgid "Previous"
 msgstr ""
@@ -299,7 +320,7 @@ msgstr ""
 msgid "Price"
 msgstr ""
 
-#: item.php:98
+#: item.php:117
 msgid "Price and seller"
 msgstr ""
 
@@ -325,11 +346,11 @@ msgstr ""
 msgid "Publish a listing"
 msgstr ""
 
-#: item.php:57
+#: item.php:76
 msgid "Published"
 msgstr ""
 
-#: item.php:131
+#: item.php:164
 msgid "Reference"
 msgstr ""
 
@@ -355,6 +376,10 @@ msgstr ""
 msgid "Replaces the navy the masthead and footer are painted in. Leave it as the default to change nothing."
 msgstr ""
 
+#: item.php:216
+msgid "Report this listing"
+msgstr ""
+
 #: search.php:130
 msgid "Results for “%1$s” in %2$s"
 msgstr ""
@@ -375,7 +400,7 @@ msgstr ""
 msgid "Search results"
 msgstr ""
 
-#: item.php:114
+#: item.php:133
 msgid "Seller"
 msgstr ""
 
@@ -383,7 +408,11 @@ msgstr ""
 msgid "Send message"
 msgstr ""
 
-#: item.php:147
+#: item.php:242
+msgid "Send report"
+msgstr ""
+
+#: item.php:180
 msgid "Send to a friend"
 msgstr ""
 
@@ -407,7 +436,11 @@ msgstr ""
 msgid "Sort and filter"
 msgstr ""
 
-#: item.php:177
+#: item.php:225
+msgid "Spam, or not a real listing"
+msgstr ""
+
+#: item.php:257
 msgid "Specifications"
 msgstr ""
 
@@ -443,7 +476,7 @@ msgstr ""
 msgid "There is nothing published here yet."
 msgstr ""
 
-#: item.php:137
+#: item.php:170
 msgid "This listing has expired and the seller can no longer be contacted through it."
 msgstr ""
 
@@ -473,6 +506,10 @@ msgstr ""
 
 #: common/searchbar.php:42
 msgid "What are you looking for?"
+msgstr ""
+
+#: item.php:223
+msgid "What is wrong with it?"
 msgstr ""
 
 #: common/footer.php:40
