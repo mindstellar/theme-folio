@@ -1,7 +1,7 @@
 <?php
 /*
  * Folio — a Shopclass public theme.
- * Copyright (c) 2026 Mindstellar Community
+ * Copyright (c) 2026 Navjot Tomer (Mindstellar) and contributors
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
  * A static page the owner wrote, and the canvas the page builder renders into.

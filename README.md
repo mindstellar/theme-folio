@@ -123,4 +123,4 @@ Pushing a `vX.Y.Z` tag runs `.github/workflows/release.yml`, which packages the 
 
 ## License
 
-GPL-3.0-or-later. © Mindstellar Community.
+GPL-3.0-or-later. © Navjot Tomer (Mindstellar) and contributors.
