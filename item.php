@@ -30,8 +30,12 @@ $folio_expired  = osc_item_is_expired();
  * are the two facts core already holds that answer it.
  *
  * osc_prepare_user_info() loads the item's own seller into the view, so the
- * osc_user_* family below reads the seller and not the logged-in visitor. It
- * moves a pointer, so it is called once.
+ * osc_user_* family below reads the seller and not the logged-in visitor.
+ *
+ * It is a one-shot loop: a second call returns false and leaves every osc_user_*
+ * helper reading an empty row. Rewinding it afterwards costs nothing and leaves
+ * the seller there for whatever runs next -- a plugin on item_detail has no way
+ * of knowing this page read it first. osc_reset_users() needs Shopclass 6.3.0.
  */
 $folio_seller_since = '';
 $folio_seller_items = 0;
@@ -40,6 +44,10 @@ if ($folio_seller > 0 && osc_prepare_user_info()) {
     $folio_stamp        = $folio_regdate === '' ? false : strtotime($folio_regdate);
     $folio_seller_since = $folio_stamp === false ? '' : date('Y', $folio_stamp);
     $folio_seller_items = (int) osc_user_items_validated();
+
+    if (function_exists('osc_reset_users')) {
+        osc_reset_users();
+    }
 }
 
 /*
