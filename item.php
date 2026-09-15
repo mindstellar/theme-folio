@@ -38,6 +38,8 @@ $folio_expired  = osc_item_is_expired();
         // visitor can climb to the section, the aisle, or the whole catalogue. ?>
         <nav class="crumbs" aria-label="<?php echo osc_esc_html(__('Breadcrumb', 'folio')); ?>">
             <a href="<?php echo osc_esc_html(osc_base_url()); ?>"><?php _e('Home', 'folio'); ?></a>
+            <span aria-hidden="true">&rsaquo;</span>
+            <a href="<?php echo osc_esc_html(folio_browse_all_url()); ?>"><?php _e('All listings', 'folio'); ?></a>
             <?php foreach (folio_category_trail((int) osc_item_category_id()) as $folio_step) { ?>
                 <span aria-hidden="true">&rsaquo;</span>
                 <a href="<?php echo osc_esc_html($folio_step['url']); ?>"><?php

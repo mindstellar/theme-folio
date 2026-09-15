@@ -498,9 +498,13 @@ input:user-invalid + .hint { color: var(--stop); }
   transition: text-decoration-color .12s ease-out;
 }
 .record :is(h2, h3) a:hover { color: var(--navy-ink); text-decoration-color: currentColor; }
-/* The title's box is the record's box, so the whole row is one target. */
+/* The title's box is the record's box, so the whole row is one target -- but the
+   text rides above that box, or it cannot be selected and a visitor cannot copy
+   a title or a price. The gaps around the text keep the row target. */
 .record :is(h2, h3) a::after { content: ""; position: absolute; inset: 0; }
-.record .plate, .record .meta a, .record .price a { position: relative; z-index: 1; }
+.record .plate,
+.record .record-body,
+.record .price { position: relative; z-index: 1; }
 
 .record .meta {
   display: flex;
@@ -745,8 +749,12 @@ input:user-invalid + .hint { color: var(--stop); }
   inline-size: .5rem;
   block-size: .5rem;
   flex: none;
-  border-inline-end: 2px solid var(--ink-muted);
-  border-block-end: 2px solid var(--ink-muted);
+  /* Physical sides on purpose. This mark points down when closed and up when
+     open, and a vertical arrow means the same in both directions -- it must not
+     mirror. The borders were logical and the rotation was not, so in RTL the
+     sides swapped, the angle did not, and the arrow came out pointing sideways. */
+  border-right: 2px solid var(--ink-muted);
+  border-bottom: 2px solid var(--ink-muted);
   transform: rotate(45deg) translate(-.1em, -.1em);
   transition: transform .15s ease-out;
 }
@@ -780,7 +788,15 @@ input:user-invalid + .hint { color: var(--stop); }
   border-inline-start: 1px solid var(--rule-mid);
   display: grid;
   gap: .125rem;
+  /* A shelf with twenty sections made the filter column three times taller than
+     the results it was filtering, so the page read as a failure on a search that
+     had worked. The sections scroll inside their own box instead. */
+  max-block-size: 17rem;
+  overflow-y: auto;
+  overscroll-behavior-block: contain;
+  scrollbar-width: thin;
 }
+.facet-sub [aria-current] { scroll-margin-block: 3rem; }
 .facets .facet-sub a { font-size: 0.9375rem; }
 .facets form { padding-block-end: 1rem; }
 .facets .field { margin-block-end: .75rem; }

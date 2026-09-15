@@ -97,11 +97,23 @@ if (osc_search_price_min() !== '' && osc_search_price_max() !== '') {
         // same object as the masthead's skip link: invisible until it has focus. ?>
         <a class="skip" href="#folio-facets"><?php _e('Skip to filters', 'folio'); ?></a>
 
-        <?php if ($folio_cat_name !== '') { ?>
+        <?php if ($folio_cat_name !== '') {
+            /*
+             * The same trail a listing shows, so one category reads the same way
+             * whether it is reached as a result set or through a listing. The last
+             * step is dropped: it is the page, and the heading under this says it.
+             */
+            $folio_crumbs = folio_category_trail($folio_cat);
+            array_pop($folio_crumbs); ?>
             <nav class="crumbs" aria-label="<?php echo osc_esc_html(__('Breadcrumb', 'folio')); ?>">
                 <a href="<?php echo osc_esc_html(osc_base_url()); ?>"><?php _e('Home', 'folio'); ?></a>
                 <span aria-hidden="true">&rsaquo;</span>
                 <a href="<?php echo osc_esc_html(folio_browse_all_url()); ?>"><?php _e('All listings', 'folio'); ?></a>
+                <?php foreach ($folio_crumbs as $folio_step) { ?>
+                    <span aria-hidden="true">&rsaquo;</span>
+                    <a href="<?php echo osc_esc_html($folio_step['url']); ?>"><?php
+                        echo osc_esc_html($folio_step['name']); ?></a>
+                <?php } ?>
             </nav>
         <?php } ?>
 
