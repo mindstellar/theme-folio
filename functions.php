@@ -12,7 +12,7 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 
-define('FOLIO_VERSION', '0.3.0');
+define('FOLIO_VERSION', '0.4.0');
 
 /** Kept in step with the --navy token default at the top of style.css. */
 define('FOLIO_DEFAULT_NAVY', '#1b2c5e');
