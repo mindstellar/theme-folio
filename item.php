@@ -106,7 +106,11 @@ if ($folio_seller > 0 && osc_prepare_user_info()) {
                 while (osc_has_item_resources()) {
                     $folio_shot_n++; ?>
                     <li>
-                        <a href="<?php echo osc_esc_html(osc_resource_url()); ?>">
+                        <?php // A plain link to the file, which is what it does with
+                        // no script: the browser shows the photograph on its own page.
+                        // footer.php upgrades it to fill the dialog below instead. ?>
+                        <a href="<?php echo osc_esc_html(osc_resource_url()); ?>"
+                           data-folio-dialog="folio-photo">
                             <img src="<?php echo osc_esc_html(osc_resource_preview_url()); ?>"
                                  alt="<?php printf(
                                      osc_esc_html(__('%1$s — photograph %2$s of %3$s', 'folio')),
@@ -126,6 +130,18 @@ if ($folio_seller > 0 && osc_prepare_user_info()) {
                     printf(osc_esc_html(_n('%s photograph', '%s photographs', $folio_shots, 'folio')),
                         osc_esc_html(number_format($folio_shots))); ?></p>
             <?php } ?>
+
+            <?php // One panel for every photograph, not one per file: a closed
+            // <dialog> still has its images in the document, and ten full-size
+            // ones would be fetched to show none of them. The script points this
+            // <img> at whichever link was followed and copies its alt across. ?>
+            <dialog id="folio-photo" class="plate-view"
+                    aria-label="<?php echo osc_esc_html(__('Photograph', 'folio')); ?>">
+                <img data-folio-plate alt="" decoding="async">
+                <form method="dialog" class="actions">
+                    <button class="btn btn-quiet"><?php _e('Close', 'folio'); ?></button>
+                </form>
+            </dialog>
         <?php } ?>
     </div>
 

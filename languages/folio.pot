@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Folio 0.3.0\n"
+"Project-Id-Version: Folio 0.4.2\n"
 "Report-Msgid-Bugs-To: https://github.com/mindstellar/theme-folio/issues\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12,18 +12,18 @@ msgstr ""
 msgid "%1$s to %2$s"
 msgstr ""
 
-#: item.php:95
+#: item.php:116
 msgid "%1$s — photograph %2$s of %3$s"
 msgstr ""
 
-#: item.php:148
+#: item.php:189
 #: search.php:142
 msgid "%s listing"
 msgid_plural "%s listings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: item.php:109
+#: item.php:130
 msgid "%s photograph"
 msgid_plural "%s photographs"
 msgstr[0] ""
@@ -37,13 +37,13 @@ msgstr ""
 msgid "All categories"
 msgstr ""
 
-#: item.php:61
+#: item.php:69
 #: search.php:111
 #: search.php:139
 msgid "All listings"
 msgstr ""
 
-#: item.php:229
+#: item.php:270
 msgid "Already sold, or expired"
 msgstr ""
 
@@ -79,7 +79,7 @@ msgstr ""
 msgid "Brand colour"
 msgstr ""
 
-#: item.php:58
+#: item.php:74
 #: search.php:108
 msgid "Breadcrumb"
 msgstr ""
@@ -110,6 +110,10 @@ msgstr ""
 msgid "City"
 msgstr ""
 
+#: item.php:142
+msgid "Close"
+msgstr ""
+
 #: functions.php:66
 msgid "Colophon"
 msgstr ""
@@ -119,8 +123,8 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: item.php:177
-#: item.php:188
+#: item.php:218
+#: item.php:229
 msgid "Contact the seller"
 msgstr ""
 
@@ -132,7 +136,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: item.php:183
+#: item.php:224
 msgid "Edit this listing"
 msgstr ""
 
@@ -140,20 +144,20 @@ msgstr ""
 msgid "Edit your listing"
 msgstr ""
 
-#: item.php:125
+#: item.php:166
 msgid "Expired"
 msgstr ""
 
-#: common/record.php:62
-#: item.php:127
+#: common/record.php:71
+#: item.php:168
 msgid "Featured"
 msgstr ""
 
-#: item.php:227
+#: item.php:268
 msgid "Filed in the wrong category"
 msgstr ""
 
-#: item.php:160
+#: item.php:201
 msgid "Filed under"
 msgstr ""
 
@@ -181,7 +185,7 @@ msgstr ""
 msgid "Get an email alert"
 msgstr ""
 
-#: item.php:59
+#: item.php:68
 #: search.php:109
 msgid "Home"
 msgstr ""
@@ -194,7 +198,7 @@ msgstr ""
 msgid "Language"
 msgstr ""
 
-#: common/head.php:59
+#: common/head.php:67
 #: main.php:20
 msgid "Latest listings"
 msgstr ""
@@ -208,7 +212,7 @@ msgstr ""
 msgid "Listings"
 msgstr ""
 
-#: item.php:156
+#: item.php:197
 msgid "Location"
 msgstr ""
 
@@ -231,11 +235,11 @@ msgid "Masthead"
 msgstr ""
 
 #: common/contact-fields.php:29
-#: item.php:198
+#: item.php:239
 msgid "Meet in a public place, inspect the item before paying, and never send money in advance."
 msgstr ""
 
-#: item.php:144
+#: item.php:185
 msgid "Member since %s"
 msgstr ""
 
@@ -255,7 +259,7 @@ msgstr ""
 msgid "No listing matches “%s”."
 msgstr ""
 
-#: common/record.php:44
+#: common/record.php:52
 msgid "No photo"
 msgstr ""
 
@@ -275,7 +279,7 @@ msgstr ""
 msgid "Nothing matched"
 msgstr ""
 
-#: item.php:226
+#: item.php:267
 msgid "Offensive content"
 msgstr ""
 
@@ -303,11 +307,15 @@ msgstr ""
 msgid "Phone number"
 msgstr ""
 
+#: item.php:139
+msgid "Photograph"
+msgstr ""
+
 #: item-post.php:74
 msgid "Photographs"
 msgstr ""
 
-#: item.php:228
+#: item.php:269
 msgid "Posted more than once"
 msgstr ""
 
@@ -320,7 +328,7 @@ msgstr ""
 msgid "Price"
 msgstr ""
 
-#: item.php:117
+#: item.php:150
 msgid "Price and seller"
 msgstr ""
 
@@ -346,11 +354,11 @@ msgstr ""
 msgid "Publish a listing"
 msgstr ""
 
-#: item.php:76
+#: item.php:93
 msgid "Published"
 msgstr ""
 
-#: item.php:164
+#: item.php:205
 msgid "Reference"
 msgstr ""
 
@@ -376,7 +384,7 @@ msgstr ""
 msgid "Replaces the navy the masthead and footer are painted in. Leave it as the default to change nothing."
 msgstr ""
 
-#: item.php:216
+#: item.php:257
 msgid "Report this listing"
 msgstr ""
 
@@ -396,11 +404,11 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: common/head.php:59
+#: common/head.php:67
 msgid "Search results"
 msgstr ""
 
-#: item.php:133
+#: item.php:174
 msgid "Seller"
 msgstr ""
 
@@ -408,11 +416,11 @@ msgstr ""
 msgid "Send message"
 msgstr ""
 
-#: item.php:242
+#: item.php:283
 msgid "Send report"
 msgstr ""
 
-#: item.php:180
+#: item.php:221
 msgid "Send to a friend"
 msgstr ""
 
@@ -436,11 +444,11 @@ msgstr ""
 msgid "Sort and filter"
 msgstr ""
 
-#: item.php:225
+#: item.php:266
 msgid "Spam, or not a real listing"
 msgstr ""
 
-#: item.php:257
+#: item.php:298
 msgid "Specifications"
 msgstr ""
 
@@ -476,7 +484,7 @@ msgstr ""
 msgid "There is nothing published here yet."
 msgstr ""
 
-#: item.php:170
+#: item.php:211
 msgid "This listing has expired and the seller can no longer be contacted through it."
 msgstr ""
 
@@ -508,7 +516,7 @@ msgstr ""
 msgid "What are you looking for?"
 msgstr ""
 
-#: item.php:223
+#: item.php:264
 msgid "What is wrong with it?"
 msgstr ""
 

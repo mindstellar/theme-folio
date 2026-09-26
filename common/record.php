@@ -35,14 +35,23 @@ View::newInstance()->_exportVariableToView('folio_row', $folio_row);
 $folio_eager = $folio_row === 1;
 ?>
 <li class="record">
-    <?php if ($folio_shot) { ?>
-        <img class="plate" src="<?php echo osc_esc_html(osc_resource_thumbnail_url()); ?>" alt=""
-             width="240" height="200" decoding="async"
-             loading="<?php echo $folio_eager ? 'eager' : 'lazy'; ?>"<?php
-             echo $folio_eager ? ' fetchpriority="high"' : ''; ?>>
-    <?php } else { ?>
-        <span class="plate plate-empty"><?php _e('No photo', 'folio'); ?></span>
-    <?php } ?>
+    <?php // The photograph is the largest, most obviously clickable thing in the
+    // row, so it carries the link itself rather than relying on the title's
+    // stretched box -- which cannot reach it, because the text block it comes
+    // from has to sit above that box to stay selectable. It repeats the title's
+    // target, so it is taken out of the tab order and hidden from assistive
+    // technology: one entry announces one link, not two. ?>
+    <a class="plate-link" href="<?php echo osc_esc_html(osc_item_url()); ?>"
+       tabindex="-1" aria-hidden="true">
+        <?php if ($folio_shot) { ?>
+            <img class="plate" src="<?php echo osc_esc_html(osc_resource_thumbnail_url()); ?>" alt=""
+                 width="240" height="200" decoding="async"
+                 loading="<?php echo $folio_eager ? 'eager' : 'lazy'; ?>"<?php
+                 echo $folio_eager ? ' fetchpriority="high"' : ''; ?>>
+        <?php } else { ?>
+            <span class="plate plate-empty"><?php _e('No photo', 'folio'); ?></span>
+        <?php } ?>
+    </a>
 
     <div class="record-body">
         <p class="classmark"><?php echo osc_esc_html(osc_item_category()); ?></p>

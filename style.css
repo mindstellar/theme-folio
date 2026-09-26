@@ -500,13 +500,19 @@ input:user-invalid + .hint { color: var(--stop); }
   transition: text-decoration-color .12s ease-out;
 }
 .record :is(h2, h3) a:hover { color: var(--navy-ink); text-decoration-color: currentColor; }
-/* The title's box is the record's box, so the whole row is one target -- but the
-   text rides above that box, or it cannot be selected and a visitor cannot copy
-   a title or a price. The gaps around the text keep the row target. */
+/* The title's box is stretched over the whole text block, so the place, the date
+   and the gaps between them are all part of the same target. The block has to be
+   positioned for its text to ride above that box -- without it the box swallows
+   mousedown and a visitor cannot select a title -- and that positioning is also
+   what bounds the box to this column. The photograph therefore cannot be reached
+   from here at all; .plate-link is the link that covers it. */
+.record .record-body { position: relative; z-index: 1; }
 .record :is(h2, h3) a::after { content: ""; position: absolute; inset: 0; }
-.record .plate,
-.record .record-body,
 .record .price { position: relative; z-index: 1; }
+/* Wrapper only: the box is the plate's, and the plate sets its own size. It
+   carries no link styling of its own -- the "No photo" stand-in is text, and
+   inside a bare <a> it came out underlined and in link ink. */
+.record .plate-link { display: block; color: inherit; text-decoration: none; }
 
 .record .meta {
   display: flex;
@@ -604,8 +610,12 @@ input:user-invalid + .hint { color: var(--stop); }
 .record-sheet > .entry-lead { grid-column: 1; grid-row: 1; }
 .record-sheet > .entry-body { grid-column: 1; grid-row: 2; }
 .record-sheet > .aside      { grid-column: 2; grid-row: 1 / span 2; }
-/* The last thing in the lead carries its own margin; the grid gap adds the rest. */
-.entry-lead > :last-child { margin-block-end: 0; }
+/* The last thing in the lead carries its own margin; the grid gap adds the rest.
+   A <dialog> is exempt: it is out of flow and has no trailing margin to trim,
+   but it does centre itself in the window by resolving `margin: auto` -- so
+   pinning its bottom margin to zero drops the panel against the bottom edge of
+   the screen. Written at the end of the block, it is the last child. */
+.entry-lead > :last-child:not(dialog) { margin-block-end: 0; }
 
 @media (max-width: 60rem) {
   .record-sheet { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
@@ -919,6 +929,44 @@ dialog h2 { margin-block-start: 0; }
 .dialog-subject .price .amount { font-size: var(--step-1); }
 dialog::backdrop { background: rgb(10 14 26 / .55); }
 
+/* A photograph at the size the page cannot give it. The panel is only a frame,
+   so it is wider than a form dialog and carries almost no padding. The picture
+   is bounded in both axes -- a tall photograph must not push the close button
+   off the bottom of the window. */
+/* The frame takes the photograph's width too, so a portrait picture is not
+   stranded in the middle of a landscape panel. Floored so the button row below
+   it still has somewhere to sit. */
+.plate-view {
+  inline-size: fit-content;
+  min-inline-size: min(18rem, calc(100vw - 2rem));
+  max-inline-size: min(60rem, calc(100vw - 2rem));
+  padding: .75rem;
+}
+/* The panel is a frame around the photograph and takes its size, so a small
+   picture does not sit in a large grey box. The photograph opts out of the flex
+   column's stretch -- left in it, a small one was pulled to the full width of
+   the panel and grew taller than the window with it -- and is allowed to shrink
+   when the window is short. Bounded in both axes; a replaced element keeps its
+   own ratio between them. The reserve is the panel's padding, the button row,
+   and the gap the dialog keeps from the edge of the window. */
+.plate-view img {
+  align-self: center;
+  flex: 0 1 auto;
+  min-block-size: 0;
+  max-inline-size: 100%;
+  max-block-size: calc(100dvh - 12rem);
+  inline-size: auto;
+  block-size: auto;
+  border-radius: calc(var(--radius) - 2px);
+  background: var(--sunk);
+}
+.plate-view > form {
+  display: block;
+  overflow: visible;
+  text-align: end;
+  padding-block-start: .75rem;
+}
+
 /* ---------------------------------------------------------------- notice -- */
 
 .notice {
@@ -949,6 +997,40 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
 .flashmessage-warning { background: var(--warn-tint); border-color: var(--warn); color: var(--warn); }
 .flashmessage-info    { background: var(--navy-tint); border-color: var(--navy-line); color: var(--navy-ink); }
 .flashmessage a { color: inherit; }
+/* Core prints the dismiss control as an <a> with no href, no role and no
+   tabindex, styled by whatever the theme makes of `.btn .ico-close`. It cannot
+   be operated without script, so it stays hidden until the footer script gives
+   it a role -- which is also what makes it a real control rather than a button
+   shape that swallows clicks. The `.btn` shorthands have to be undone here:
+   the classes are core's and the anchor is not a page button. */
+.flashmessage .ico-close { display: none; }
+.flashmessage .ico-close[role="button"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  float: inline-end;
+  inline-size: var(--tap);
+  block-size: var(--tap);
+  min-block-size: 0;
+  /* A 44px target next to a 24px line. The block margins pull it back so the
+     glyph sits on the first line instead of hanging below it, and so the
+     control adds no height to a one-line message. */
+  margin-block: -.625rem;
+  margin-inline: .75rem -.4375rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  background: none;
+  color: inherit;
+  font-size: 1rem;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+.flashmessage .ico-close[role="button"]:hover {
+  background: color-mix(in srgb, currentColor 12%, transparent);
+  color: inherit;
+}
 
 .empty {
   border: 1px dashed var(--rule-mid);

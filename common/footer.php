@@ -97,19 +97,61 @@ if (!defined('ABS_PATH')) {
 
 <?php
 /*
- * The theme's entire script budget. Any link carrying data-folio-dialog opens
- * the matching <dialog> in place instead of navigating; without this the link
- * still goes to the page it names, which is why it is a link and not a button.
+ * The theme's entire script budget, and all of it is enhancement: every control
+ * it touches either works without it or is hidden until it runs.
+ *
+ * Any link carrying data-folio-dialog opens the matching <dialog> in place
+ * instead of navigating; without this the link still goes to the page it names,
+ * which is why it is a link and not a button. A dialog holding an
+ * [data-folio-plate] image is a reusable frame: the link's own target and alt
+ * text are moved into it, so one panel serves every photograph on the page.
+ *
+ * Core prints a dismiss control on its flash messages as an <a> with no href
+ * and no role, and leaves operating it to the theme. It is given the role,
+ * tab stop and name here -- the stylesheet keeps it out of the page until that
+ * has happened, so with scripting off there is no button that does nothing.
  */
 ?>
 <script>
+document.querySelectorAll('.flashmessage .ico-close').forEach(function (b) {
+    b.setAttribute('role', 'button');
+    b.setAttribute('tabindex', '0');
+    b.setAttribute('aria-label', b.dataset.ocCloseLabel || 'Close');
+});
+
 document.addEventListener('click', function (e) {
-    var a = e.target instanceof Element ? e.target.closest('[data-folio-dialog]') : null;
+    var el = e.target instanceof Element ? e.target : null;
+    if (!el) { return; }
+
+    var x = el.closest('.flashmessage .ico-close[role="button"]');
+    if (x) {
+        e.preventDefault();
+        x.closest('.flashmessage').remove();
+        return;
+    }
+
+    var a = el.closest('[data-folio-dialog]');
     if (!a) { return; }
     var d = document.getElementById(a.dataset.folioDialog);
     if (!d || typeof d.showModal !== 'function') { return; }
+    var plate = d.querySelector('[data-folio-plate]');
+    if (plate) {
+        var shot = a.querySelector('img');
+        plate.src = a.href;
+        plate.alt = shot ? shot.alt : '';
+    }
     e.preventDefault();
     d.showModal();
+});
+
+/* A role=button element is not a button: Enter and Space have to be wired up. */
+document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') { return; }
+    var x = e.target instanceof Element
+        ? e.target.closest('.flashmessage .ico-close[role="button"]') : null;
+    if (!x) { return; }
+    e.preventDefault();
+    x.click();
 });
 </script>
 
