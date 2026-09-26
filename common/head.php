@@ -31,6 +31,13 @@ if ($folio_on_item && osc_images_enabled_at_items() && osc_count_item_resources(
     }
     osc_reset_resources();
 }
+// Every other page shares the site logo, when it is a raster image a share card can show.
+if ($folio_share_image === '' && function_exists('osc_settings_image_url')) {
+    $folio_logo = (string) osc_settings_image_url('folio', 'logo');
+    if ($folio_logo !== '' && !preg_match('/\.svg$/i', $folio_logo)) {
+        $folio_share_image = $folio_logo;
+    }
+}
 ?>
 <?php // Charset, viewport, title, description, keywords, canonical, and every
       // enqueued style and script -- this theme and every plugin. ?>
@@ -41,12 +48,13 @@ if ($folio_on_item && osc_images_enabled_at_items() && osc_count_item_resources(
 <?php // Share cards. A listing without one is shared as a bare link. ?>
 <meta property="og:type" content="<?php echo $folio_on_item ? 'product' : 'website'; ?>">
 <meta property="og:site_name" content="<?php echo osc_esc_html(osc_page_title()); ?>">
+<meta property="og:locale" content="<?php echo osc_esc_html(osc_current_user_locale()); ?>">
 <meta property="og:title" content="<?php echo osc_esc_html($folio_on_item ? osc_item_title() : strip_tags(meta_title())); ?>">
 <?php if ($folio_desc !== '') { ?>
 <meta property="og:description" content="<?php echo osc_esc_html($folio_desc); ?>">
 <?php } ?>
 <?php if (osc_get_canonical() !== '') { ?>
-<meta property="og:url" content="<?php echo osc_get_canonical(); ?>">
+<meta property="og:url" content="<?php echo osc_esc_html(osc_get_canonical()); ?>">
 <?php } ?>
 <?php if ($folio_share_image !== '') { ?>
 <meta property="og:image" content="<?php echo osc_esc_html($folio_share_image); ?>">

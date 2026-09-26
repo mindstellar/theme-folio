@@ -63,15 +63,24 @@ if ($folio_seller > 0 && osc_prepare_user_info()) {
     <div class="entry-lead">
         <?php // The whole shelf mark, not just the last segment: from a listing the
         // visitor can climb to the section, the aisle, or the whole catalogue. ?>
+        <?php
+        $folio_crumbs = array(
+            array('url' => osc_base_url(), 'name' => __('Home', 'folio')),
+            array('url' => folio_browse_all_url(), 'name' => __('All listings', 'folio')),
+        );
+        foreach (folio_category_trail((int) osc_item_category_id()) as $folio_step) {
+            $folio_crumbs[] = $folio_step;
+        } ?>
         <nav class="crumbs" aria-label="<?php echo osc_esc_html(__('Breadcrumb', 'folio')); ?>">
-            <a href="<?php echo osc_esc_html(osc_base_url()); ?>"><?php _e('Home', 'folio'); ?></a>
-            <span aria-hidden="true">&rsaquo;</span>
-            <a href="<?php echo osc_esc_html(folio_browse_all_url()); ?>"><?php _e('All listings', 'folio'); ?></a>
-            <?php foreach (folio_category_trail((int) osc_item_category_id()) as $folio_step) { ?>
-                <span aria-hidden="true">&rsaquo;</span>
-                <a href="<?php echo osc_esc_html($folio_step['url']); ?>"><?php
-                    echo osc_esc_html($folio_step['name']); ?></a>
-            <?php } ?>
+            <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+                <?php foreach ($folio_crumbs as $folio_n => $folio_step) { ?>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><?php
+                        if ($folio_n > 0) { ?><span aria-hidden="true">&rsaquo;</span> <?php } ?><a itemprop="item" href="<?php
+                        echo osc_esc_html($folio_step['url']); ?>"><span itemprop="name"><?php
+                        echo osc_esc_html($folio_step['name']); ?></span></a><meta itemprop="position" content="<?php
+                        echo $folio_n + 1; ?>"></li>
+                <?php } ?>
+            </ol>
         </nav>
 
         <header class="entry-head">
@@ -123,8 +132,16 @@ if ($folio_seller > 0 && osc_prepare_user_info()) {
     <?php // Named, so it is announced as what it is rather than as a bare
     // "complementary" -- this block is the whole decision: price, seller, action. ?>
     <aside class="aside" aria-label="<?php echo osc_esc_html(__('Price and seller', 'folio')); ?>">
-        <p class="figure-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-            <span itemprop="price"><?php echo folio_price_html(); ?></span>
+        <?php // An Offer needs a numeric price and a currency; without both it is left out.
+        $folio_currency = (string) osc_item_currency();
+        $folio_offer    = osc_item_price() !== null && $folio_currency !== ''; ?>
+        <p class="figure-price"<?php echo $folio_offer ? ' itemprop="offers" itemscope itemtype="https://schema.org/Offer"' : ''; ?>>
+            <?php echo folio_price_html(); ?>
+            <?php if ($folio_offer) { ?>
+                <meta itemprop="price" content="<?php echo osc_esc_html((string) (osc_item_price() / 1000000)); ?>">
+                <meta itemprop="priceCurrency" content="<?php echo osc_esc_html($folio_currency); ?>">
+                <link itemprop="availability" href="https://schema.org/<?php echo $folio_expired ? 'OutOfStock' : 'InStock'; ?>">
+            <?php } ?>
         </p>
 
         <?php if (osc_item_is_premium() || $folio_expired) { ?>
