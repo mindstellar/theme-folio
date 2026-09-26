@@ -34,7 +34,7 @@ if ($folio_on_item && osc_images_enabled_at_items() && osc_count_item_resources(
 // Every other page shares the site logo, when it is a raster image a share card can show.
 if ($folio_share_image === '' && function_exists('osc_settings_image_url')) {
     $folio_logo = (string) osc_settings_image_url('folio', 'logo');
-    if ($folio_logo !== '' && !preg_match('/\.svg$/i', $folio_logo)) {
+    if ($folio_logo !== '' && !preg_match('/\.svg$/i', (string) parse_url($folio_logo, PHP_URL_PATH))) {
         $folio_share_image = $folio_logo;
     }
 }
