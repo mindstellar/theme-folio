@@ -1,7 +1,7 @@
 # Folio
 
-A minimal public theme for [Shopclass](https://github.com/mindstellar/shopclass). Typography-first,
-no framework, no build step — and the reference implementation of the theme chrome contract.
+A minimal public theme for [ShopClass](https://github.com/mindstellar/shopclass). Typography-first,
+no framework, no build step. It is also the reference implementation of the theme chrome contract.
 
 ## The premise
 
@@ -14,7 +14,7 @@ comes from logical properties, so there is no second stylesheet for either.
 What that buys:
 
 - **One stylesheet.** `style.css`, ~26 KB unminified, hand-written, no preprocessor. Design tokens
-  are CSS custom properties at the top of the file — change the palette or the type scale by editing
+  are CSS custom properties at the top of the file. Change the palette or the type scale by editing
   them.
 - **Eight lines of JavaScript**, inline in the footer, with no library behind them: a click delegate
   that opens a `<dialog>` in place. Every link it enhances is a real link first, so the page works
@@ -35,12 +35,12 @@ After changing any UI string, regenerate the catalogue:
 node bin/i18n.mjs
 ```
 
-Node's standard library only — no npm, no install step. The tool is not part of
+Node's standard library only: no npm, no install step. The tool is not part of
 the release archive.
 
 ## Requirements
 
-- Shopclass 6.3.0 or newer
+- ShopClass 6.3.0 or newer
 - PHP 8.0 or newer
 
 ## Install
@@ -49,7 +49,7 @@ Download `folio_X.Y.Z.zip` from the [releases](https://github.com/mindstellar/th
 unzip it into `oc-content/themes/` so you have `oc-content/themes/folio/`, and activate it under
 **Settings → Appearance**.
 
-For local development, clone next to your Shopclass checkout and symlink it in:
+For local development, clone next to your ShopClass checkout and symlink it in:
 
 ```bash
 git clone git@github.com:mindstellar/theme-folio.git
@@ -72,19 +72,19 @@ osc_add_theme_support('chrome', array(
 
 The contract is documented at
 [mindstellar.com/docs/developers/theme-chrome](https://mindstellar.com/docs/developers/theme-chrome/).
-The declaration is guarded by `function_exists()`, so the theme still loads on 6.2 — where core's
+The declaration is guarded by `function_exists()`, so the theme still loads on 6.2, where core's
 `common/header.php` + `common/footer.php` probe finds the same pair anyway.
 
 ## Settings
 
-**Requires Shopclass 6.3.0.** Under **Appearance → Folio** an operator can set a logo, a
+**Requires ShopClass 6.3.0.** Under **Appearance → Folio** an operator can set a logo, a
 brand colour, and a footer note. The page is declared with the settings API rather than
 hand-rolled, so core owns the form, the CSRF check and the save. On 6.2 the page does not
 appear and the theme falls back to its defaults, same as if nothing were ever set.
 
 ## The account pages are core's
 
-Folio **ships no account or sign-in views at all** — no `user-dashboard.php`, no `user-profile.php`,
+Folio **ships no account or sign-in views at all**: no `user-dashboard.php`, no `user-profile.php`,
 no `user-login.php`, none of the thirteen. Core draws them, between Folio's masthead and Folio's
 footer, and `style.css` restyles them through the class names core publishes for that purpose. There
 is no PHP involved on this theme's side.
@@ -94,7 +94,7 @@ with core for no gain. The vocabulary is documented at
 [mindstellar.com/docs/developers/account-pages](https://mindstellar.com/docs/developers/account-pages/);
 the block that styles it is the last section of `style.css`.
 
-Adding one back is a matter of dropping the file in — the theme's view wins over core's, per page,
+Adding one back is a matter of dropping the file in. The theme's view wins over core's, per page,
 with nothing to declare.
 
 ## Plugin hooks
@@ -108,7 +108,7 @@ Folio fires the hook names existing plugins already target:
 | `item_contact_form`, `contact_form` | Inside the seller-contact and site-contact forms |
 | `user_dashboard`, `user_alerts` | Account pages (fired by core, inside this theme's chrome) |
 | `user_form`, `user_profile_form`, `user_register_form` | Account and registration forms (same) |
-| `user_menu`, `user_menu_filter` | The account nav — how a plugin adds an entry to it |
+| `user_menu`, `user_menu_filter` | The account nav, and how a plugin adds an entry to it |
 
 ## Translations
 
