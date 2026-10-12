@@ -202,7 +202,7 @@ if (osc_search_price_min() !== '' && osc_search_price_max() !== '') {
             </p>
         <?php } else { ?>
             <ol class="index">
-                <?php View::newInstance()->_exportVariableToView('folio_heading', 'h2');
+                <?php View::getInstance()->_exportVariableToView('folio_heading', 'h2');
                 while (osc_has_items()) {
                     osc_current_web_theme_path('common/record.php');
                 } ?>

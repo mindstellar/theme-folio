@@ -45,7 +45,7 @@ if (!defined('ABS_PATH')) {
  * and the page opens on something solid rather than on a floating field.
  */
 $folio_band = osc_is_home_page() || osc_is_search_page();
-$folio_logo = function_exists('osc_settings_image_url') ? osc_settings_image_url('folio', 'logo') : '';
+$folio_logo = osc_settings_image_url('folio', 'logo');
 ?>
 <header class="masthead">
     <div class="spine masthead-bar">
@@ -80,7 +80,7 @@ $folio_logo = function_exists('osc_settings_image_url') ? osc_settings_image_url
 
     <?php if ($folio_band) { ?>
         <div class="spine masthead-band">
-            <?php View::newInstance()->_exportVariableToView('folio_search_band', true);
+            <?php View::getInstance()->_exportVariableToView('folio_search_band', true);
             osc_current_web_theme_path('common/searchbar.php'); ?>
         </div>
     <?php } ?>
