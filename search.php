@@ -140,7 +140,7 @@ if (osc_search_price_min() !== '' && osc_search_price_max() !== '') {
                 } ?></h1>
             <p class="tally push"><?php
                 printf(osc_esc_html(_n('%s listing', '%s listings', $folio_total, 'folio')),
-                    osc_esc_html(number_format($folio_total))); ?></p>
+                    osc_esc_html(function_exists('osc_search_total_text') ? osc_search_total_text() : number_format($folio_total))); ?></p>
         </div>
 
         <?php
