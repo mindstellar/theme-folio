@@ -904,6 +904,8 @@ dialog > form {
      required message textarea takes focus with none of it on screen. */
   scroll-padding-block-end: 5rem;
 }
+/* The form scrolls, so an outline outside the field is clipped at the sides. Draw it on the border. */
+dialog > form :is(input, select, textarea):focus-visible { outline-offset: -1px; }
 dialog > form > .actions {
   position: sticky;
   inset-block-end: 0;
