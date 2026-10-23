@@ -252,6 +252,19 @@ function folio_browse_all_url(): string
     return osc_search_url(array('page' => 'search'));
 }
 
+/** Core's Messages link with its unread badge, or '' when core has no messaging. */
+function folio_messaging_link(): string
+{
+    return function_exists('osc_messaging_link') ? osc_messaging_link() : '';
+}
+
+/** Whether the contact form on the current listing sends a message instead of an e-mail. */
+function folio_item_uses_messaging(): bool
+{
+    return function_exists('osc_item_uses_messaging') && osc_item_uses_messaging()
+        && is_file(ABS_PATH . 'oc-includes/osclass/gui/parts/contact-form.php');
+}
+
 /**
  * The shelf marks above a category, root first, as [id, name, url] rows.
  *

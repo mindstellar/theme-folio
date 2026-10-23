@@ -65,6 +65,7 @@ $folio_logo = osc_settings_image_url('folio', 'logo');
             <?php if (osc_users_enabled()) { ?>
                 <?php if (osc_is_web_user_logged_in()) { ?>
                     <a href="<?php echo osc_esc_html(osc_user_dashboard_url()); ?>"><?php echo osc_esc_html(osc_logged_user_name()); ?></a>
+                    <?php echo folio_messaging_link(); ?>
                     <a href="<?php echo osc_esc_html(osc_user_logout_url()); ?>"><?php _e('Log out', 'folio'); ?></a>
                 <?php } else { ?>
                     <a href="<?php echo osc_esc_html(osc_user_login_url()); ?>"><?php _e('Log in', 'folio'); ?></a>
