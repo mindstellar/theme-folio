@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Folio 0.5.0\n"
+"Project-Id-Version: Folio 0.6.0\n"
 "Report-Msgid-Bugs-To: https://github.com/mindstellar/theme-folio/issues\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,7 +55,7 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: common/contact-fields.php:74
+#: common/contact-fields.php:67
 msgid "Attachment"
 msgstr ""
 
@@ -97,7 +97,8 @@ msgstr ""
 msgid "Browse everything"
 msgstr ""
 
-#: common/contact-fields.php:89
+#: common/contact-fields.php:24
+#: common/contact-fields.php:82
 msgid "Cancel"
 msgstr ""
 
@@ -235,7 +236,7 @@ msgid "Masthead"
 msgstr ""
 
 #: common/contact-fields.php:21
-#: common/contact-fields.php:46
+#: common/contact-fields.php:39
 #: item.php:237
 msgid "Meet in a public place, inspect the item before paying, and never send money in advance."
 msgstr ""
@@ -244,7 +245,7 @@ msgstr ""
 msgid "Member since %s"
 msgstr ""
 
-#: common/contact-fields.php:68
+#: common/contact-fields.php:61
 msgid "Message"
 msgstr ""
 
@@ -304,7 +305,7 @@ msgstr ""
 msgid "Pages"
 msgstr ""
 
-#: common/contact-fields.php:62
+#: common/contact-fields.php:55
 msgid "Phone number"
 msgstr ""
 
@@ -413,7 +414,7 @@ msgstr ""
 msgid "Seller"
 msgstr ""
 
-#: common/contact-fields.php:83
+#: common/contact-fields.php:76
 msgid "Send message"
 msgstr ""
 
@@ -469,7 +470,7 @@ msgstr ""
 msgid "The region and city lists follow the country once the form is sent back. Both may be left blank."
 msgstr ""
 
-#: common/contact-fields.php:58
+#: common/contact-fields.php:51
 msgid "The seller replies to this address."
 msgstr ""
 
@@ -526,7 +527,7 @@ msgstr ""
 msgid "Your account"
 msgstr ""
 
-#: common/contact-fields.php:55
+#: common/contact-fields.php:48
 #: item-post.php:85
 msgid "Your email address"
 msgstr ""
@@ -535,13 +536,13 @@ msgstr ""
 msgid "Your listings"
 msgstr ""
 
-#: common/contact-fields.php:49
+#: common/contact-fields.php:42
 #: item-post.php:81
 msgid "Your name"
 msgstr ""
 
-#: common/contact-fields.php:63
-#: common/contact-fields.php:75
+#: common/contact-fields.php:56
+#: common/contact-fields.php:68
 msgid "optional"
 msgstr ""
 
