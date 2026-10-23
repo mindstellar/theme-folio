@@ -25,7 +25,7 @@ if (!defined('ABS_PATH')) {
         'prefix'    => 'folio-contact',
         'captcha'   => 'contact_seller',
         'hooks'     => static function () {
-            osc_run_hook('item_contact_form');
+            osc_run_hook('item_contact_form', osc_item_id());
         },
         'messaging' => true,
     );
@@ -82,7 +82,7 @@ if (!defined('ABS_PATH')) {
         </div>
     <?php } ?>
 
-    <?php osc_run_hook('item_contact_form'); ?>
+    <?php osc_run_hook('item_contact_form', osc_item_id()); ?>
 
     <div class="actions">
         <button class="btn" type="submit"><?php _e('Send message', 'folio'); ?></button>
