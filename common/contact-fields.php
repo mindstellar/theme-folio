@@ -31,6 +31,11 @@ if (!defined('ABS_PATH')) {
     );
     require_once ABS_PATH . 'oc-includes/osclass/gui/page-fn.php';
     require ABS_PATH . 'oc-includes/osclass/gui/parts/contact-form.php';
+    ?>
+    <form class="dialog-close" method="dialog">
+        <button class="btn btn-quiet" type="submit" formnovalidate><?php _e('Cancel', 'folio'); ?></button>
+    </form>
+    <?php
     return;
 } ?>
 <form action="<?php echo osc_esc_html(osc_base_url(true)); ?>" method="post"
