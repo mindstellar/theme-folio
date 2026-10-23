@@ -19,19 +19,7 @@ if (!defined('ABS_PATH')) {
 <?php if (folio_item_uses_messaging()) { ?>
     <p class="safety safety-lead"><?php
         _e('Meet in a public place, inspect the item before paying, and never send money in advance.', 'folio'); ?></p>
-    <?php
-    $contactForm = array(
-        'hidden'    => array('page' => 'item', 'action' => 'contact_post', 'id' => (int) osc_item_id()),
-        'prefix'    => 'folio-contact',
-        'captcha'   => 'contact_seller',
-        'hooks'     => static function () {
-            osc_run_hook('item_contact_form', osc_item_id());
-        },
-        'messaging' => true,
-    );
-    require_once ABS_PATH . 'oc-includes/osclass/gui/page-fn.php';
-    require ABS_PATH . 'oc-includes/osclass/gui/parts/contact-form.php';
-    ?>
+    <?php osc_item_contact_form(array('prefix' => 'folio-contact')); ?>
     <form class="dialog-close" method="dialog">
         <button class="btn btn-quiet" type="submit" formnovalidate><?php _e('Cancel', 'folio'); ?></button>
     </form>
