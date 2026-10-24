@@ -19,7 +19,7 @@ if (!defined('ABS_PATH')) {
 // Set by the caller through the View container: core require()s this file from a
 // function, so a local in the calling template is not in scope here.
 $folio_band = (bool) __get('folio_search_band');
-View::newInstance()->_erase('folio_search_band');
+View::getInstance()->_erase('folio_search_band');
 ?>
 <search>
     <form action="<?php echo osc_esc_html(osc_base_url(true)); ?>" method="get" role="search"

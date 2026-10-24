@@ -12,7 +12,7 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 
-define('FOLIO_VERSION', '0.4.3');
+define('FOLIO_VERSION', '0.6.0');
 
 /** Kept in step with the --navy token default at the top of style.css. */
 define('FOLIO_DEFAULT_NAVY', '#1b2c5e');
@@ -22,16 +22,11 @@ define('FOLIO_DEFAULT_NAVY', '#1b2c5e');
  * confirmation, the credits pages. Without this, core probes for header.php +
  * footer.php and then common/header.php + common/footer.php; Folio declares the
  * pair outright so the resolution never depends on where the files happen to sit.
- *
- * Requires Shopclass 6.3.0. Older cores ignore an unknown function, so the guard
- * keeps the theme loadable on 6.2 -- where the common/ probe answers anyway.
  */
-if (function_exists('osc_add_theme_support')) {
-    osc_add_theme_support('chrome', array(
-        'header' => 'common/header.php',
-        'footer' => 'common/footer.php',
-    ));
-}
+osc_add_theme_support('chrome', array(
+    'header' => 'common/header.php',
+    'footer' => 'common/footer.php',
+));
 
 /**
  * Core owns the document head: charset, viewport, title, description, keywords
@@ -42,18 +37,13 @@ if (function_exists('osc_add_theme_support')) {
  * names the current search on a results page, which is what a reader subscribing
  * from there expects to get.
  */
-if (function_exists('osc_add_theme_support')) {
-    osc_add_theme_support('head', array('feed' => false));
-}
+osc_add_theme_support('head', array('feed' => false));
 
 /**
  * The two places this theme renders widgets, named for the admin screen that
  * places them. Declared on `init` rather than at load: the labels are
  * translated, and the translation layer is initialised after a theme's
  * functions.php has already been required.
- *
- * Requires Shopclass 6.3.0. Older cores fall back to the `Widgets:` line in
- * index.php, which still lists both.
  */
 function folio_widget_locations(): void
 {
@@ -69,9 +59,7 @@ function folio_widget_locations(): void
     ));
 }
 
-if (function_exists('osc_add_theme_support')) {
-    osc_add_hook('init', 'folio_widget_locations');
-}
+osc_add_hook('init', 'folio_widget_locations');
 
 /**
  * One widget zone. Rendered into a buffer first so a zone holding nothing --
@@ -96,15 +84,12 @@ function folio_widget_zone(string $location, string $class): void
  * only in the admin -- the front end reads the saved values straight from
  * their preferences instead, through folio_setting() below.
  *
- * Requires Shopclass 6.3.0 with the image field. Older cores lack
- * osc_settings_image_url(), so the page is simply not declared.
- *
  * Registered on 'init' like folio_widget_locations() above, because the
  * labels are translated and translation is not ready when functions.php loads.
  */
 function folio_register_settings(): void
 {
-    if (!defined('OC_ADMIN') || OC_ADMIN !== true || !function_exists('osc_settings_image_url')) {
+    if (!defined('OC_ADMIN') || OC_ADMIN !== true) {
         return;
     }
 
@@ -131,9 +116,7 @@ function folio_register_settings(): void
         ->register();
 }
 
-if (function_exists('osc_settings_image_url')) {
-    osc_add_hook('init', 'folio_register_settings');
-}
+osc_add_hook('init', 'folio_register_settings');
 
 /**
  * A saved appearance setting, or $default when nothing is stored.
@@ -151,9 +134,6 @@ if (function_exists('osc_settings_image_url')) {
  */
 function folio_setting(string $name, $default = '')
 {
-    if (!function_exists('osc_get_preference')) {
-        return $default;
-    }
     $value = osc_get_preference($name, 'folio');
 
     return $value === null || $value === '' ? $default : $value;
@@ -270,6 +250,18 @@ function folio_search_category_id(): int
 function folio_browse_all_url(): string
 {
     return osc_search_url(array('page' => 'search'));
+}
+
+/** Core's Messages link with its unread badge, or '' when core has no messaging. */
+function folio_messaging_link(): string
+{
+    return function_exists('osc_messaging_link') ? osc_messaging_link() : '';
+}
+
+/** Whether the contact form on the current listing sends a message instead of an e-mail. */
+function folio_item_uses_messaging(): bool
+{
+    return function_exists('osc_item_contact_form') && osc_item_uses_messaging();
 }
 
 /**

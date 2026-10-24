@@ -35,7 +35,7 @@ $folio_expired  = osc_item_is_expired();
  * It is a one-shot loop: a second call returns false and leaves every osc_user_*
  * helper reading an empty row. Rewinding it afterwards costs nothing and leaves
  * the seller there for whatever runs next -- a plugin on item_detail has no way
- * of knowing this page read it first. osc_reset_users() needs Shopclass 6.3.0.
+ * of knowing this page read it first.
  */
 $folio_seller_since = '';
 $folio_seller_items = 0;
@@ -45,9 +45,7 @@ if ($folio_seller > 0 && osc_prepare_user_info()) {
     $folio_seller_since = $folio_stamp === false ? '' : date('Y', $folio_stamp);
     $folio_seller_items = (int) osc_user_items_validated();
 
-    if (function_exists('osc_reset_users')) {
-        osc_reset_users();
-    }
+    osc_reset_users();
 }
 
 /*
@@ -272,10 +270,8 @@ if ($folio_seller > 0 && osc_prepare_user_info()) {
                     </div>
 
                     <?php // Only when core will actually check it: the report-captcha
-                    // setting is on and a provider is active. Guarded so an older core
-                    // without the preference never draws a challenge nothing verifies.
-                    if (function_exists('osc_recaptcha_reports_enabled') && osc_recaptcha_reports_enabled()
-                        && function_exists('osc_captcha_enabled') && osc_captcha_enabled()) { ?>
+                    // setting is on and a provider is active.
+                    if (osc_recaptcha_reports_enabled() && osc_captcha_enabled()) { ?>
                         <div class="field"><?php osc_show_captcha('report'); ?></div>
                     <?php } ?>
 

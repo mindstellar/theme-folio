@@ -40,7 +40,7 @@ the release archive.
 
 ## Requirements
 
-- ShopClass 6.3.0 or newer
+- Shopclass 7.0.0 or newer
 - PHP 8.0 or newer
 
 ## Install
@@ -72,15 +72,12 @@ osc_add_theme_support('chrome', array(
 
 The contract is documented at
 [mindstellar.com/docs/developers/theme-chrome](https://mindstellar.com/docs/developers/theme-chrome/).
-The declaration is guarded by `function_exists()`, so the theme still loads on 6.2, where core's
-`common/header.php` + `common/footer.php` probe finds the same pair anyway.
 
 ## Settings
 
-**Requires ShopClass 6.3.0.** Under **Appearance → Folio** an operator can set a logo, a
+Under **Appearance → Folio** an operator can set a logo, a
 brand colour, and a footer note. The page is declared with the settings API rather than
-hand-rolled, so core owns the form, the CSRF check and the save. On 6.2 the page does not
-appear and the theme falls back to its defaults, same as if nothing were ever set.
+hand-rolled, so core owns the form, the CSRF check and the save.
 
 ## The account pages are core's
 

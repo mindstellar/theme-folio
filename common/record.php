@@ -31,7 +31,7 @@ $folio_shot = osc_images_enabled_at_items() && osc_has_item_resources();
 // plate below it stays lazy. Counted through the View container, because core
 // require()s this file from a function and a static would not survive the loop.
 $folio_row = (int) __get('folio_row') + 1;
-View::newInstance()->_exportVariableToView('folio_row', $folio_row);
+View::getInstance()->_exportVariableToView('folio_row', $folio_row);
 $folio_eager = $folio_row === 1;
 ?>
 <li class="record">
