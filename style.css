@@ -904,6 +904,8 @@ dialog > form {
      required message textarea takes focus with none of it on screen. */
   scroll-padding-block-end: 5rem;
 }
+/* The form scrolls, so an outline outside the field is clipped at the sides. Draw it on the border. */
+dialog > form :is(input, select, textarea):focus-visible { outline-offset: -1px; }
 dialog > form > .actions {
   position: sticky;
   inset-block-end: 0;
@@ -912,6 +914,8 @@ dialog > form > .actions {
   background: var(--surface);
   border-block-start: 1px solid var(--rule);
 }
+/* The Cancel under core's message form, which has no button of the theme's own. */
+dialog > form.dialog-close { flex: none; overflow: visible; align-items: flex-start; margin-block-start: .5rem; }
 dialog h2 { margin-block-start: 0; }
 /* What the visitor is about to write about: the listing they were looking at, in
    the record's own vocabulary. The dialog covers the page that carried both. */
@@ -1343,3 +1347,47 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
   color: var(--stop);
   border-radius: var(--radius);
 }
+
+/* Core's messaging pages read their colours from --oe-* tokens that are light-only
+   hex values. Pointing them at the theme's tokens lets the inbox follow dark mode. */
+.oe-page {
+  --oe-ink: var(--ink);
+  --oe-ink-muted: var(--ink-muted);
+  --oe-bench: var(--surface);
+  --oe-bench-sunk: var(--sunk);
+  --oe-bench-warm: var(--wash);
+  --oe-rule: var(--rule);
+  --oe-teal: var(--link);
+  --oe-teal-deep: var(--link-hover);
+  --oe-danger: var(--stop);
+  --oe-warning: var(--warn);
+  --oe-success: var(--ok);
+}
+.oe-page .oe-badge.oe-unread { background: var(--navy); color: var(--ink-onnavy); }
+.oe-page .oe-message { border-radius: var(--radius); }
+.oe-page .oe-message.is-mine { background: var(--navy-tint); border-color: var(--navy-line); }
+.oe-page .oe-message.is-held { background: var(--warn-tint); }
+.oe-page .oe-thread.oe-panel { background: var(--surface); border-color: var(--rule-mid); }
+
+/* Core's message form (.oe-field, .oe-label) in the contact dialog, and its
+   Messages link (.oe-msg-link) in the masthead. */
+.oe-field { margin-block-end: 1.125rem; }
+.oe-label { display: block; font-size: var(--step--1); font-weight: 600; margin-block-end: .375rem; color: var(--ink-soft); }
+.oe-actions { display: flex; flex-wrap: wrap; gap: .875rem; align-items: center; margin-block-start: 1.5rem; }
+.oe-muted { color: var(--ink-muted); font-size: var(--step--1); }
+.oe-form-error { color: var(--stop); font-weight: 600; }
+.oe-msg-link { display: inline-flex; align-items: center; gap: .4rem; }
+.masthead nav .oe-badge.oe-unread {
+  min-inline-size: 1.25rem;
+  padding: 0 .35rem;
+  border-radius: 99rem;
+  background: #fff;
+  color: var(--navy);
+  font-size: .75rem;
+  font-weight: 700;
+  line-height: 1.25rem;
+  text-align: center;
+}
+.masthead nav .oe-badge[hidden] { display: none; }
+.oe-page .oe-compose .oe-actions { justify-content: flex-end; }
+@media (max-width: 40rem) { .oe-page .oe-compose .oe-actions { justify-content: stretch; } .oe-page .oe-compose .oe-actions .oe-btn { inline-size: 100%; } }

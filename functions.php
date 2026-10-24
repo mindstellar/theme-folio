@@ -12,7 +12,7 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 
-define('FOLIO_VERSION', '0.5.0');
+define('FOLIO_VERSION', '0.6.0');
 
 /** Kept in step with the --navy token default at the top of style.css. */
 define('FOLIO_DEFAULT_NAVY', '#1b2c5e');
@@ -250,6 +250,18 @@ function folio_search_category_id(): int
 function folio_browse_all_url(): string
 {
     return osc_search_url(array('page' => 'search'));
+}
+
+/** Core's Messages link with its unread badge, or '' when core has no messaging. */
+function folio_messaging_link(): string
+{
+    return function_exists('osc_messaging_link') ? osc_messaging_link() : '';
+}
+
+/** Whether the contact form on the current listing sends a message instead of an e-mail. */
+function folio_item_uses_messaging(): bool
+{
+    return function_exists('osc_item_contact_form') && osc_item_uses_messaging();
 }
 
 /**

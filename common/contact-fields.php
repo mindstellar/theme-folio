@@ -16,6 +16,16 @@ if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
 ?>
+<?php if (folio_item_uses_messaging()) { ?>
+    <p class="safety safety-lead"><?php
+        _e('Meet in a public place, inspect the item before paying, and never send money in advance.', 'folio'); ?></p>
+    <?php osc_item_contact_form(array('prefix' => 'folio-contact')); ?>
+    <form class="dialog-close" method="dialog">
+        <button class="btn btn-quiet" type="submit" formnovalidate><?php _e('Cancel', 'folio'); ?></button>
+    </form>
+    <?php
+    return;
+} ?>
 <form action="<?php echo osc_esc_html(osc_base_url(true)); ?>" method="post"
       <?php if (osc_item_attachment()) { echo 'enctype="multipart/form-data"'; } ?>>
     <input type="hidden" name="action" value="contact_post">
@@ -60,7 +70,7 @@ if (!defined('ABS_PATH')) {
         </div>
     <?php } ?>
 
-    <?php osc_run_hook('item_contact_form'); ?>
+    <?php osc_run_hook('item_contact_form', osc_item_id()); ?>
 
     <div class="actions">
         <button class="btn" type="submit"><?php _e('Send message', 'folio'); ?></button>
