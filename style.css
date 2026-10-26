@@ -1099,16 +1099,16 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
 @layer shopclass {
   .oe-page h2 { font-size: var(--step-1); font-weight: 600; margin: 0 0 .75rem; }
   .oe-page .oe-doc { max-inline-size: 880px; margin: 0 auto; padding: 2rem 1rem 4rem; }
-  .oe-page .oe-panel, .oe-page .oe-bill-card {
+  .oe-page .oe-panel {
     background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius);
     padding: 1.25rem 1.5rem; margin-block-end: 1.25rem;
   }
-  .oe-btn, .oe-bill-btn, .oe-actions a.oe-primary, .oe-actions a.oe-secondary {
+  .oe-btn, .oe-actions a.oe-primary, .oe-actions a.oe-secondary {
     display: inline-block; text-decoration: none; border: 1px solid var(--navy-edge); border-radius: var(--radius);
     padding: .5rem 1.125rem; font: inherit; font-weight: 500; cursor: pointer;
     background: var(--navy); color: #fff;
   }
-  .oe-btn:hover, .oe-bill-btn:hover, .oe-actions a.oe-primary:hover { background: var(--navy-deep); }
+  .oe-btn:hover, .oe-actions a.oe-primary:hover { background: var(--navy-deep); }
   .oe-btn-danger, .oe-btn.oe-btn-danger { background: var(--stop); border-color: var(--stop); color: #fff; }
   .oe-actions, .oe-bill-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-block-start: 1rem; }
   .oe-actions a.oe-secondary, .oe-btn.oe-secondary { background: var(--surface); color: var(--ink); border-color: var(--rule-strong); }
@@ -1122,14 +1122,14 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
   .oe-page fieldset { border: 0; margin: 0 0 1.25rem; padding: 0; }
   .oe-page legend { font-weight: 600; font-size: var(--step-1); margin: 0 0 .75rem; padding: 0; }
   .oe-page input[type=radio], .oe-page input[type=checkbox] { accent-color: var(--navy); }
-  .oe-page .oe-table, .oe-page .oe-bill table { inline-size: 100%; border-collapse: collapse; font-size: .9375rem; }
-  .oe-page .oe-table :is(th, td), .oe-page .oe-bill :is(th, td) {
+  .oe-page .oe-table { inline-size: 100%; border-collapse: collapse; font-size: .9375rem; }
+  .oe-page .oe-table :is(th, td) {
     text-align: start; padding: .625rem .5rem; border-block-end: 1px solid var(--rule);
   }
-  .oe-page .oe-table th, .oe-page .oe-bill th {
+  .oe-page .oe-table th {
     color: var(--ink-muted); font-weight: 600; font-size: var(--step--1); text-transform: uppercase; letter-spacing: .04em;
   }
-  .oe-page .oe-num, .oe-page .oe-bill-num { text-align: end; font-variant-numeric: tabular-nums; }
+  .oe-page .oe-num { text-align: end; font-variant-numeric: tabular-nums; }
   .oe-page .oe-scroll { overflow-x: auto; }
   @media (max-width: 40rem) {
     .oe-page .oe-bill thead { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
@@ -1139,9 +1139,9 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
     .oe-page .oe-bill td[data-label]::before { content: attr(data-label); color: var(--ink-muted); font-size: var(--step--1); text-align: start; }
   }
   .oe-muted, .oe-bill-sub { color: var(--ink-muted); margin: .25rem 0 0; font-size: .875rem; }
-  .oe-page .oe-empty, .oe-page .oe-bill-empty { color: var(--ink-muted); padding: 1.5rem 0; text-align: center; }
-  .oe-page .oe-pager, .oe-page .oe-bill-pager { display: flex; justify-content: space-between; margin-block-start: 1rem; font-size: .875rem; }
-  .oe-page .oe-pager a, .oe-page .oe-bill-pager a { text-decoration: none; }
+  .oe-page .oe-empty { color: var(--ink-muted); padding: 1.5rem 0; text-align: center; }
+  .oe-page .oe-pager { display: flex; justify-content: space-between; margin-block-start: 1rem; font-size: .875rem; }
+  .oe-page .oe-pager a { text-decoration: none; }
   .oe-page .oe-figure, .oe-page .oe-bill-balance { font-size: 2rem; font-weight: 700; margin: 0; }
   .oe-page .oe-figure.neg, .oe-page .oe-bill-balance.neg { color: var(--stop); }
   .oe-page .oe-badge, .oe-page .oe-bill-badge { display: inline-block; padding: .1rem .5rem; border-radius: 999px; font-size: .75rem; font-weight: 500; }
@@ -1253,8 +1253,8 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
   .oe-comment-body { margin: .35rem 0 0; }
   .oe-comment-actions { margin-block-start: .35rem; font-size: .875em; }
   .oe-comment-delete { color: var(--stop); }
-  .oe-comments-pager { margin-block-start: 1rem; }
-  .oe-comments-empty { color: var(--ink-muted); }
+  .oe-comments .oe-pager { margin-block-start: 1rem; }
+  .oe-comments .oe-empty { color: var(--ink-muted); }
   .oe-comments-gate { margin-block-start: 1.5rem; }
   .oe-comment-form { margin-block-start: 1.5rem; display: grid; gap: .75rem; max-inline-size: 40rem; }
   .oe-comment-form .oe-field { display: grid; gap: .25rem; margin: 0; }
