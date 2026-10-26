@@ -40,6 +40,12 @@ osc_add_theme_support('chrome', array(
 osc_add_theme_support('head', array('feed' => false));
 
 /**
+ * Folio styles core's own pages and the comments block in style.css, so core's
+ * stylesheets are not printed. Cores before 7.1 ignore this and print them.
+ */
+osc_add_theme_support('core-styles', false);
+
+/**
  * The two places this theme renders widgets, named for the admin screen that
  * places them. Declared on `init` rather than at load: the labels are
  * translated, and the translation layer is initialised after a theme's

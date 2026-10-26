@@ -1093,6 +1093,191 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
 
+/* ------------------------------------------------------ core page defaults -- */
+/* Core's base rules for its own pages and the comments block, on this theme's
+   tokens; the theme opts out of core's sheets. Layered so every rule below wins. */
+@layer shopclass {
+  .oe-page h2 { font-size: var(--step-1); font-weight: 600; margin: 0 0 .75rem; }
+  .oe-page .oe-doc { max-inline-size: 880px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+  .oe-page .oe-panel, .oe-page .oe-bill-card {
+    background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius);
+    padding: 1.25rem 1.5rem; margin-block-end: 1.25rem;
+  }
+  .oe-btn, .oe-bill-btn, .oe-actions a.oe-primary, .oe-actions a.oe-secondary {
+    display: inline-block; text-decoration: none; border: 1px solid var(--navy-edge); border-radius: var(--radius);
+    padding: .5rem 1.125rem; font: inherit; font-weight: 500; cursor: pointer;
+    background: var(--navy); color: #fff;
+  }
+  .oe-btn:hover, .oe-bill-btn:hover, .oe-actions a.oe-primary:hover { background: var(--navy-deep); }
+  .oe-btn-danger, .oe-btn.oe-btn-danger { background: var(--stop); border-color: var(--stop); color: #fff; }
+  .oe-actions, .oe-bill-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-block-start: 1rem; }
+  .oe-actions a.oe-secondary, .oe-btn.oe-secondary { background: var(--surface); color: var(--ink); border-color: var(--rule-strong); }
+  .oe-field { margin: 0 0 1rem; }
+  .oe-label { display: block; font-weight: 500; margin-block-end: .375rem; }
+  .oe-input {
+    font: inherit; inline-size: 100%; max-inline-size: 320px; padding: .5rem .625rem;
+    background: var(--surface); color: var(--ink); border: 1px solid var(--rule-strong); border-radius: var(--radius);
+  }
+  .oe-input:focus-visible { outline: 2px solid var(--link); outline-offset: 1px; }
+  .oe-page fieldset { border: 0; margin: 0 0 1.25rem; padding: 0; }
+  .oe-page legend { font-weight: 600; font-size: var(--step-1); margin: 0 0 .75rem; padding: 0; }
+  .oe-page input[type=radio], .oe-page input[type=checkbox] { accent-color: var(--navy); }
+  .oe-page .oe-table, .oe-page .oe-bill table { inline-size: 100%; border-collapse: collapse; font-size: .9375rem; }
+  .oe-page .oe-table :is(th, td), .oe-page .oe-bill :is(th, td) {
+    text-align: start; padding: .625rem .5rem; border-block-end: 1px solid var(--rule);
+  }
+  .oe-page .oe-table th, .oe-page .oe-bill th {
+    color: var(--ink-muted); font-weight: 600; font-size: var(--step--1); text-transform: uppercase; letter-spacing: .04em;
+  }
+  .oe-page .oe-num, .oe-page .oe-bill-num { text-align: end; font-variant-numeric: tabular-nums; }
+  .oe-page .oe-scroll { overflow-x: auto; }
+  @media (max-width: 40rem) {
+    .oe-page .oe-bill thead { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); }
+    .oe-page .oe-bill :is(table, tbody, tr, td) { display: block; }
+    .oe-page .oe-bill tr { padding-block: .5rem; border-block-end: 1px solid var(--rule); }
+    .oe-page .oe-bill td { display: flex; justify-content: space-between; gap: 1rem; padding: .25rem 0; border: 0; text-align: end; }
+    .oe-page .oe-bill td[data-label]::before { content: attr(data-label); color: var(--ink-muted); font-size: var(--step--1); text-align: start; }
+  }
+  .oe-muted, .oe-bill-sub { color: var(--ink-muted); margin: .25rem 0 0; font-size: .875rem; }
+  .oe-page .oe-empty, .oe-page .oe-bill-empty { color: var(--ink-muted); padding: 1.5rem 0; text-align: center; }
+  .oe-page .oe-pager, .oe-page .oe-bill-pager { display: flex; justify-content: space-between; margin-block-start: 1rem; font-size: .875rem; }
+  .oe-page .oe-pager a, .oe-page .oe-bill-pager a { text-decoration: none; }
+  .oe-page .oe-figure, .oe-page .oe-bill-balance { font-size: 2rem; font-weight: 700; margin: 0; }
+  .oe-page .oe-figure.neg, .oe-page .oe-bill-balance.neg { color: var(--stop); }
+  .oe-page .oe-badge, .oe-page .oe-bill-badge { display: inline-block; padding: .1rem .5rem; border-radius: 999px; font-size: .75rem; font-weight: 500; }
+  .oe-page .oe-bill-badge.paid { background: var(--ok-tint); color: var(--ok); }
+  .oe-page .oe-bill-badge.pending { background: var(--warn-tint); color: var(--warn); }
+  .oe-page .oe-bill-badge:is(.failed, .cancelled) { background: var(--stop-tint); color: var(--stop); }
+  .oe-page .oe-bill-badge.refunded { background: var(--sunk); color: var(--ink-muted); }
+  .oe-page :is(.oe-choice, .oe-bill-pkg, .oe-bill-gw) { border: 1px solid var(--rule); border-radius: var(--radius); padding: .875rem 1rem; margin-block-end: .625rem; }
+  .oe-page :is(.oe-choice, .oe-bill-pkg, .oe-bill-gw) label { display: flex; align-items: center; gap: .75rem; inline-size: 100%; margin: 0; cursor: pointer; font-weight: 400; }
+  .oe-page .oe-bill-pkg-name { font-weight: 600; }
+  .oe-page .oe-bill-pkg-credits { color: var(--ink-muted); font-size: .875rem; }
+  .oe-page .oe-bill-pkg-price { margin-inline-start: auto; font-weight: 600; white-space: nowrap; }
+  .oe-page .oe-bill-instructions { white-space: pre-line; }
+  .oe-page .oe-account > * { min-inline-size: 0; }
+  .oe-page .oe-account-main > :last-child { margin-block-end: 0; }
+  .oe-page .oe-account-nav ul { list-style: none; margin: 0; padding: 0; }
+  .oe-page .oe-account-nav a { display: block; padding: .5rem .625rem; margin-inline: -.625rem; text-decoration: none; color: inherit; }
+  .oe-page .flashmessage { border: 1px solid var(--rule); border-radius: var(--radius); padding: .75rem 1rem; margin: 0 0 1.25rem; }
+  .oe-page .flashmessage > :last-child { margin-block-end: 0; }
+  .oe-page .oe-list { list-style: none; margin: 0; padding: 0; }
+  .oe-page .oe-list-item > .oe-list-body { min-inline-size: 0; }
+  .oe-page .oe-list-item h2 { margin: 0; font-size: var(--step-1); overflow-wrap: anywhere; }
+  .oe-page .oe-list-item h3 { overflow-wrap: anywhere; }
+  .oe-page .oe-meta { display: flex; flex-wrap: wrap; align-items: center; }
+  .oe-page .oe-row-actions { margin-block-start: .25rem; }
+  .oe-page .oe-dashboard-intro { margin-block-end: .75rem; }
+  .oe-page .oe-dashboard-actions { margin-block-end: 1.5rem; }
+  .oe-page .oe-group { border: 0; padding: 0; margin: 0 0 1.75rem; min-inline-size: 0; }
+  .oe-page .oe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 0 1rem; }
+  .oe-page .oe-avatar-field { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 1rem; }
+  .oe-page .oe-avatar-empty { opacity: .7; }
+  .oe-page .oe-dashboard-title { margin-block-start: .5rem; }
+  .oe-page .oe-dashboard-more { margin-block-start: .75rem; }
+  .oe-page .oe-danger-link { color: var(--stop); }
+  .oe-page .oe-row-promote { font-size: var(--step--1); }
+  .oe-page .oe-inline-form { display: inline; margin: 0; }
+  .oe-page .oe-link-btn { font: inherit; color: var(--link); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+  .oe-page .oe-link-btn.oe-danger-link { color: var(--stop); }
+  .oe-page .oe-tabs { display: flex; flex-wrap: wrap; gap: .25rem; margin: 0 0 1rem; border-block-end: 1px solid var(--rule); }
+  .oe-page .oe-tabs a { padding: .5rem .75rem; text-decoration: none; color: var(--ink-muted); border-block-end: 2px solid transparent; margin-block-end: -1px; }
+  .oe-page .oe-tabs a:hover { color: var(--ink); }
+  .oe-page .oe-tabs [aria-current] { color: var(--ink); font-weight: 600; border-block-end-color: currentColor; }
+  .oe-page .oe-danger { margin-block-start: 3rem; padding-block-start: 1.5rem; border-block-start: 1px solid var(--rule); }
+  .oe-page .oe-danger h2 { color: var(--stop); }
+  .oe-page .oe-profile-head { margin-block-end: 1.5rem; }
+  .oe-page .oe-contact-open { white-space: nowrap; }
+  .oe-page .oe-field-error { color: var(--stop); }
+  .oe-page .oe-address-lines { margin: .375rem 0 0; overflow-wrap: anywhere; }
+  .oe-page .oe-address h2 .oe-badge { vertical-align: middle; margin-inline-start: .375rem; }
+  .oe-page .oe-form-error { margin: 0 0 1rem; padding: .625rem .875rem; border: 1px solid var(--stop); border-radius: var(--radius); background: var(--stop-tint); }
+  .oe-page .oe-dialog:not([data-osc-dialog-ready]) { display: block; position: static; inset: auto; margin: 1.5rem 0 0; padding: 0; border: 0; max-inline-size: none; background: none; color: inherit; }
+  .oe-page .oe-dialog:not([data-osc-dialog-ready]) .oe-dialog-close { display: none; }
+  .oe-dialog[data-osc-dialog-ready] { inline-size: min(34rem, calc(100% - 32px)); padding: 0; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--surface); color: var(--ink); }
+  .oe-dialog[data-osc-dialog-ready]::backdrop { background: rgba(0, 0, 0, .45); }
+  .oe-dialog-head { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .875rem 1.25rem; border-block-end: 1px solid var(--rule); }
+  .oe-dialog-head h2 { margin: 0; font-size: var(--step-1); }
+  .oe-dialog-close { font: inherit; font-size: 1.5rem; line-height: 1; background: none; border: 0; padding: .25rem; cursor: pointer; color: inherit; }
+  .oe-dialog-body { padding: 1rem 1.25rem 1.25rem; }
+  .oe-page .oe-avatar { display: block; inline-size: 96px; block-size: 96px; object-fit: cover; border-radius: 50%; background: var(--sunk); margin-block-end: .6rem; }
+  .oe-page .oe-thumb { flex: none; display: block; object-fit: cover; }
+  .oe-page .oe-thumb-empty { display: grid; place-items: center; text-align: center; padding: .25rem; }
+  .oe-page .oe-price { flex: none; margin: 0; font-variant-numeric: tabular-nums; text-align: end; }
+  .oe-page .oe-contact { display: grid; gap: 2rem; align-items: start; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); }
+  .oe-page .oe-contact-main { max-inline-size: 30rem; min-inline-size: 0; }
+  .oe-page #error_list { list-style: none; margin: 0; padding: 0; }
+  .oe-page #error_list:not(:empty) { border: 1px solid var(--stop); margin: 0 0 1.25rem; padding: .75rem 1rem; padding-inline-start: 2rem; list-style: disc; }
+  .oe-hint { display: block; font-size: var(--step--1); color: var(--ink-muted); margin-block-start: .375rem; }
+  .oe-check { display: flex; align-items: center; gap: .625rem; margin: 0 0 1rem; }
+  .oe-check input { inline-size: auto; flex: none; }
+  :where(.oe-field, .oe-check) :where(input, select, textarea) {
+    font: inherit; inline-size: 100%; max-inline-size: 22rem; padding: .5rem .625rem;
+    background: var(--surface); color: var(--ink); border: 1px solid var(--rule-strong); border-radius: var(--radius);
+  }
+  :where(.oe-field) :where(textarea) { min-block-size: 7rem; max-inline-size: 34rem; line-height: 1.55; }
+  .oe-field :is(input, select, textarea):focus-visible { outline: 2px solid var(--link); outline-offset: 1px; }
+  .oe-page .oe-threads, .oe-page .oe-messages { list-style: none; margin: 0; padding: 0; }
+  .oe-page .oe-thread { margin-block-end: .75rem; }
+  .oe-page .oe-thread-title { font-size: var(--step-1); font-weight: 600; margin: 0 0 .375rem; overflow-wrap: anywhere; }
+  .oe-page .oe-thread .oe-thread-title { margin: 0; }
+  .oe-page .oe-thread-last { white-space: nowrap; }
+  .oe-page .oe-messages { display: flex; flex-direction: column; gap: .625rem; margin: 1rem 0 1.25rem; }
+  .oe-page .oe-message { align-self: flex-start; max-inline-size: min(34rem, 85%); padding: .625rem .875rem; background: var(--sunk); border: 1px solid var(--rule); }
+  .oe-page .oe-message.is-mine { align-self: flex-end; }
+  .oe-page .oe-message.is-held { border-style: dashed; opacity: .85; }
+  .oe-page .oe-message-body { overflow-wrap: anywhere; white-space: pre-wrap; }
+  .oe-page .oe-message-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .625rem; margin: .25rem 0 0; color: var(--ink-muted); font-size: var(--step--1); }
+  .oe-page .oe-compose { margin-block-end: .75rem; }
+  .oe-page .oe-compose textarea { inline-size: 100%; max-inline-size: 34rem; min-block-size: 5rem; }
+  .oe-page .oe-push { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .75rem; margin-block: .75rem; }
+  .oe-page .oe-push[hidden] { display: none; }
+  .oe-page .oe-push .oe-muted { margin: 0; }
+  .oe-page .oe-push .oe-muted:empty { display: none; }
+  .oe-page .oe-thread-actions { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1.25rem; margin-block-start: .75rem; font-size: .875rem; }
+  .oe-page .oe-thread-actions > .oe-row-actions { margin: 0; font-size: inherit; }
+  .oe-page .oe-thread-actions summary { display: inline; list-style: none; cursor: pointer; color: var(--link); text-decoration: underline; }
+  .oe-page .oe-thread-actions summary::-webkit-details-marker { display: none; }
+  .oe-page .oe-thread-actions details form { margin-block-start: .75rem; }
+
+  /* The comments block sits in the theme's listing page, outside .oe-page. */
+  .oe-comments { margin-block-start: 2rem; }
+  .oe-comments-head { display: flex; align-items: baseline; gap: .5rem; }
+  .oe-comments-count { font-size: .875em; color: var(--ink-muted); }
+  .oe-comments-list { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: 1rem; }
+  .oe-comment { padding-block-end: 1rem; border-block-end: 1px solid var(--rule); }
+  .oe-comment-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem .75rem; font-size: .9375em; }
+  .oe-comment-author { font-weight: 600; }
+  .oe-comment-date { color: var(--ink-muted); }
+  .oe-comment-title { margin: .35rem 0 0; font-size: 1em; }
+  .oe-comment-body { margin: .35rem 0 0; }
+  .oe-comment-actions { margin-block-start: .35rem; font-size: .875em; }
+  .oe-comment-delete { color: var(--stop); }
+  .oe-comments-pager { margin-block-start: 1rem; }
+  .oe-comments-empty { color: var(--ink-muted); }
+  .oe-comments-gate { margin-block-start: 1.5rem; }
+  .oe-comment-form { margin-block-start: 1.5rem; display: grid; gap: .75rem; max-inline-size: 40rem; }
+  .oe-comment-form .oe-field { display: grid; gap: .25rem; margin: 0; }
+  .oe-comment-form label { font-weight: 600; font-size: .9375em; }
+  .oe-comment-form :is(input, textarea) {
+    inline-size: 100%; max-inline-size: none; padding: .5rem .625rem; font: inherit; color: var(--ink);
+    background: var(--surface); border: 1px solid var(--rule-strong); border-radius: var(--radius);
+  }
+  .oe-comment-form textarea { resize: vertical; }
+  .oe-comment-optional { font-weight: 400; color: var(--ink-muted); }
+  .oe-comment-rating { margin: .35rem 0 0; letter-spacing: .1em; color: var(--oe-star, var(--warn)); }
+  .oe-rating { border: 0; margin: 0; padding: 0; }
+  .oe-rating legend { padding: 0; margin: 0; font-weight: 600; font-size: .9375em; }
+  .oe-rating-stars { display: flex; flex-direction: row-reverse; justify-content: flex-end; gap: .125rem; }
+  .oe-rating-stars input { position: absolute; opacity: 0; inline-size: 1px; block-size: 1px; }
+  .oe-rating-stars label { margin: 0; line-height: 1; cursor: pointer; opacity: .35; }
+  .oe-rating-star { font-size: 1.5rem; }
+  :is(.oe-rating-stars input:checked ~ label, .oe-rating-stars label:hover, .oe-rating-stars label:hover ~ label) { opacity: 1; }
+  :is(.oe-rating-stars input:checked ~ label, .oe-rating-stars label:hover, .oe-rating-stars label:hover ~ label) .oe-rating-star { color: var(--oe-star, var(--warn)); }
+  .oe-rating-stars input:focus-visible + label { outline: 2px solid currentColor; outline-offset: 2px; }
+  .oe-sr { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+
 /* ------------------------------------------------------- core-owned pages -- */
 /* The account section and the sign-in pages are core's markup, rendered between
    this theme's header and footer. Core publishes the class names below as a
