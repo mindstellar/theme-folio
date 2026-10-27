@@ -55,6 +55,10 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
+#: common/contact-fields.php:60
+msgid "Attachment"
+msgstr ""
+
 #: maintenance.php:25
 msgid "Back shortly"
 msgstr ""
@@ -93,7 +97,8 @@ msgstr ""
 msgid "Browse everything"
 msgstr ""
 
-#: common/contact-fields.php:21
+#: common/contact-fields.php:22
+#: common/contact-fields.php:71
 msgid "Cancel"
 msgstr ""
 
@@ -239,6 +244,10 @@ msgstr ""
 msgid "Member since %s"
 msgstr ""
 
+#: common/contact-fields.php:54
+msgid "Message"
+msgstr ""
+
 #: search.php:62
 msgid "Newest first"
 msgstr ""
@@ -293,6 +302,10 @@ msgstr ""
 
 #: search.php:214
 msgid "Pages"
+msgstr ""
+
+#: common/contact-fields.php:48
+msgid "Phone number"
 msgstr ""
 
 #: item.php:137
@@ -400,6 +413,10 @@ msgstr ""
 msgid "Seller"
 msgstr ""
 
+#: common/contact-fields.php:69
+msgid "Send message"
+msgstr ""
+
 #: item.php:279
 msgid "Send report"
 msgstr ""
@@ -450,6 +467,10 @@ msgstr ""
 
 #: item-post.php:58
 msgid "The region and city lists follow the country once the form is sent back. Both may be left blank."
+msgstr ""
+
+#: common/contact-fields.php:44
+msgid "The seller replies to this address."
 msgstr ""
 
 #: maintenance.php:26
@@ -505,6 +526,7 @@ msgstr ""
 msgid "Your account"
 msgstr ""
 
+#: common/contact-fields.php:41
 #: item-post.php:85
 msgid "Your email address"
 msgstr ""
@@ -513,8 +535,14 @@ msgstr ""
 msgid "Your listings"
 msgstr ""
 
+#: common/contact-fields.php:35
 #: item-post.php:81
 msgid "Your name"
+msgstr ""
+
+#: common/contact-fields.php:49
+#: common/contact-fields.php:61
+msgid "optional"
 msgstr ""
 
 #: common/footer.php:78
