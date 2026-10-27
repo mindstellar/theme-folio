@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Folio 0.6.0\n"
+"Project-Id-Version: Folio 0.6.1\n"
 "Report-Msgid-Bugs-To: https://github.com/mindstellar/theme-folio/issues\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +29,7 @@ msgid_plural "%s photographs"
 msgstr[0] ""
 msgstr[1] ""
 
-#: functions.php:114
+#: functions.php:120
 msgid "A short line shown in the colophon above the copyright. Leave empty to omit it."
 msgstr ""
 
@@ -55,7 +55,7 @@ msgstr ""
 msgid "Apply"
 msgstr ""
 
-#: common/contact-fields.php:67
+#: common/contact-fields.php:60
 msgid "Attachment"
 msgstr ""
 
@@ -67,7 +67,7 @@ msgstr ""
 msgid "Back to the home page"
 msgstr ""
 
-#: functions.php:53
+#: functions.php:59
 msgid "Below the navigation, inside the navy band."
 msgstr ""
 
@@ -75,7 +75,7 @@ msgstr ""
 msgid "Bicycle, sofa, guitar…"
 msgstr ""
 
-#: functions.php:106
+#: functions.php:112
 msgid "Brand colour"
 msgstr ""
 
@@ -97,8 +97,8 @@ msgstr ""
 msgid "Browse everything"
 msgstr ""
 
-#: common/contact-fields.php:24
-#: common/contact-fields.php:82
+#: common/contact-fields.php:22
+#: common/contact-fields.php:71
 msgid "Cancel"
 msgstr ""
 
@@ -115,7 +115,7 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: functions.php:56
+#: functions.php:62
 msgid "Colophon"
 msgstr ""
 
@@ -162,7 +162,7 @@ msgstr ""
 msgid "Filed under"
 msgstr ""
 
-#: functions.php:97
+#: functions.php:103
 msgid "Folio"
 msgstr ""
 
@@ -170,7 +170,7 @@ msgstr ""
 msgid "Footer"
 msgstr ""
 
-#: functions.php:113
+#: functions.php:119
 msgid "Footer note"
 msgstr ""
 
@@ -191,7 +191,7 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: functions.php:57
+#: functions.php:63
 msgid "In the footer, above the copyright line."
 msgstr ""
 
@@ -227,16 +227,15 @@ msgstr ""
 msgid "Log out"
 msgstr ""
 
-#: functions.php:101
+#: functions.php:107
 msgid "Logo"
 msgstr ""
 
-#: functions.php:52
+#: functions.php:58
 msgid "Masthead"
 msgstr ""
 
-#: common/contact-fields.php:21
-#: common/contact-fields.php:39
+#: common/contact-fields.php:18
 #: item.php:237
 msgid "Meet in a public place, inspect the item before paying, and never send money in advance."
 msgstr ""
@@ -245,7 +244,7 @@ msgstr ""
 msgid "Member since %s"
 msgstr ""
 
-#: common/contact-fields.php:61
+#: common/contact-fields.php:54
 msgid "Message"
 msgstr ""
 
@@ -305,7 +304,7 @@ msgstr ""
 msgid "Pages"
 msgstr ""
 
-#: common/contact-fields.php:55
+#: common/contact-fields.php:48
 msgid "Phone number"
 msgstr ""
 
@@ -382,7 +381,7 @@ msgstr ""
 msgid "Remove the price range"
 msgstr ""
 
-#: functions.php:107
+#: functions.php:113
 msgid "Replaces the navy the masthead and footer are painted in. Leave it as the default to change nothing."
 msgstr ""
 
@@ -414,7 +413,7 @@ msgstr ""
 msgid "Seller"
 msgstr ""
 
-#: common/contact-fields.php:76
+#: common/contact-fields.php:69
 msgid "Send message"
 msgstr ""
 
@@ -430,7 +429,7 @@ msgstr ""
 msgid "Show everything"
 msgstr ""
 
-#: functions.php:102
+#: functions.php:108
 msgid "Shown in the masthead instead of the site name. A transparent PNG fits best."
 msgstr ""
 
@@ -470,7 +469,7 @@ msgstr ""
 msgid "The region and city lists follow the country once the form is sent back. Both may be left blank."
 msgstr ""
 
-#: common/contact-fields.php:51
+#: common/contact-fields.php:44
 msgid "The seller replies to this address."
 msgstr ""
 
@@ -527,7 +526,7 @@ msgstr ""
 msgid "Your account"
 msgstr ""
 
-#: common/contact-fields.php:48
+#: common/contact-fields.php:41
 #: item-post.php:85
 msgid "Your email address"
 msgstr ""
@@ -536,13 +535,13 @@ msgstr ""
 msgid "Your listings"
 msgstr ""
 
-#: common/contact-fields.php:42
+#: common/contact-fields.php:35
 #: item-post.php:81
 msgid "Your name"
 msgstr ""
 
-#: common/contact-fields.php:56
-#: common/contact-fields.php:68
+#: common/contact-fields.php:49
+#: common/contact-fields.php:61
 msgid "optional"
 msgstr ""
 

@@ -916,6 +916,17 @@ dialog > form > .actions {
 }
 /* The Cancel under core's message form, which has no button of the theme's own. */
 dialog > form.dialog-close { flex: none; overflow: visible; align-items: flex-start; margin-block-start: .5rem; }
+dialog > form > .oe-actions {
+  position: sticky;
+  inset-block-end: 0;
+  margin-block-end: 0;
+  padding-block: 1rem;
+  background: var(--surface);
+  border-block-start: 1px solid var(--rule);
+}
+dialog .oe-input { max-inline-size: none; }
+dialog .oe-field-error { color: var(--stop); }
+dialog .oe-form-error { margin: 0 0 1rem; padding: .625rem .875rem; border: 1px solid var(--stop); border-radius: var(--radius); background: var(--stop-tint); }
 dialog h2 { margin-block-start: 0; }
 /* What the visitor is about to write about: the listing they were looking at, in
    the record's own vocabulary. The dialog covers the page that carried both. */
