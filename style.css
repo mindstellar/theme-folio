@@ -1908,6 +1908,7 @@ main.spine:has(.oe-messenger:not(.is-empty)) > .oe-page,
   .oe-page .oe-messenger-list { border-inline-end: 0; }
   /* In a chat the account strip gives way; the chat head is the page header. */
   .oe-page .oe-account:has(.oe-messenger.is-chat) > .oe-account-nav { display: none; }
+  body:has(.oe-messenger.is-chat) .masthead nav { display: none; }
   main.spine:has(.oe-messenger.is-chat) { padding: 0; }
   .oe-page:has(.oe-messenger.is-chat) .oe-account { gap: 0; }
   .oe-page .oe-messenger.is-chat { border-width: 0; border-radius: 0; }
