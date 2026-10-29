@@ -182,6 +182,10 @@ msgstr ""
 msgid "From %s"
 msgstr ""
 
+#: functions.php:325
+msgid "Full width"
+msgstr ""
+
 #: search.php:352
 msgid "Get an email alert"
 msgstr ""
@@ -463,6 +467,10 @@ msgstr ""
 
 #: 404.php:16
 msgid "The listing may have been sold and removed, or the address may be mistyped."
+msgstr ""
+
+#: functions.php:326
+msgid "The page uses the whole width of the content area."
 msgstr ""
 
 #: item-post.php:58

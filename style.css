@@ -120,6 +120,7 @@ main > * { min-inline-size: 0; }
 
 /* Everything that reads as prose is capped; tables and indexes are not. */
 .prose { max-inline-size: var(--measure); }
+.layout-full-width .prose { max-inline-size: none; }
 .prose > :last-child { margin-block-end: 0; }
 
 /* A bounded form block. Wide enough for a long translated label, narrow enough

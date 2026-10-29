@@ -313,3 +313,39 @@ function folio_iso_date(?string $date): string
 
     return $stamp === false ? '' : date('Y-m-d', $stamp);
 }
+
+/**
+ * The "Full width" page template: the theme's own page.php without the narrow reading column.
+ * The id is shared by our themes, so a page keeps the template when the site changes theme.
+ */
+function folio_page_templates(): void
+{
+    if (function_exists('osc_register_page_template')) {
+        osc_register_page_template('theme.full_width', array(
+            'label'       => __('Full width', 'folio'),
+            'description' => __('The page uses the whole width of the content area.', 'folio'),
+            'render'      => 'page.php',
+        ));
+    }
+}
+
+osc_add_hook('init', 'folio_page_templates');
+
+/** Whether the current static page uses the Full width template. */
+function folio_is_full_width(): bool
+{
+    if (!osc_is_static_page()) {
+        return false;
+    }
+    $meta = json_decode((string) osc_static_page_field('s_meta'), true);
+
+    return is_array($meta) && ($meta['template'] ?? '') === 'theme.full_width';
+}
+
+osc_add_filter('body_class', static function ($classes) {
+    if (folio_is_full_width()) {
+        $classes[] = 'layout-full-width';
+    }
+
+    return $classes;
+});
