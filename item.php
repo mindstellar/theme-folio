@@ -208,15 +208,23 @@ if ($folio_seller > 0 && osc_prepare_user_info()) {
             <p class="notice notice-warn"><?php
                 _e('This listing has expired and the seller can no longer be contacted through it.', 'folio'); ?></p>
         <?php } else { ?>
+            <?php $folio_unpaid = function_exists('osc_item_is_unpaid') && osc_item_is_unpaid();
+            $folio_pay_url = $folio_is_owner && function_exists('osc_item_pay_url') ? osc_item_pay_url() : ''; ?>
             <div class="aside-actions">
+                <?php if ($folio_pay_url !== '') { ?>
+                <a class="btn btn-block" href="<?php echo osc_esc_html($folio_pay_url); ?>"><?php _e('Pay to publish', 'folio'); ?></a>
+                <?php } else { ?>
                 <?php // A link first, so it works with no script and no <dialog>
                 // support; footer.php upgrades it to open the dialog in place. ?>
                 <a class="btn btn-block" data-folio-dialog="folio-contact"
                    href="<?php echo osc_esc_html(osc_base_url(true) . '?page=item&amp;action=contact&amp;id=' . (int) osc_item_id()); ?>">
                     <?php _e('Contact the seller', 'folio'); ?>
                 </a>
+                <?php } ?>
+                <?php if (!$folio_unpaid) { ?>
                 <a class="btn btn-quiet btn-block" href="<?php echo osc_esc_html(osc_item_send_friend_url()); ?>"><?php
                     _e('Send to a friend', 'folio'); ?></a>
+                <?php } ?>
                 <?php if ($folio_is_owner) { ?>
                     <a class="btn btn-quiet btn-block" href="<?php echo osc_esc_html(osc_item_edit_url()); ?>"><?php
                         _e('Edit this listing', 'folio'); ?></a>

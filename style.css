@@ -1974,3 +1974,41 @@ main.spine:has(.oe-messenger:not(.is-empty)) > .oe-page,
   .oe-page .oe-messenger .oe-compose textarea { font-size: 1rem; }
   .oe-page .oe-compose-hint { display: none; }
 }
+
+/* --------------------------------------------- pay step and waiting listings -- */
+/* The amount leads, bank details copy in one click, the deadline is a callout,
+   Delete stays quiet under Pay later. */
+.oe-page .oe-bill-amount { margin: 0 0 1rem; }
+.oe-page .oe-bill-amount > p { margin: 0; }
+.oe-page .oe-bill-amount-label { font-size: var(--step--1); font-weight: 600; letter-spacing: .02em; color: var(--ink-muted); }
+.oe-page .oe-bill-amount-figure { margin-block-start: .125rem; font-size: var(--step-4); line-height: 1.15; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.oe-page .oe-bill-amount .oe-muted { margin-block-start: .375rem; }
+.oe-page .oe-bill-instructions { white-space: normal; line-height: 2; overflow-wrap: anywhere; }
+.oe-page .oe-callout {
+  margin: 1rem 0 0; padding: .625rem .875rem; color: var(--ink);
+  background: var(--warn-tint); border: 1px solid var(--warn); border-radius: var(--radius);
+}
+.oe-page .oe-copy { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .25rem .5rem; max-inline-size: 100%; }
+.oe-page .oe-copy-value {
+  padding: .0625rem .5rem; color: var(--ink); font: .9375em/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: var(--sunk); border: 1px solid var(--rule); border-radius: var(--radius); overflow-wrap: anywhere; user-select: all;
+}
+.oe-page .oe-link-btn.oe-copy-btn {
+  padding: .0625rem .5rem; font-size: var(--step--1); font-weight: 600; line-height: 1.5; text-decoration: none;
+  color: var(--link); border: 1px solid var(--rule-strong); border-radius: var(--radius);
+}
+.oe-page .oe-link-btn.oe-copy-btn:hover { background: var(--navy-tint); color: var(--link-hover); }
+.oe-page .oe-copy-btn[hidden] { display: none; }
+.oe-page .oe-bill-delete-form { display: block; margin-block-start: 1rem; }
+.oe-page .oe-link-btn.oe-bill-delete { font-size: .875rem; color: var(--ink-muted); text-underline-offset: 3px; }
+.oe-page .oe-link-btn.oe-bill-delete:hover { color: var(--stop); }
+
+/* Your listings: the limit, the next listing's price and paused bumps as one notice. */
+.oe-page .oe-limit-notice { margin: 0 0 1.25rem; padding: .75rem 1rem; background: var(--sunk); border: 1px solid var(--rule); border-radius: var(--radius); }
+.oe-page .oe-limit-notice.oe-callout { background: var(--warn-tint); border-color: var(--warn); }
+.oe-page .oe-limit-notice > p { display: block; margin: 0; color: var(--ink); font-size: .875rem; }
+.oe-page .oe-limit-notice > .oe-muted { color: var(--ink-muted); }
+.oe-page .oe-limit-notice > p + p { margin-block-start: .25rem; }
+.oe-page .oe-limit-notice .oe-actions { margin-block-start: .5rem; }
+.oe-page .oe-row-actions .oe-row-primary { padding: .3125rem .875rem; font-size: .875rem; text-decoration: none; white-space: nowrap; }
+@media (pointer: fine) { .oe-page .oe-row-actions .oe-row-primary { min-block-size: 2.25rem; } }

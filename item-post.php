@@ -90,7 +90,7 @@ osc_get_header();
         <div class="actions">
             <button class="btn" type="submit"><?php echo $folio_edit
                 ? osc_esc_html(__('Save changes', 'folio'))
-                : osc_esc_html(__('Publish', 'folio')); ?></button>
+                : osc_esc_html(function_exists('osc_item_post_submit_label') ? osc_item_post_submit_label() : __('Publish', 'folio')); ?></button>
         </div>
     </form>
 
