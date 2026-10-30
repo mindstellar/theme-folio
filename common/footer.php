@@ -18,15 +18,18 @@ $folio_taken = array();
 foreach ($folio_footer_menu['items'] ?? array() as $folio_link) {
     $folio_taken[folio_url_key((string) $folio_link['url'])] = true;
 }
-$folio_link_shown = static fn(string $url): bool => !isset($folio_taken[folio_url_key($url)]);
+// $plain is the same page without friendly URLs, so "/contact" and "?page=contact" count as one.
+$folio_link_shown = static fn(string $url, string $plain = ''): bool => !isset($folio_taken[folio_url_key($url)])
+    && ($plain === '' || !isset($folio_taken[folio_url_key($plain)]));
+$folio_contact_plain = osc_base_url() . 'index.php?page=contact';
 $folio_pages = array();
 osc_reset_static_pages();
 while (osc_has_static_pages()) {
-    if ($folio_link_shown(osc_static_page_url())) {
+    if ($folio_link_shown(osc_static_page_url(), osc_base_url() . 'index.php?page=page&id=' . osc_static_page_id())) {
         $folio_pages[] = array(osc_static_page_url(), osc_static_page_title());
     }
 }
-$folio_contact_shown = $folio_link_shown(osc_contact_url());
+$folio_contact_shown = $folio_link_shown(osc_contact_url(), $folio_contact_plain);
 ?>
 </main>
 
@@ -186,6 +189,62 @@ document.querySelectorAll('[data-folio-menu]').forEach(function (strip) {
     mark();
     strip.addEventListener('scroll', mark, { passive: true });
     window.addEventListener('resize', mark);
+});
+
+/* Wide screens: the saved menu stays on one row and the links that do not fit move into More. */
+document.querySelectorAll('[data-folio-more]').forEach(function (more) {
+    var menu = more.previousElementSibling;
+    var bar = more.closest('.masthead-bar');
+    var btn = more.querySelector('button');
+    var panel = more.querySelector('.masthead-more-menu');
+    var links = Array.prototype.slice.call(menu.children);
+    var phone = window.matchMedia('(max-width: 40rem)');
+
+    function close(focus) {
+        if (panel.hidden) { return; }
+        panel.hidden = true;
+        btn.setAttribute('aria-expanded', 'false');
+        if (focus) { btn.focus(); }
+    }
+    function tight() { return menu.scrollWidth > menu.clientWidth + 1 || bar.scrollWidth > bar.clientWidth + 1; }
+    function fit() {
+        close(false);
+        links.forEach(function (a) { menu.appendChild(a); });
+        more.hidden = true;
+        btn.classList.remove('is-current');
+        bar.classList.remove('masthead-wrap');
+        if (phone.matches || !tight()) { return; }
+        more.hidden = false;
+        var inline = links.slice();
+        while (inline.length && tight()) { panel.insertBefore(inline.pop(), panel.firstChild); }
+        if (tight()) {
+            links.forEach(function (a) { menu.appendChild(a); });
+            more.hidden = true;
+            bar.classList.add('masthead-wrap');
+            return;
+        }
+        btn.classList.toggle('is-current', !!panel.querySelector('[aria-current]'));
+    }
+    var width = -1;
+    function refit() { if (bar.clientWidth !== width) { width = bar.clientWidth; fit(); } }
+    refit();
+    window.addEventListener('resize', refit);
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fit); }
+
+    btn.addEventListener('click', function () {
+        var open = panel.hidden;
+        panel.hidden = !open;
+        btn.setAttribute('aria-expanded', String(open));
+    });
+    more.addEventListener('focusout', function (e) {
+        if (e.relatedTarget && !more.contains(e.relatedTarget)) { close(false); }
+    });
+    document.addEventListener('click', function (e) {
+        if (!more.contains(e.target)) { close(false); }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !panel.hidden) { close(true); }
+    });
 });
 
 /* A role=button element is not a button: Enter and Space have to be wired up. */

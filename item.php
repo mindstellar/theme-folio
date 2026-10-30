@@ -22,6 +22,7 @@ $folio_is_owner = $folio_seller > 0 && $folio_seller === (int) osc_logged_user_i
 $folio_shots    = osc_images_enabled_at_items() ? osc_count_item_resources() : 0;
 $folio_place    = array_filter(array(osc_item_city(), osc_item_region(), osc_item_country()), 'strlen');
 $folio_expired  = osc_item_is_expired();
+$folio_unpaid   = function_exists('osc_item_is_unpaid') && osc_item_is_unpaid();
 
 /*
  * The seller, for the record beside the price. A buyer is about to email a
@@ -88,7 +89,8 @@ if ($folio_seller > 0 && osc_prepare_user_info()) {
                     <span><?php echo osc_esc_html(implode(', ', $folio_place)); ?></span>
                     <span class="sep" aria-hidden="true">&middot;</span>
                 <?php } ?>
-                <?php _e('Published', 'folio'); ?>
+                <?php // A listing waiting for payment is not published yet.
+                $folio_unpaid ? _e('Posted', 'folio') : _e('Published', 'folio'); ?>
                 <time datetime="<?php echo osc_esc_html(folio_iso_date(osc_item_pub_date())); ?>"><?php
                     echo osc_esc_html(osc_format_date(osc_item_pub_date())); ?></time>
             </p>
@@ -208,8 +210,7 @@ if ($folio_seller > 0 && osc_prepare_user_info()) {
             <p class="notice notice-warn"><?php
                 _e('This listing has expired and the seller can no longer be contacted through it.', 'folio'); ?></p>
         <?php } else { ?>
-            <?php $folio_unpaid = function_exists('osc_item_is_unpaid') && osc_item_is_unpaid();
-            $folio_pay_url = $folio_is_owner && function_exists('osc_item_pay_url') ? osc_item_pay_url() : ''; ?>
+            <?php $folio_pay_url = $folio_is_owner && function_exists('osc_item_pay_url') ? osc_item_pay_url() : ''; ?>
             <div class="aside-actions">
                 <?php if ($folio_pay_url !== '') { ?>
                 <a class="btn btn-block" href="<?php echo osc_esc_html($folio_pay_url); ?>"><?php _e('Pay to publish', 'folio'); ?></a>
@@ -310,8 +311,10 @@ if ($folio_seller > 0 && osc_prepare_user_info()) {
 
         <?php osc_run_hook('item_detail', osc_item()); ?>
 
-        <?php // Thread and form both come from core; the classes below are ours to style.
-        osc_show_item_comments(); ?>
+        <?php // Thread and form both come from core; a listing waiting for payment takes no comments yet.
+        if (!$folio_unpaid) {
+            osc_show_item_comments();
+        } ?>
     </div>
 </article>
 <?php osc_get_footer(); ?>

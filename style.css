@@ -270,6 +270,64 @@ a:hover { color: var(--link-hover); }
 
 /* The saved menu flows inline with the nav; on a phone it becomes a sideways strip (below). */
 .masthead-menu { display: contents; }
+.masthead-more[hidden], .masthead-more-menu[hidden] { display: none; }
+/* Wide screens: one row. The footer script moves links that do not fit into More. */
+@media (min-width: 40.0625rem) {
+  .masthead-bar:has(.masthead-menu):not(.masthead-wrap) { flex-wrap: nowrap; }
+  .masthead-bar:not(.masthead-wrap) .wordmark { flex: none; }
+  .masthead-bar:not(.masthead-wrap) nav:has(> .masthead-menu) { flex: 1 1 auto; min-inline-size: 0; flex-wrap: nowrap; justify-content: flex-end; }
+  .masthead-bar:not(.masthead-wrap) nav:has(> .masthead-menu) > :not(.masthead-menu) { flex: none; white-space: nowrap; }
+  .masthead-bar:not(.masthead-wrap) .masthead-menu { display: flex; flex: 0 1 auto; min-inline-size: 0; gap: 1.5rem; overflow: hidden; }
+  .masthead-bar:not(.masthead-wrap) .masthead-menu > a { flex: none; white-space: nowrap; }
+  .masthead-menu > a:focus-visible { outline-offset: -2px; }
+}
+.masthead-more { position: relative; }
+.masthead-more-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .375rem 0;
+  border: 0;
+  background: none;
+  color: var(--ink-onnavy-muted);
+  font: inherit;
+  cursor: pointer;
+}
+.masthead-more-toggle::after {
+  content: "";
+  inline-size: .4rem;
+  block-size: .4rem;
+  border-inline-end: 1.5px solid currentColor;
+  border-block-end: 1.5px solid currentColor;
+  transform: translateY(-.15rem) rotate(45deg);
+}
+.masthead-more-toggle:hover, .masthead-more-toggle[aria-expanded="true"] { color: #fff; }
+.masthead-more-toggle.is-current { color: #fff; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .3em; }
+.masthead-more-menu {
+  position: absolute;
+  inset-block-start: calc(100% + .5rem);
+  inset-inline-end: 0;
+  z-index: 20;
+  display: grid;
+  min-inline-size: 13rem;
+  max-inline-size: 20rem;
+  max-block-size: 70vh;
+  overflow-y: auto;
+  padding: .375rem;
+  border: 1px solid var(--rule-mid);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 8px 24px rgb(10 16 36 / .18);
+}
+.masthead .masthead-more-menu a {
+  padding: .5rem .75rem;
+  border-radius: var(--radius);
+  color: var(--ink);
+  white-space: normal;
+}
+.masthead .masthead-more-menu a:hover { background: var(--sunk); color: var(--ink); text-decoration: none; }
+.masthead .masthead-more-menu a[aria-current] { color: var(--navy-ink); background: var(--navy-tint); text-decoration: none; }
+.masthead .masthead-more-menu :focus-visible { outline-color: var(--link); outline-offset: -2px; }
 @media (max-width: 40rem) {
   .masthead nav:has(> .masthead-menu) { flex: 1 1 100%; min-inline-size: 0; }
   .masthead-menu {

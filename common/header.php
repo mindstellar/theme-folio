@@ -68,6 +68,11 @@ $folio_logo = osc_settings_image_url('folio', 'logo');
                         <a href="<?php echo osc_esc_html((string) $folio_link['url']); ?>"<?php echo folio_menu_current((string) $folio_link['url']) ? ' aria-current="page"' : ''; ?>><?php echo osc_esc_html((string) $folio_link['label']); ?></a>
                     <?php } ?>
                 </div>
+                <?php // On a wide screen the links that do not fit the row move in here. ?>
+                <div class="masthead-more" data-folio-more hidden>
+                    <button class="masthead-more-toggle" type="button" aria-expanded="false" aria-controls="folio-more"><?php _e('More', 'folio'); ?></button>
+                    <div class="masthead-more-menu" id="folio-more" hidden></div>
+                </div>
             <?php } else { ?>
             <a href="<?php echo osc_esc_html(folio_browse_all_url()); ?>"
                <?php echo osc_is_search_page() ? 'aria-current="true"' : ''; ?>><?php _e('Browse', 'folio'); ?></a>

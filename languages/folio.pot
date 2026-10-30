@@ -12,18 +12,18 @@ msgstr ""
 msgid "%1$s to %2$s"
 msgstr ""
 
-#: item.php:114
+#: item.php:116
 msgid "%1$s — photograph %2$s of %3$s"
 msgstr ""
 
-#: item.php:187
+#: item.php:189
 #: search.php:142
 msgid "%s listing"
 msgid_plural "%s listings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: item.php:128
+#: item.php:130
 msgid "%s photograph"
 msgid_plural "%s photographs"
 msgstr[0] ""
@@ -37,13 +37,13 @@ msgstr ""
 msgid "All categories"
 msgstr ""
 
-#: item.php:67
+#: item.php:68
 #: search.php:111
 #: search.php:139
 msgid "All listings"
 msgstr ""
 
-#: item.php:276
+#: item.php:277
 msgid "Already sold, or expired"
 msgstr ""
 
@@ -79,12 +79,12 @@ msgstr ""
 msgid "Brand colour"
 msgstr ""
 
-#: item.php:72
+#: item.php:73
 #: search.php:108
 msgid "Breadcrumb"
 msgstr ""
 
-#: common/header.php:73
+#: common/header.php:78
 msgid "Browse"
 msgstr ""
 
@@ -92,7 +92,7 @@ msgstr ""
 msgid "Browse by category"
 msgstr ""
 
-#: common/footer.php:46
+#: common/footer.php:49
 #: main.php:22
 msgid "Browse everything"
 msgstr ""
@@ -111,7 +111,7 @@ msgstr ""
 msgid "City"
 msgstr ""
 
-#: item.php:140
+#: item.php:142
 msgid "Close"
 msgstr ""
 
@@ -120,13 +120,13 @@ msgstr ""
 msgid "Colophon"
 msgstr ""
 
-#: common/footer.php:91
-#: common/header.php:86
+#: common/footer.php:94
+#: common/header.php:91
 msgid "Contact"
 msgstr ""
 
-#: item.php:221
-#: item.php:235
+#: item.php:222
+#: item.php:236
 msgid "Contact the seller"
 msgstr ""
 
@@ -138,7 +138,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: item.php:230
+#: item.php:231
 msgid "Edit this listing"
 msgstr ""
 
@@ -146,20 +146,20 @@ msgstr ""
 msgid "Edit your listing"
 msgstr ""
 
-#: item.php:164
+#: item.php:166
 msgid "Expired"
 msgstr ""
 
 #: common/record.php:71
-#: item.php:166
+#: item.php:168
 msgid "Featured"
 msgstr ""
 
-#: item.php:274
+#: item.php:275
 msgid "Filed in the wrong category"
 msgstr ""
 
-#: item.php:199
+#: item.php:201
 msgid "Filed under"
 msgstr ""
 
@@ -167,7 +167,7 @@ msgstr ""
 msgid "Folio"
 msgstr ""
 
-#: common/footer.php:85
+#: common/footer.php:88
 msgid "Footer"
 msgstr ""
 
@@ -191,7 +191,7 @@ msgstr ""
 msgid "Get an email alert"
 msgstr ""
 
-#: item.php:66
+#: item.php:67
 #: search.php:109
 msgid "Home"
 msgstr ""
@@ -200,7 +200,7 @@ msgstr ""
 msgid "In the footer, above the copyright line."
 msgstr ""
 
-#: common/footer.php:109
+#: common/footer.php:112
 msgid "Language"
 msgstr ""
 
@@ -209,30 +209,30 @@ msgstr ""
 msgid "Latest listings"
 msgstr ""
 
-#: common/footer.php:50
+#: common/footer.php:53
 msgid "Latest listings feed"
 msgstr ""
 
-#: common/footer.php:55
+#: common/footer.php:58
 msgid "Links"
 msgstr ""
 
-#: common/footer.php:44
-#: common/footer.php:45
+#: common/footer.php:47
+#: common/footer.php:48
 msgid "Listings"
 msgstr ""
 
-#: item.php:195
+#: item.php:197
 msgid "Location"
 msgstr ""
 
-#: common/footer.php:75
-#: common/header.php:81
+#: common/footer.php:78
+#: common/header.php:86
 msgid "Log in"
 msgstr ""
 
-#: common/footer.php:73
-#: common/header.php:79
+#: common/footer.php:76
+#: common/header.php:84
 msgid "Log out"
 msgstr ""
 
@@ -246,16 +246,20 @@ msgid "Masthead"
 msgstr ""
 
 #: common/contact-fields.php:18
-#: item.php:245
+#: item.php:246
 msgid "Meet in a public place, inspect the item before paying, and never send money in advance."
 msgstr ""
 
-#: item.php:183
+#: item.php:185
 msgid "Member since %s"
 msgstr ""
 
 #: common/contact-fields.php:54
 msgid "Message"
+msgstr ""
+
+#: common/header.php:73
+msgid "More"
 msgstr ""
 
 #: search.php:62
@@ -290,7 +294,7 @@ msgstr ""
 msgid "Nothing matched"
 msgstr ""
 
-#: item.php:273
+#: item.php:274
 msgid "Offensive content"
 msgstr ""
 
@@ -302,7 +306,7 @@ msgstr ""
 msgid "Order"
 msgstr ""
 
-#: common/footer.php:71
+#: common/footer.php:74
 msgid "Overview"
 msgstr ""
 
@@ -314,7 +318,7 @@ msgstr ""
 msgid "Pages"
 msgstr ""
 
-#: item.php:215
+#: item.php:216
 msgid "Pay to publish"
 msgstr ""
 
@@ -322,7 +326,7 @@ msgstr ""
 msgid "Phone number"
 msgstr ""
 
-#: item.php:137
+#: item.php:139
 msgid "Photograph"
 msgstr ""
 
@@ -330,7 +334,11 @@ msgstr ""
 msgid "Photographs"
 msgstr ""
 
-#: item.php:275
+#: item.php:93
+msgid "Posted"
+msgstr ""
+
+#: item.php:276
 msgid "Posted more than once"
 msgstr ""
 
@@ -343,7 +351,7 @@ msgstr ""
 msgid "Price"
 msgstr ""
 
-#: item.php:148
+#: item.php:150
 msgid "Price and seller"
 msgstr ""
 
@@ -363,17 +371,17 @@ msgstr ""
 msgid "Publish"
 msgstr ""
 
-#: common/footer.php:48
-#: common/header.php:89
+#: common/footer.php:51
+#: common/header.php:94
 #: item-post.php:23
 msgid "Publish a listing"
 msgstr ""
 
-#: item.php:91
+#: item.php:93
 msgid "Published"
 msgstr ""
 
-#: item.php:203
+#: item.php:205
 msgid "Reference"
 msgstr ""
 
@@ -386,8 +394,8 @@ msgstr ""
 msgid "Region"
 msgstr ""
 
-#: common/footer.php:76
-#: common/header.php:82
+#: common/footer.php:79
+#: common/header.php:87
 msgid "Register"
 msgstr ""
 
@@ -399,7 +407,7 @@ msgstr ""
 msgid "Replaces the navy the masthead and footer are painted in. Leave it as the default to change nothing."
 msgstr ""
 
-#: item.php:263
+#: item.php:264
 msgid "Report this listing"
 msgstr ""
 
@@ -423,7 +431,7 @@ msgstr ""
 msgid "Search results"
 msgstr ""
 
-#: item.php:172
+#: item.php:174
 msgid "Seller"
 msgstr ""
 
@@ -431,11 +439,11 @@ msgstr ""
 msgid "Send message"
 msgstr ""
 
-#: item.php:287
+#: item.php:288
 msgid "Send report"
 msgstr ""
 
-#: item.php:226
+#: item.php:227
 msgid "Send to a friend"
 msgstr ""
 
@@ -459,11 +467,11 @@ msgstr ""
 msgid "Sort and filter"
 msgstr ""
 
-#: item.php:272
+#: item.php:273
 msgid "Spam, or not a real listing"
 msgstr ""
 
-#: item.php:302
+#: item.php:303
 msgid "Specifications"
 msgstr ""
 
@@ -503,11 +511,11 @@ msgstr ""
 msgid "There is nothing published here yet."
 msgstr ""
 
-#: item.php:209
+#: item.php:211
 msgid "This listing has expired and the seller can no longer be contacted through it."
 msgstr ""
 
-#: common/footer.php:84
+#: common/footer.php:87
 msgid "This site"
 msgstr ""
 
@@ -535,12 +543,12 @@ msgstr ""
 msgid "What are you looking for?"
 msgstr ""
 
-#: item.php:270
+#: item.php:271
 msgid "What is wrong with it?"
 msgstr ""
 
-#: common/footer.php:68
-#: common/footer.php:69
+#: common/footer.php:71
+#: common/footer.php:72
 msgid "Your account"
 msgstr ""
 
@@ -549,7 +557,7 @@ msgstr ""
 msgid "Your email address"
 msgstr ""
 
-#: common/footer.php:72
+#: common/footer.php:75
 msgid "Your listings"
 msgstr ""
 
@@ -563,6 +571,6 @@ msgstr ""
 msgid "optional"
 msgstr ""
 
-#: common/footer.php:106
+#: common/footer.php:109
 msgid "© %1$s %2$s"
 msgstr ""
