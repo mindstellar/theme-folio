@@ -355,7 +355,27 @@ a:hover { color: var(--link-hover); }
     mask-image: linear-gradient(to var(--fade-dir, right), transparent, #000 var(--fade-start), #000 calc(100% - var(--fade-end)), transparent);
   }
   [dir="rtl"] .masthead-menu { --fade-dir: left; }
+  .masthead nav:has(> .masthead-menu) { position: relative; }
+  .masthead-scroll {
+    position: absolute;
+    inset-inline-start: calc(-1 * var(--gutter) + .25rem);
+    display: grid;
+    place-items: center;
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    padding: 0;
+    border: 1px solid var(--navy-line);
+    border-radius: 999px;
+    background: var(--navy);
+    color: #fff;
+    box-shadow: 0 2px 8px rgb(10 16 36 / .3);
+    cursor: pointer;
+  }
+  .masthead-scroll[data-folio-scroll="1"] { inset-inline-start: auto; inset-inline-end: calc(-1 * var(--gutter) + .25rem); }
+  [dir="rtl"] .masthead-scroll svg { transform: scaleX(-1); }
 }
+.masthead-scroll[hidden] { display: none; }
+@media (min-width: 40.0625rem) { .masthead-scroll { display: none; } }
 
 .colophon {
   background: var(--navy-deep);

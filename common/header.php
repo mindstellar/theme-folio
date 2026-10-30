@@ -73,6 +73,9 @@ $folio_logo = osc_settings_image_url('folio', 'logo');
                     <button class="masthead-more-toggle" type="button" aria-expanded="false" aria-controls="folio-more"><?php _e('More', 'folio'); ?></button>
                     <div class="masthead-more-menu" id="folio-more" hidden></div>
                 </div>
+                <?php // On a phone, arrows over the row's ends show there are more links and scroll to them. ?>
+                <button class="masthead-scroll" type="button" data-folio-scroll="-1" tabindex="-1" aria-hidden="true" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+                <button class="masthead-scroll" type="button" data-folio-scroll="1" tabindex="-1" aria-hidden="true" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
             <?php } else { ?>
             <a href="<?php echo osc_esc_html(folio_browse_all_url()); ?>"
                <?php echo osc_is_search_page() ? 'aria-current="true"' : ''; ?>><?php _e('Browse', 'folio'); ?></a>
