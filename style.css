@@ -268,6 +268,37 @@ a:hover { color: var(--link-hover); }
 .masthead nav a.nav-action { color: #fff; }
 .masthead nav a.nav-action:hover { background: #fff; color: var(--navy); text-decoration: none; }
 
+/* The saved menu flows inline with the nav; on a phone it becomes a sideways strip (below). */
+.masthead-menu { display: contents; }
+@media (max-width: 40rem) {
+  .masthead nav:has(> .masthead-menu) { flex: 1 1 100%; min-inline-size: 0; }
+  .masthead-menu {
+    display: flex;
+    min-inline-size: 0;
+    flex: 0 0 calc(100% + 2 * var(--gutter));
+    gap: 1.25rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    scroll-padding-inline: 2.5rem;
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: var(--gutter);
+    --fade-start: 0px;
+    --fade-end: 0px;
+  }
+  .masthead-menu::-webkit-scrollbar { display: none; }
+  .masthead-menu > a { flex: none; white-space: nowrap; }
+  .masthead-menu > a:focus-visible { outline-offset: -3px; }
+  /* The footer script marks an end with more links past it; that end fades out. */
+  .masthead-menu[data-more] { --fade-end: 2.5rem; }
+  .masthead-menu[data-more-start] { --fade-start: 2.5rem; }
+  .masthead-menu:is([data-more], [data-more-start]) {
+    -webkit-mask-image: linear-gradient(to var(--fade-dir, right), transparent, #000 var(--fade-start), #000 calc(100% - var(--fade-end)), transparent);
+    mask-image: linear-gradient(to var(--fade-dir, right), transparent, #000 var(--fade-start), #000 calc(100% - var(--fade-end)), transparent);
+  }
+  [dir="rtl"] .masthead-menu { --fade-dir: left; }
+}
+
 .colophon {
   background: var(--navy-deep);
   color: var(--ink-onnavy-muted);

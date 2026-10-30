@@ -62,9 +62,12 @@ $folio_logo = osc_settings_image_url('folio', 'logo');
             // not the page they are on -- which is what it would be claiming. ?>
             <?php $folio_main_menu = folio_saved_menu('main'); ?>
             <?php if ($folio_main_menu !== null) { ?>
-                <?php foreach ($folio_main_menu['items'] as $folio_link) { ?>
-                    <a href="<?php echo osc_esc_html((string) $folio_link['url']); ?>"<?php echo folio_menu_current((string) $folio_link['url']) ? ' aria-current="page"' : ''; ?>><?php echo osc_esc_html((string) $folio_link['label']); ?></a>
-                <?php } ?>
+                <?php // On a phone this is one row that scrolls sideways, so search stays near the top. ?>
+                <div class="masthead-menu" data-folio-menu>
+                    <?php foreach ($folio_main_menu['items'] as $folio_link) { ?>
+                        <a href="<?php echo osc_esc_html((string) $folio_link['url']); ?>"<?php echo folio_menu_current((string) $folio_link['url']) ? ' aria-current="page"' : ''; ?>><?php echo osc_esc_html((string) $folio_link['label']); ?></a>
+                    <?php } ?>
+                </div>
             <?php } else { ?>
             <a href="<?php echo osc_esc_html(folio_browse_all_url()); ?>"
                <?php echo osc_is_search_page() ? 'aria-current="true"' : ''; ?>><?php _e('Browse', 'folio'); ?></a>

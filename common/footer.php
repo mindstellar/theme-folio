@@ -11,6 +11,22 @@
 if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
+
+// A link the saved footer menu already shows is not repeated in the other columns.
+$folio_footer_menu = folio_saved_menu('footer');
+$folio_taken = array();
+foreach ($folio_footer_menu['items'] ?? array() as $folio_link) {
+    $folio_taken[folio_url_key((string) $folio_link['url'])] = true;
+}
+$folio_link_shown = static fn(string $url): bool => !isset($folio_taken[folio_url_key($url)]);
+$folio_pages = array();
+osc_reset_static_pages();
+while (osc_has_static_pages()) {
+    if ($folio_link_shown(osc_static_page_url())) {
+        $folio_pages[] = array(osc_static_page_url(), osc_static_page_title());
+    }
+}
+$folio_contact_shown = $folio_link_shown(osc_contact_url());
 ?>
 </main>
 
@@ -28,14 +44,13 @@ if (!defined('ABS_PATH')) {
                 <h2><?php _e('Listings', 'folio'); ?></h2>
                 <nav aria-label="<?php echo osc_esc_html(__('Listings', 'folio')); ?>">
                     <a href="<?php echo osc_esc_html(folio_browse_all_url()); ?>"><?php _e('Browse everything', 'folio'); ?></a>
-                    <?php if (osc_item_post_url_in_category() !== '') { ?>
+                    <?php if (osc_item_post_url_in_category() !== '' && $folio_link_shown(osc_item_post_url_in_category())) { ?>
                         <a href="<?php echo osc_esc_html(osc_item_post_url_in_category()); ?>"><?php _e('Publish a listing', 'folio'); ?></a>
                     <?php } ?>
                     <a href="<?php echo osc_esc_html(osc_search_url(array('sFeed' => 'rss'))); ?>"><?php _e('Latest listings feed', 'folio'); ?></a>
                 </nav>
             </div>
 
-            <?php $folio_footer_menu = folio_saved_menu('footer'); ?>
             <?php if ($folio_footer_menu !== null) {
                 $folio_footer_title = $folio_footer_menu['label'] !== '' ? $folio_footer_menu['label'] : __('Links', 'folio'); ?>
                 <div>
@@ -64,20 +79,20 @@ if (!defined('ABS_PATH')) {
                 </div>
             <?php } ?>
 
-            <div>
-                <h2><?php _e('This site', 'folio'); ?></h2>
-                <nav aria-label="<?php echo osc_esc_html(__('Footer', 'folio')); ?>">
-                    <?php
-                    // Static pages the owner published, in their own order.
-                    if (osc_count_static_pages() > 0) {
-                        while (osc_has_static_pages()) { ?>
-                            <a href="<?php echo osc_esc_html(osc_static_page_url()); ?>"><?php echo osc_esc_html(osc_static_page_title()); ?></a>
-                        <?php }
-                    }
-                    ?>
-                    <a href="<?php echo osc_esc_html(osc_contact_url()); ?>"><?php _e('Contact', 'folio'); ?></a>
-                </nav>
-            </div>
+            <?php if ($folio_pages !== array() || $folio_contact_shown) { ?>
+                <div>
+                    <h2><?php _e('This site', 'folio'); ?></h2>
+                    <nav aria-label="<?php echo osc_esc_html(__('Footer', 'folio')); ?>">
+                        <?php // Static pages the owner published, in their own order. ?>
+                        <?php foreach ($folio_pages as $folio_page) { ?>
+                            <a href="<?php echo osc_esc_html($folio_page[0]); ?>"><?php echo osc_esc_html($folio_page[1]); ?></a>
+                        <?php } ?>
+                        <?php if ($folio_contact_shown) { ?>
+                            <a href="<?php echo osc_esc_html(osc_contact_url()); ?>"><?php _e('Contact', 'folio'); ?></a>
+                        <?php } ?>
+                    </nav>
+                </div>
+            <?php } ?>
         </div>
 
         <?php folio_widget_zone('footer', 'colophon-widgets'); ?>
@@ -155,6 +170,22 @@ document.addEventListener('click', function (e) {
     }
     e.preventDefault();
     d.showModal();
+});
+
+/* The phone menu strip: show the current link, and mark each end with more links past it. */
+document.querySelectorAll('[data-folio-menu]').forEach(function (strip) {
+    var current = strip.querySelector('[aria-current]');
+    if (current && strip.scrollWidth > strip.clientWidth) {
+        strip.scrollLeft += current.getBoundingClientRect().left - strip.getBoundingClientRect().left - strip.clientWidth / 3;
+    }
+    function mark() {
+        var left = Math.abs(strip.scrollLeft);
+        strip.toggleAttribute('data-more', strip.scrollWidth - strip.clientWidth - left > 4);
+        strip.toggleAttribute('data-more-start', left > 4);
+    }
+    mark();
+    strip.addEventListener('scroll', mark, { passive: true });
+    window.addEventListener('resize', mark);
 });
 
 /* A role=button element is not a button: Enter and Space have to be wired up. */
