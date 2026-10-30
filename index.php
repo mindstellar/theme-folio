@@ -12,7 +12,7 @@
 Theme Name: folio
 Theme URI: https://github.com/mindstellar/theme-folio
 Description: Folio — a minimal Shopclass theme built on native HTML5 and browser APIs, with a deliberately small stylesheet. The reference implementation of the theme chrome contract.
-Version: 0.6.1
+Version: 0.7.0
 Author: Mindstellar
 Author URI: https://github.com/mindstellar
 Widgets: header, footer
