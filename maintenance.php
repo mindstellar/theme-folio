@@ -11,6 +11,7 @@
 if (!defined('ABS_PATH')) {
     exit('Direct access is not allowed.');
 }
+$folio_note = function_exists('osc_sanitize_maintenance_message') ? osc_sanitize_maintenance_message(osc_get_preference('maintenance_message')) : '';
 ?><!doctype html>
 <html lang="<?php echo osc_esc_html(str_replace('_', '-', osc_current_user_locale())); ?>">
 <head>
@@ -23,7 +24,7 @@ if (!defined('ABS_PATH')) {
 <header class="masthead"><div class="spine"><span class="wordmark"><?php echo osc_esc_html(osc_page_title()); ?></span></div></header>
 <main id="content" class="spine prose" style="padding-block:4rem">
     <h1><?php _e('Back shortly', 'folio'); ?></h1>
-    <p><?php _e('The site is being worked on right now. Please try again in a few minutes.', 'folio'); ?></p>
+    <p><?php echo $folio_note !== '' ? nl2br(osc_esc_html($folio_note), false) : osc_esc_html(__('The site is being worked on right now. Please try again in a few minutes.', 'folio')); ?></p>
 </main>
 </body>
 </html>
