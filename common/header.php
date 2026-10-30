@@ -60,8 +60,15 @@ $folio_logo = osc_settings_image_url('folio', 'logo');
             <?php // "true", not "page": this link goes to the unfiltered catalogue, so
             // on a narrowed results page it marks the section the visitor is in and
             // not the page they are on -- which is what it would be claiming. ?>
+            <?php $folio_main_menu = folio_saved_menu('main'); ?>
+            <?php if ($folio_main_menu !== null) { ?>
+                <?php foreach ($folio_main_menu['items'] as $folio_link) { ?>
+                    <a href="<?php echo osc_esc_html((string) $folio_link['url']); ?>"<?php echo folio_menu_current((string) $folio_link['url']) ? ' aria-current="page"' : ''; ?>><?php echo osc_esc_html((string) $folio_link['label']); ?></a>
+                <?php } ?>
+            <?php } else { ?>
             <a href="<?php echo osc_esc_html(folio_browse_all_url()); ?>"
                <?php echo osc_is_search_page() ? 'aria-current="true"' : ''; ?>><?php _e('Browse', 'folio'); ?></a>
+            <?php } ?>
             <?php if (osc_users_enabled()) { ?>
                 <?php if (osc_is_web_user_logged_in()) { ?>
                     <a href="<?php echo osc_esc_html(osc_user_dashboard_url()); ?>"><?php echo osc_esc_html(osc_logged_user_name()); ?></a>
@@ -72,7 +79,9 @@ $folio_logo = osc_settings_image_url('folio', 'logo');
                     <a href="<?php echo osc_esc_html(osc_register_account_url()); ?>"><?php _e('Register', 'folio'); ?></a>
                 <?php } ?>
             <?php } ?>
-            <a href="<?php echo osc_esc_html(osc_contact_url()); ?>"><?php _e('Contact', 'folio'); ?></a>
+            <?php if ($folio_main_menu === null) { ?>
+                <a href="<?php echo osc_esc_html(osc_contact_url()); ?>"><?php _e('Contact', 'folio'); ?></a>
+            <?php } ?>
             <?php if (osc_item_post_url_in_category() !== '') { ?>
                 <a class="nav-action" href="<?php echo osc_esc_html(osc_item_post_url_in_category()); ?>"><?php _e('Publish a listing', 'folio'); ?></a>
             <?php } ?>

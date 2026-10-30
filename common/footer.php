@@ -35,6 +35,19 @@ if (!defined('ABS_PATH')) {
                 </nav>
             </div>
 
+            <?php $folio_footer_menu = folio_saved_menu('footer'); ?>
+            <?php if ($folio_footer_menu !== null) {
+                $folio_footer_title = $folio_footer_menu['label'] !== '' ? $folio_footer_menu['label'] : __('Links', 'folio'); ?>
+                <div>
+                    <h2><?php echo osc_esc_html($folio_footer_title); ?></h2>
+                    <nav aria-label="<?php echo osc_esc_html($folio_footer_title); ?>">
+                        <?php foreach ($folio_footer_menu['items'] as $folio_link) { ?>
+                            <a href="<?php echo osc_esc_html((string) $folio_link['url']); ?>"><?php echo osc_esc_html((string) $folio_link['label']); ?></a>
+                        <?php } ?>
+                    </nav>
+                </div>
+            <?php } ?>
+
             <?php if (osc_users_enabled()) { ?>
                 <div>
                     <h2><?php _e('Your account', 'folio'); ?></h2>

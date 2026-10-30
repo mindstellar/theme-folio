@@ -84,7 +84,7 @@ msgstr ""
 msgid "Breadcrumb"
 msgstr ""
 
-#: common/header.php:64
+#: common/header.php:70
 msgid "Browse"
 msgstr ""
 
@@ -116,11 +116,12 @@ msgid "Close"
 msgstr ""
 
 #: functions.php:62
+#: functions.php:340
 msgid "Colophon"
 msgstr ""
 
-#: common/footer.php:65
-#: common/header.php:75
+#: common/footer.php:78
+#: common/header.php:83
 msgid "Contact"
 msgstr ""
 
@@ -166,7 +167,7 @@ msgstr ""
 msgid "Folio"
 msgstr ""
 
-#: common/footer.php:56
+#: common/footer.php:69
 msgid "Footer"
 msgstr ""
 
@@ -199,7 +200,7 @@ msgstr ""
 msgid "In the footer, above the copyright line."
 msgstr ""
 
-#: common/footer.php:81
+#: common/footer.php:94
 msgid "Language"
 msgstr ""
 
@@ -212,6 +213,10 @@ msgstr ""
 msgid "Latest listings feed"
 msgstr ""
 
+#: common/footer.php:40
+msgid "Links"
+msgstr ""
+
 #: common/footer.php:28
 #: common/footer.php:29
 msgid "Listings"
@@ -221,13 +226,13 @@ msgstr ""
 msgid "Location"
 msgstr ""
 
-#: common/footer.php:47
-#: common/header.php:71
+#: common/footer.php:60
+#: common/header.php:78
 msgid "Log in"
 msgstr ""
 
-#: common/footer.php:45
-#: common/header.php:69
+#: common/footer.php:58
+#: common/header.php:76
 msgid "Log out"
 msgstr ""
 
@@ -236,6 +241,7 @@ msgid "Logo"
 msgstr ""
 
 #: functions.php:58
+#: functions.php:339
 msgid "Masthead"
 msgstr ""
 
@@ -296,7 +302,7 @@ msgstr ""
 msgid "Order"
 msgstr ""
 
-#: common/footer.php:43
+#: common/footer.php:56
 msgid "Overview"
 msgstr ""
 
@@ -354,7 +360,7 @@ msgid "Publish"
 msgstr ""
 
 #: common/footer.php:32
-#: common/header.php:77
+#: common/header.php:86
 #: item-post.php:23
 msgid "Publish a listing"
 msgstr ""
@@ -376,8 +382,8 @@ msgstr ""
 msgid "Region"
 msgstr ""
 
-#: common/footer.php:48
-#: common/header.php:72
+#: common/footer.php:61
+#: common/header.php:79
 msgid "Register"
 msgstr ""
 
@@ -497,7 +503,7 @@ msgstr ""
 msgid "This listing has expired and the seller can no longer be contacted through it."
 msgstr ""
 
-#: common/footer.php:55
+#: common/footer.php:68
 msgid "This site"
 msgstr ""
 
@@ -529,8 +535,8 @@ msgstr ""
 msgid "What is wrong with it?"
 msgstr ""
 
-#: common/footer.php:40
-#: common/footer.php:41
+#: common/footer.php:53
+#: common/footer.php:54
 msgid "Your account"
 msgstr ""
 
@@ -539,7 +545,7 @@ msgstr ""
 msgid "Your email address"
 msgstr ""
 
-#: common/footer.php:44
+#: common/footer.php:57
 msgid "Your listings"
 msgstr ""
 
@@ -553,6 +559,6 @@ msgstr ""
 msgid "optional"
 msgstr ""
 
-#: common/footer.php:78
+#: common/footer.php:91
 msgid "© %1$s %2$s"
 msgstr ""

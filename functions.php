@@ -331,6 +331,57 @@ function folio_page_templates(): void
 
 osc_add_hook('init', 'folio_page_templates');
 
+/** Names the menu places the theme shows in Appearance > Menus. Older cores have no menus. */
+function folio_menu_places(): void
+{
+    if (function_exists('osc_menu')) {
+        osc_add_theme_support('menus', array(
+            'main'   => array('label' => __('Masthead', 'folio'), 'depth' => 1),
+            'footer' => array('label' => __('Colophon', 'folio'), 'depth' => 1),
+        ));
+    }
+}
+
+osc_add_hook('init', 'folio_menu_places');
+
+/**
+ * The menu the owner saved in Appearance > Menus, or null when there is none (or the core has no menus).
+ *
+ * @return array{label:string,items:array<int,array<string,mixed>>}|null
+ */
+function folio_saved_menu(string $id): ?array
+{
+    if (!function_exists('osc_menu') || !class_exists('mindstellar\\menu\\MenuService')) {
+        return null;
+    }
+    $saved = \mindstellar\menu\MenuService::getInstance()->load($id);
+    if ($saved === null) {
+        return null;
+    }
+    $items = array();
+    foreach (osc_menu($id) as $item) {
+        if (!empty($item['url']) && isset($item['label']) && (string) $item['label'] !== '') {
+            $items[] = $item;
+        }
+    }
+
+    return $items === array() ? null : array('label' => (string) $saved['label'], 'items' => $items);
+}
+
+/** True when a menu link points at the page being shown. */
+function folio_menu_current(string $url): bool
+{
+    $normal = static function (string $u): string {
+        $path = rtrim((string) preg_replace('#/index\.php$#', '', (string) parse_url($u, PHP_URL_PATH)), '/');
+        parse_str((string) parse_url($u, PHP_URL_QUERY), $query);
+        ksort($query);
+
+        return $path . '?' . http_build_query($query);
+    };
+
+    return $normal($url) === $normal((string) ($_SERVER['REQUEST_URI'] ?? '/'));
+}
+
 /** Whether the current static page uses the Full width template. */
 function folio_is_full_width(): bool
 {
