@@ -1431,37 +1431,32 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
 .oe-page * + h2 { margin-block-start: 2.5rem; }
 .oe-page * + .oe-panel { margin-block-start: 1.5rem; }
 
-/* Content beside a facet column — the same object as .record-sheet. */
+/* The account links are a strip above the page on every account screen, so the
+   layout does not change between pages and wide screens like the messenger get the full spine. */
 .oe-page .oe-account {
   display: grid;
-  gap: 2rem 3.5rem;
-  grid-template-columns: minmax(0, 1fr) minmax(15rem, 18rem);
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "nav" "main";
+  gap: 1.5rem;
 }
-@media (max-width: 60rem) {
-  .oe-page .oe-account { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
-}
-
-/* The account nav is a facet list: a tracked-out column head over a ruled list. */
+.oe-page .oe-account > .oe-account-nav { grid-area: nav; }
+.oe-page .oe-account > .oe-account-main { grid-area: main; }
 .oe-page .oe-account-nav > h2 {
-  font-size: var(--step--1);
-  font-weight: 600;
-  letter-spacing: .07em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-  margin: 0 0 .25rem;
-  padding-block-end: .625rem;
-  border-block-end: 2px solid var(--ink);
+  position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
 }
-.oe-page .oe-account-nav ul { display: grid; gap: .125rem; }
+.oe-page .oe-account-nav ul {
+  display: flex; flex-wrap: wrap; gap: 0 .25rem; border-block-end: 1px solid var(--rule);
+}
 .oe-page .oe-account-nav a {
-  padding: .375rem .375rem;
-  margin-inline: 0;
-  color: var(--ink-soft);
-  border-radius: var(--radius);
+  padding: .5rem .75rem; margin-inline: 0; color: var(--ink-soft);
+  border-radius: 0; border-block-end: 2px solid transparent; margin-block-end: -1px;
 }
-.oe-page .oe-account-nav a:hover { background: var(--wash); color: var(--navy-ink); text-decoration: underline; }
-.oe-page .oe-account-nav [aria-current] { background: var(--navy-tint); color: var(--navy-ink); font-weight: 600; }
+.oe-page .oe-account-nav a:hover { color: var(--ink); text-decoration: none; }
+.oe-page .oe-account-nav [aria-current] { border-block-end-color: var(--navy-edge); color: var(--ink); font-weight: 600; }
+@media (max-width: 899px) {
+  .oe-page .oe-account-nav ul { flex-wrap: nowrap; overflow-x: auto; }
+  .oe-page .oe-account-nav a { white-space: nowrap; }
+}
 
 /* A listing in an account list is the same record as one in the index: a ruled
    row on a shared spine, with the plate, the title and the price in a line. */
@@ -1713,29 +1708,11 @@ dialog::backdrop { background: rgb(10 14 26 / .55); }
 
 /* ---------------------------------------------------------------- messages -- */
 /* The messenger is core's markup: a list pane beside a chat pane. Here it is one
-   ruled sheet, flat, in the theme's navy. The account links become a strip above it
-   so the two panes get the full spine; the page itself never scrolls on a desktop. */
+   ruled sheet, flat, in the theme's navy, with the full spine below the account
+   strip; the page itself never scrolls on a desktop. */
 .oe-page:has(.oe-messenger) .oe-h1 {
   position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
 }
-.oe-page .oe-account:has(.oe-messenger) {
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-areas: "nav" "main";
-  gap: 1rem;
-}
-.oe-page .oe-account:has(.oe-messenger) > .oe-account-nav { grid-area: nav; }
-.oe-page .oe-account:has(.oe-messenger) > .oe-account-main { grid-area: main; }
-.oe-page .oe-account:has(.oe-messenger) .oe-account-nav > h2 {
-  position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
-}
-.oe-page .oe-account:has(.oe-messenger) .oe-account-nav ul {
-  display: flex; flex-wrap: wrap; gap: 0 .25rem; border-block-end: 1px solid var(--rule);
-}
-.oe-page .oe-account:has(.oe-messenger) .oe-account-nav a {
-  padding: .5rem .75rem; border-radius: 0; border-block-end: 2px solid transparent; margin-block-end: -1px;
-}
-.oe-page .oe-account:has(.oe-messenger) .oe-account-nav a:hover { background: none; text-decoration: none; color: var(--ink); }
-.oe-page .oe-account:has(.oe-messenger) .oe-account-nav [aria-current] { background: none; border-block-end-color: var(--navy-edge); color: var(--ink); }
 main.spine:has(.oe-messenger) { padding-block-end: 1.5rem; }
 body:has(.oe-messenger) .colophon { display: none; }
 /* The page is a column down to the messenger, so it fills what the masthead leaves. */
@@ -2024,8 +2001,6 @@ main.spine:has(.oe-messenger:not(.is-empty)) > .oe-page,
 @media (max-width: 899px) {
   .oe-page .oe-messenger { grid-template-columns: minmax(0, 1fr); min-block-size: 20rem; max-block-size: none; }
   .oe-page .oe-messenger.is-empty { min-block-size: 0; }
-  .oe-page .oe-account:has(.oe-messenger) .oe-account-nav ul { flex-wrap: nowrap; overflow-x: auto; }
-  .oe-page .oe-account:has(.oe-messenger) .oe-account-nav a { white-space: nowrap; }
   .oe-page .oe-messenger:not(.is-chat) .oe-messenger-chat { display: none; }
   .oe-page .oe-messenger.is-chat .oe-messenger-list { display: none; }
   .oe-page .oe-messenger-list { border-inline-end: 0; }
