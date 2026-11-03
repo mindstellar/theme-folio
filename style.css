@@ -552,7 +552,8 @@ input:user-invalid + .hint { color: var(--stop); }
    core the account pages keep core's own button until it is updated. */
 .btn,
 .oe-btn,
-.oe-comment-form button {
+.oe-comment-form button,
+.osc-button {
   font: inherit;
   font-weight: 560;
   inline-size: auto;
@@ -571,11 +572,14 @@ input:user-invalid + .hint { color: var(--stop); }
 }
 .btn:hover,
 .oe-btn:hover,
-.oe-comment-form button:hover { background: var(--navy-deep); border-color: var(--navy-edge); color: #fff; }
+.oe-comment-form button:hover,
+.osc-button:hover { background: var(--navy-deep); border-color: var(--navy-edge); color: #fff; }
 .btn-quiet,
-.oe-btn.oe-secondary { background: var(--surface); color: var(--ink); border-color: var(--rule-strong); }
+.oe-btn.oe-secondary,
+.osc-button--secondary { background: var(--surface); color: var(--ink); border-color: var(--rule-strong); }
 .btn-quiet:hover,
-.oe-btn.oe-secondary:hover { background: var(--sunk); color: var(--ink); border-color: var(--rule-strong); }
+.oe-btn.oe-secondary:hover,
+.osc-button--secondary:hover { background: var(--sunk); color: var(--ink); border-color: var(--rule-strong); }
 .btn-stop,
 .oe-btn-danger { background: var(--stop); border-color: var(--stop); color: #fff; }
 .btn-block { inline-size: 100%; }
@@ -2065,3 +2069,21 @@ main.spine:has(.oe-messenger:not(.is-empty)) > .oe-page,
 .oe-page .oe-limit-notice .oe-actions { margin-block-start: .5rem; }
 .oe-page .oe-row-actions .oe-row-primary { padding: .3125rem .875rem; font-size: .875rem; text-decoration: none; white-space: nowrap; }
 @media (pointer: fine) { .oe-page .oe-row-actions .oe-row-primary { min-block-size: 2.25rem; } }
+
+/* Page builder layout blocks (core page-blocks.css lays them out; this is Folio's look). */
+.osc-heading > h2 { font-size: var(--step-3); margin: 0 0 .5rem; }
+.osc-heading > h3 { font-size: var(--step-2); margin: 0; }
+.osc-heading > p { color: var(--ink-muted); font-size: var(--step-1); max-width: 56ch; margin-block: 0; }
+.osc-heading--center > p { margin-inline: auto; }
+.osc-rich-text > * + * { margin-top: 1em; }
+.osc-media-text > figure { border-radius: var(--radius); overflow: hidden; background: var(--sunk); }
+.osc-media-text .osc-rich-text :is(h2, h3) { font-size: var(--step-2); margin: 0 0 .5rem; }
+.osc-media-text .osc-button-row { margin-top: 1rem; }
+.osc-columns .osc-rich-text { padding-top: .75rem; border-top: 2px solid var(--rule-strong); }
+@media (max-width: 639.98px) {
+  .osc-button-row .osc-button { flex: 1 1 100%; }
+}
+
+/* A built page uses the full plate; its text blocks keep the reading measure. */
+.prose:has(.page-builder) { max-inline-size: none; }
+.page-builder .osc-rich-text { max-inline-size: var(--measure); }
