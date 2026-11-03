@@ -14,7 +14,7 @@ if (!defined('ABS_PATH')) {
 osc_get_header();
 ?>
 <article class="prose stack">
-    <h1><?php echo osc_esc_html(osc_static_page_title()); ?></h1>
+    <h1<?php echo function_exists('osc_static_page_title_hidden') && osc_static_page_title_hidden() ? ' class="oe-sr-only"' : ''; ?>><?php echo osc_esc_html(osc_static_page_title()); ?></h1>
     <?php echo osc_static_page_text(); ?>
 </article>
 <?php osc_get_footer(); ?>
