@@ -17,6 +17,8 @@ define('FOLIO_VERSION', '0.7.1');
 /** Kept in step with the --navy token default at the top of style.css. */
 define('FOLIO_DEFAULT_NAVY', '#1b2c5e');
 
+require_once __DIR__ . '/inc/text.php';
+
 /**
  * Where core should open and close a page it owns itself -- the account-delete
  * confirmation, the credits pages. Without this, core probes for header.php +
@@ -119,6 +121,7 @@ function folio_register_settings(): void
             __('Footer note', 'folio'),
             __('A short line shown in the colophon above the copyright. Leave empty to omit it.', 'folio')
         )
+            ->translate()
         ->register();
 }
 
@@ -129,9 +132,8 @@ osc_add_hook('init', 'folio_register_settings');
  *
  * osc_settings_value() answers null on the front end, where the settings page
  * is never registered (see folio_register_settings() above), so this reads
- * the preference it writes to directly instead. footer_note stays a plain,
- * single value rather than a translated one -- one line is not worth a
- * control per locale.
+ * the preference it writes to directly instead. The footer note is one value
+ * per language and is read by folio_text_setting().
  *
  * @param string $name
  * @param mixed  $default

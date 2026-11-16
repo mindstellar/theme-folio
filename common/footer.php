@@ -100,7 +100,7 @@ $folio_contact_shown = $folio_link_shown(osc_contact_url(), $folio_contact_plain
 
         <?php folio_widget_zone('footer', 'colophon-widgets'); ?>
 
-        <?php $folio_note = (string) folio_setting('footer_note', ''); ?>
+        <?php $folio_note = (string) folio_text_setting('footer_note'); ?>
         <?php if ($folio_note !== '') { ?>
             <p class="colophon-note"><?php echo osc_esc_html($folio_note); ?></p>
         <?php } ?>
