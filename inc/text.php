@@ -45,4 +45,7 @@ function folio_migrate_text(): void
     osc_reset_preferences();
 }
 
-osc_add_hook('init', 'folio_migrate_text', 1);
+// Admin requests only: until then the front end reads the old value through folio_text_setting().
+if (defined('OC_ADMIN') && OC_ADMIN === true) {
+    osc_add_hook('init', 'folio_migrate_text', 1);
+}
